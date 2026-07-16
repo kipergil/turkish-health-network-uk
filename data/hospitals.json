@@ -1,0 +1,132 @@
+[
+  {
+    "id": "org-northeast-london-hospital",
+    "slug": "north-east-london-hospital",
+    "type": "hospital",
+    "name": "North East London Hospital",
+    "description": "An NHS general hospital in Edmonton providing emergency care, inpatient and outpatient services with on-site interpreting support for Turkish-speaking patients.",
+    "address": {
+      "line1": "1 Ridge Avenue",
+      "city": "London",
+      "postcode": "N18 1NP",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.612, "lng": -0.07 },
+    "contact": {
+      "phone": "+44 20 8887 2000",
+      "website": "https://nelh.example.nhs.uk"
+    },
+    "openingHours": [
+      { "day": "monday", "closed": false },
+      { "day": "tuesday", "closed": false },
+      { "day": "wednesday", "closed": false },
+      { "day": "thursday", "closed": false },
+      { "day": "friday", "closed": false },
+      { "day": "saturday", "closed": false },
+      { "day": "sunday", "closed": false }
+    ],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en", "tr", "ku", "el", "so"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": [
+      "spec-endocrinology",
+      "spec-cardiology",
+      "spec-post-surgical-rehab"
+    ],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": true,
+      "hearingLoop": true,
+      "signLanguageAvailable": true,
+      "assistanceDogsWelcome": true
+    },
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.6120,-0.0700",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2023-11-02",
+    "updatedAt": "2026-03-11"
+  },
+  {
+    "id": "org-london-independent-hospital",
+    "slug": "london-independent-hospital",
+    "type": "hospital",
+    "name": "London Independent Hospital",
+    "description": "A private hospital in Islington offering rapid-access consultant appointments, diagnostics and surgery, popular with self-pay and internationally insured patients.",
+    "address": {
+      "line1": "60 St John Street",
+      "city": "London",
+      "postcode": "N1 6DA",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5416, "lng": -0.1027 },
+    "contact": {
+      "phone": "+44 20 7566 6500",
+      "website": "https://londonindependent.example.co.uk"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "07:00", "closes": "20:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "07:00",
+        "closes": "20:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "07:00",
+        "closes": "20:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "07:00",
+        "closes": "20:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "07:00", "closes": "20:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "08:00",
+        "closes": "16:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr", "ar"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [
+      "ins-bupa",
+      "ins-axa-health",
+      "ins-vitality",
+      "ins-wpa",
+      "ins-aviva",
+      "ins-cigna-global"
+    ],
+    "specialityIds": [
+      "spec-cardiology",
+      "spec-dermatology",
+      "spec-gynaecology",
+      "spec-oral-surgery"
+    ],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": true,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5416,-0.1027",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2023-09-14",
+    "updatedAt": "2026-06-28"
+  }
+]

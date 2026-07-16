@@ -1,0 +1,66 @@
+[
+  {
+    "id": "ins-bupa",
+    "slug": "bupa",
+    "name": "Bupa",
+    "kind": "private-health-insurance",
+    "description": "One of the UK's largest private health insurers, widely accepted across clinics and hospitals.",
+    "website": "https://www.bupa.co.uk"
+  },
+  {
+    "id": "ins-axa-health",
+    "slug": "axa-health",
+    "name": "AXA Health",
+    "kind": "private-health-insurance",
+    "description": "Private medical insurance covering consultations, diagnostics and treatment.",
+    "website": "https://www.axahealth.co.uk"
+  },
+  {
+    "id": "ins-vitality",
+    "slug": "vitality",
+    "name": "Vitality",
+    "kind": "private-health-insurance",
+    "description": "Private health insurance with a rewards-based wellness programme.",
+    "website": "https://www.vitality.co.uk"
+  },
+  {
+    "id": "ins-wpa",
+    "slug": "wpa",
+    "name": "WPA",
+    "kind": "private-health-insurance",
+    "description": "Western Provident Association, a not-for-profit private medical insurer.",
+    "website": "https://www.wpa.org.uk"
+  },
+  {
+    "id": "ins-aviva",
+    "slug": "aviva",
+    "name": "Aviva",
+    "kind": "private-health-insurance",
+    "description": "Private medical insurance plans for individuals and families.",
+    "website": "https://www.aviva.co.uk"
+  },
+  {
+    "id": "ins-simplyhealth",
+    "slug": "simplyhealth",
+    "name": "Simplyhealth",
+    "kind": "cash-plan",
+    "description": "Health cash plans that help cover everyday costs like dental and optical care.",
+    "website": "https://www.simplyhealth.co.uk"
+  },
+  {
+    "id": "ins-cigna-global",
+    "slug": "cigna-global",
+    "name": "Cigna Global",
+    "kind": "private-health-insurance",
+    "description": "International private medical insurance, useful for recent arrivals with overseas policies.",
+    "website": "https://www.cigna.com"
+  },
+  {
+    "id": "ins-nhs",
+    "slug": "nhs",
+    "name": "NHS",
+    "kind": "nhs-scheme",
+    "description": "Care funded by the National Health Service, free at the point of use for eligible patients.",
+    "website": "https://www.nhs.uk"
+  }
+]

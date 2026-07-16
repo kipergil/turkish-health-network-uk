@@ -1,0 +1,126 @@
+[
+  {
+    "id": "prv-burak-aksoy",
+    "slug": "burak-aksoy",
+    "category": "physiotherapist",
+    "name": "Burak Aksoy",
+    "title": "Mr",
+    "photoUrl": "",
+    "bio": "Musculoskeletal physiotherapist at Golden Horn Health Hub working with amateur and semi-professional footballers across East London on injury prevention and rehabilitation.",
+    "qualifications": ["BSc Physiotherapy"],
+    "registrationBody": "HCPC",
+    "registrationNumber": "HCPC-PH88213",
+    "yearsOfExperience": 9,
+    "specialityIds": ["spec-msk-physiotherapy", "spec-sports-injury"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-golden-horn-health-hub"],
+    "insuranceIds": ["ins-bupa", "ins-simplyhealth", "ins-vitality"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": true,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "08:00", "closes": "19:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "08:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "08:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "08:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "08:00", "closes": "17:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:00",
+        "closes": "13:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 20 7275 6600",
+      "email": "b.aksoy@goldenhornhealth.example.co.uk"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5460,-0.0754",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2024-01-22",
+    "updatedAt": "2026-07-01"
+  },
+  {
+    "id": "prv-gulsen-turan",
+    "slug": "gulsen-turan",
+    "category": "physiotherapist",
+    "name": "Gulsen Turan",
+    "title": "Ms",
+    "photoUrl": "",
+    "bio": "NHS physiotherapist at North East London Hospital focusing on post-surgical rehabilitation and recovery for orthopaedic and cardiac patients.",
+    "qualifications": ["BSc Physiotherapy", "MSc Rehabilitation Science"],
+    "registrationBody": "HCPC",
+    "registrationNumber": "HCPC-PH70441",
+    "yearsOfExperience": 13,
+    "specialityIds": ["spec-post-surgical-rehab"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "nhs",
+    "organizationIds": ["org-northeast-london-hospital"],
+    "insuranceIds": ["ins-nhs"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": true,
+      "hearingLoop": true,
+      "signLanguageAvailable": true,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "08:30", "closes": "16:30", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "08:30",
+        "closes": "16:30",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "08:30",
+        "closes": "16:30",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "08:30",
+        "closes": "16:30",
+        "closed": false
+      },
+      { "day": "friday", "opens": "08:30", "closes": "16:30", "closed": false },
+      { "day": "saturday", "closed": true },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 20 8887 2000"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.6120,-0.0700",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2023-11-02",
+    "updatedAt": "2026-03-11"
+  }
+]

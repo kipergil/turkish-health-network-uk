@@ -1,0 +1,149 @@
+[
+  {
+    "id": "spec-general-practice",
+    "slug": "general-practice",
+    "name": "General Practice",
+    "description": "Everyday medical care, checkups, referrals and long-term condition management.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-cardiology",
+    "slug": "cardiology",
+    "name": "Cardiology",
+    "description": "Diagnosis and treatment of heart and cardiovascular conditions.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-paediatrics",
+    "slug": "paediatrics",
+    "name": "Paediatrics",
+    "description": "Medical care for infants, children and adolescents.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-endocrinology",
+    "slug": "endocrinology-diabetes",
+    "name": "Endocrinology & Diabetes",
+    "description": "Hormonal health and diabetes diagnosis, treatment and management.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-dermatology",
+    "slug": "dermatology",
+    "name": "Dermatology",
+    "description": "Skin, hair and nail conditions.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-gynaecology",
+    "slug": "gynaecology",
+    "name": "Gynaecology",
+    "description": "Women's reproductive health.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-general-dentistry",
+    "slug": "general-dentistry",
+    "name": "General Dentistry",
+    "description": "Checkups, fillings, cleaning and everyday oral health care.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-orthodontics",
+    "slug": "orthodontics",
+    "name": "Orthodontics",
+    "description": "Braces, aligners and correction of teeth and jaw alignment.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-root-canal",
+    "slug": "root-canal-treatment",
+    "name": "Root Canal Treatment",
+    "description": "Treatment of infected or damaged tooth pulp.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-cosmetic-dentistry",
+    "slug": "cosmetic-dentistry",
+    "name": "Cosmetic Dentistry",
+    "description": "Veneers, whitening and smile aesthetics.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-oral-surgery",
+    "slug": "oral-surgery",
+    "name": "Oral Surgery",
+    "description": "Tooth extractions, implants and surgical procedures.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-cbt",
+    "slug": "cognitive-behavioural-therapy",
+    "name": "Cognitive Behavioural Therapy",
+    "description": "Structured talking therapy for anxiety, depression and stress.",
+    "categories": ["psychologist"]
+  },
+  {
+    "id": "spec-trauma-ptsd",
+    "slug": "trauma-and-ptsd",
+    "name": "Trauma & PTSD",
+    "description": "Support for trauma, PTSD and migration-related distress.",
+    "categories": ["psychologist"]
+  },
+  {
+    "id": "spec-family-therapy",
+    "slug": "family-therapy",
+    "name": "Family Therapy",
+    "description": "Support for family relationships and conflict.",
+    "categories": ["psychologist"]
+  },
+  {
+    "id": "spec-child-psychology",
+    "slug": "child-psychology",
+    "name": "Child Psychology",
+    "description": "Emotional and behavioural support for children.",
+    "categories": ["psychologist"]
+  },
+  {
+    "id": "spec-msk-physiotherapy",
+    "slug": "musculoskeletal-physiotherapy",
+    "name": "Musculoskeletal Physiotherapy",
+    "description": "Treatment of muscle, joint and back pain.",
+    "categories": ["physiotherapist"]
+  },
+  {
+    "id": "spec-sports-injury",
+    "slug": "sports-injury-rehabilitation",
+    "name": "Sports Injury Rehabilitation",
+    "description": "Recovery and rehabilitation from sports injuries.",
+    "categories": ["physiotherapist"]
+  },
+  {
+    "id": "spec-post-surgical-rehab",
+    "slug": "post-surgical-rehabilitation",
+    "name": "Post-Surgical Rehabilitation",
+    "description": "Recovery support following surgery.",
+    "categories": ["physiotherapist"]
+  },
+  {
+    "id": "spec-weight-management",
+    "slug": "weight-management",
+    "name": "Weight Management",
+    "description": "Personalised nutrition plans for healthy weight management.",
+    "categories": ["dietitian"]
+  },
+  {
+    "id": "spec-diabetes-nutrition",
+    "slug": "diabetes-nutrition",
+    "name": "Diabetes Nutrition",
+    "description": "Dietary management of type 1 and type 2 diabetes.",
+    "categories": ["dietitian"]
+  },
+  {
+    "id": "spec-sports-nutrition",
+    "slug": "sports-nutrition",
+    "name": "Sports Nutrition",
+    "description": "Nutrition planning for athletic performance and recovery.",
+    "categories": ["dietitian"]
+  }
+]
