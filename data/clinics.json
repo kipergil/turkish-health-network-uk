@@ -1,96 +1,21 @@
 [
   {
-    "id": "org-anatolia-medical-centre",
-    "slug": "anatolia-medical-centre",
+    "id": "org-doctors-4-you",
+    "slug": "doctors-4-you",
     "type": "clinic",
-    "name": "Anatolia Medical Centre",
-    "description": "A Turkish-speaking private and NHS-affiliated clinic on Green Lanes offering general practice, endocrinology and dietetic services to North London's Turkish, Kurdish and Cypriot communities.",
+    "name": "Doctors 4 You",
+    "description": "A CQC-registered, GMC-staffed private multi-specialty clinic in Wood Green offering same-day GP appointments, paediatrics, gynaecology and cardiology consultations, popular with North London's Turkish-speaking community.",
     "address": {
-      "line1": "214 Green Lanes",
+      "line1": "443-445 Lordship Lane",
       "city": "London",
-      "postcode": "N4 1AG",
+      "postcode": "N22 5DJ",
       "region": "Greater London",
       "country": "United Kingdom"
     },
-    "geo": { "lat": 51.5852, "lng": -0.1055 },
+    "geo": { "lat": 51.5977, "lng": -0.115 },
     "contact": {
-      "phone": "+44 20 7226 0142",
-      "email": "info@anatoliamedical.example.co.uk",
-      "website": "https://anatoliamedical.example.co.uk"
-    },
-    "openingHours": [
-      { "day": "monday", "opens": "08:30", "closes": "18:30", "closed": false },
-      {
-        "day": "tuesday",
-        "opens": "08:30",
-        "closes": "18:30",
-        "closed": false
-      },
-      {
-        "day": "wednesday",
-        "opens": "08:30",
-        "closes": "18:30",
-        "closed": false
-      },
-      {
-        "day": "thursday",
-        "opens": "08:30",
-        "closes": "18:30",
-        "closed": false
-      },
-      { "day": "friday", "opens": "08:30", "closes": "18:30", "closed": false },
-      {
-        "day": "saturday",
-        "opens": "09:00",
-        "closes": "13:00",
-        "closed": false
-      },
-      { "day": "sunday", "closed": true }
-    ],
-    "nhsStatus": "both",
-    "languagesSpoken": ["en", "tr", "ku", "el"],
-    "turkishSpeakingStaff": true,
-    "insuranceIds": ["ins-bupa", "ins-axa-health", "ins-wpa", "ins-nhs"],
-    "specialityIds": [
-      "spec-general-practice",
-      "spec-endocrinology",
-      "spec-weight-management",
-      "spec-diabetes-nutrition",
-      "spec-child-psychology"
-    ],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": true,
-      "accessibleToilet": true,
-      "hearingLoop": true,
-      "signLanguageAvailable": false,
-      "assistanceDogsWelcome": true
-    },
-    "images": [],
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5852,-0.1055",
-    "verified": true,
-    "featured": true,
-    "createdAt": "2024-02-10",
-    "updatedAt": "2026-06-02"
-  },
-  {
-    "id": "org-bosphorus-dental-clinic",
-    "slug": "bosphorus-dental-clinic",
-    "type": "clinic",
-    "name": "Bosphorus Dental Clinic",
-    "description": "A modern dental practice in Wood Green specialising in general dentistry, orthodontics and cosmetic treatments, with a dedicated Turkish-speaking reception team.",
-    "address": {
-      "line1": "45 High Road",
-      "city": "London",
-      "postcode": "N22 6BG",
-      "region": "Greater London",
-      "country": "United Kingdom"
-    },
-    "geo": { "lat": 51.598, "lng": -0.1097 },
-    "contact": {
-      "phone": "+44 20 8888 3021",
-      "email": "hello@bosphorusdental.example.co.uk",
-      "website": "https://bosphorusdental.example.co.uk"
+      "phone": "+44 20 3240 1028",
+      "website": "https://doctors4you.co"
     },
     "openingHours": [
       { "day": "monday", "opens": "09:00", "closes": "18:00", "closed": false },
@@ -109,171 +34,388 @@
       {
         "day": "thursday",
         "opens": "09:00",
-        "closes": "20:00",
+        "closes": "18:00",
         "closed": false
       },
       { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
       {
         "day": "saturday",
-        "opens": "09:30",
-        "closes": "14:00",
+        "opens": "09:00",
+        "closes": "18:00",
         "closed": false
       },
-      { "day": "sunday", "closed": true }
+      { "day": "sunday", "opens": "10:00", "closes": "16:00", "closed": false }
     ],
-    "nhsStatus": "both",
+    "nhsStatus": "private",
     "languagesSpoken": ["en", "tr"],
     "turkishSpeakingStaff": true,
-    "insuranceIds": ["ins-bupa", "ins-simplyhealth", "ins-nhs"],
+    "insuranceIds": [],
     "specialityIds": [
-      "spec-general-dentistry",
-      "spec-orthodontics",
-      "spec-cosmetic-dentistry"
+      "spec-general-practice",
+      "spec-paediatrics",
+      "spec-gynaecology",
+      "spec-cardiology"
     ],
     "accessibility": {
       "wheelchairAccessible": true,
-      "stepFreeAccess": false,
+      "stepFreeAccess": true,
       "accessibleToilet": true,
       "hearingLoop": false,
       "signLanguageAvailable": false,
       "assistanceDogsWelcome": true
     },
     "images": [],
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5980,-0.1097",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5977,-0.1150",
     "verified": true,
     "featured": true,
-    "createdAt": "2024-03-18",
-    "updatedAt": "2026-05-20"
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   },
   {
-    "id": "org-golden-horn-health-hub",
-    "slug": "golden-horn-health-hub",
+    "id": "org-medplus-clinic",
+    "slug": "medplus-clinic",
     "type": "clinic",
-    "name": "Golden Horn Health Hub",
-    "description": "A multi-disciplinary private clinic in Dalston bringing together paediatrics, oral surgery, psychology, physiotherapy and dietetics under one roof.",
+    "name": "Medplus Clinic",
+    "description": "A private GP and dermatology clinic in Enfield offering diagnostics alongside general practice, serving the Turkish and Kurdish communities of North London.",
     "address": {
-      "line1": "12 Kingsland High Street",
+      "line1": "175 Fore Street",
       "city": "London",
-      "postcode": "E8 2LX",
+      "postcode": "N18 2XB",
       "region": "Greater London",
       "country": "United Kingdom"
     },
-    "geo": { "lat": 51.546, "lng": -0.0754 },
+    "geo": { "lat": 51.6195, "lng": -0.0685 },
     "contact": {
-      "phone": "+44 20 7275 6600",
-      "email": "reception@goldenhornhealth.example.co.uk",
-      "website": "https://goldenhornhealth.example.co.uk"
+      "phone": "+44 20 8292 7485",
+      "website": "https://medplus.org.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-practice", "spec-dermatology"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.6195,-0.0685",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-medi-park-clinic",
+    "slug": "medi-park-clinic",
+    "type": "clinic",
+    "name": "Medi-Park Clinic",
+    "description": "A private clinic on Green Lanes in Haringey combining physical and mental health services with aesthetics and diagnostics, situated at the heart of London's Turkish-speaking community.",
+    "address": {
+      "line1": "573 Green Lanes",
+      "city": "London",
+      "postcode": "N8 0RL",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5885, "lng": -0.1045 },
+    "contact": {
+      "website": "https://mediparkclinic.uk",
+      "phone": "+44 7947 785174"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-practice", "spec-cbt"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5885,-0.1045",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-mediwell-clinic",
+    "slug": "mediwell-clinic",
+    "type": "clinic",
+    "name": "MediWell Clinic",
+    "description": "A private multi-disciplinary clinic in Tottenham offering medical, dental and hair transplant services, home to gynaecologist Dr Zehra Koçer.",
+    "address": {
+      "line1": "1C Lansdowne Road",
+      "city": "London",
+      "postcode": "N17 0LL",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5885, "lng": -0.07 },
+    "contact": {
+      "phone": "+44 7437 212998",
+      "website": "https://mediwellclinic.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [
+      "spec-general-practice",
+      "spec-general-dentistry",
+      "spec-gynaecology",
+      "spec-hair-restoration"
+    ],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5885,-0.0700",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-medstar",
+    "slug": "medstar",
+    "type": "clinic",
+    "name": "Medstar",
+    "description": "A private GP and diagnostics clinic with a digital health platform, based on Gray's Inn Road with a second branch in Barnet.",
+    "address": {
+      "line1": "195-199 Gray's Inn Road",
+      "city": "London",
+      "postcode": "WC1X 8UL",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5246, "lng": -0.1177 },
+    "contact": {
+      "phone": "+44 7884 511903",
+      "website": "https://medstar.app"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-practice"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5246,-0.1177",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-uk-vital-clinic",
+    "slug": "uk-vital-clinic",
+    "type": "clinic",
+    "name": "UK Vital Clinic",
+    "description": "A private clinic in Twickenham offering preventive healthcare and personalised health management.",
+    "address": {
+      "line1": "17 High Street",
+      "city": "Twickenham",
+      "postcode": "TW2 7LA",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.4468, "lng": -0.355 },
+    "contact": {
+      "phone": "+44 7789 355650",
+      "website": "https://ukvitalclinic.com"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-practice"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4468,-0.3550",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-onclinic",
+    "slug": "onclinic",
+    "type": "clinic",
+    "name": "ONClinic",
+    "description": "A private dental clinic on Harley Street specialising in cosmetic dentistry and orthodontics, home to laser and biological dentistry specialist Özge Erbil Maden.",
+    "address": {
+      "line1": "22 Harley Street",
+      "city": "London",
+      "postcode": "W1G 9AP",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5192, "lng": -0.1465 },
+    "contact": {
+      "phone": "+44 20 3500 3520",
+      "website": "https://onclinic.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-bupa"],
+    "specialityIds": [
+      "spec-general-dentistry",
+      "spec-cosmetic-dentistry",
+      "spec-orthodontics"
+    ],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5192,-0.1465",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-youniverse-clinic",
+    "slug": "youniverse-clinic",
+    "type": "clinic",
+    "name": "YOUniverse Clinic",
+    "description": "A private dental clinic on Harley Street led by Özge Erbil Maden and İlay Maden, specialising in biological, laser and periodontal dentistry, implantology and anti-snoring treatment.",
+    "address": {
+      "line1": "128 Harley Street, 1st Floor",
+      "city": "London",
+      "postcode": "W1G 7JT",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5205, "lng": -0.1465 },
+    "contact": {
+      "phone": "+44 20 3500 0770",
+      "website": "https://www.youniverseclinic.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [
+      "spec-general-dentistry",
+      "spec-oral-surgery",
+      "spec-anti-snoring"
+    ],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5205,-0.1465",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-smilestone-dental-clinic",
+    "slug": "smilestone-dental-clinic",
+    "type": "clinic",
+    "name": "Smilestone Dental Clinic",
+    "description": "A private dental clinic on Hackney Road offering cosmetic and general dentistry.",
+    "address": {
+      "line1": "156-162 Hackney Road",
+      "city": "London",
+      "postcode": "E2 7QL",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5296, "lng": -0.0665 },
+    "contact": {
+      "phone": "+44 20 8079 2041",
+      "website": "https://smilestoneclinic.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5296,-0.0665",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-boston-orthodontics",
+    "slug": "boston-orthodontics",
+    "type": "clinic",
+    "name": "Boston Orthodontics",
+    "description": "A private orthodontic clinic in Belgravia specialising in Invisalign and braces.",
+    "address": {
+      "line1": "2 Grosvenor Gardens",
+      "city": "London",
+      "postcode": "SW1W 0DH",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.4975, "lng": -0.1495 },
+    "contact": {
+      "phone": "+44 7767 270053",
+      "website": "https://bostonorthodontics.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": [],
+    "specialityIds": ["spec-orthodontics"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4975,-0.1495",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-all-smiles-in-finchley",
+    "slug": "all-smiles-in-finchley",
+    "type": "clinic",
+    "name": "All Smiles In Finchley",
+    "description": "A dental practice in North Finchley established over 35 years, taken over in 2012 by Turkish dentist Dr Handan Sabahlar, offering general and aesthetic dentistry with wheelchair-accessible, ground-floor premises.",
+    "address": {
+      "line1": "21 Woodhouse Road",
+      "city": "London",
+      "postcode": "N12 9EN",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.6155, "lng": -0.173 },
+    "contact": {
+      "phone": "+44 20 8445 2114",
+      "email": "hs@allsmiles.org.uk",
+      "website": "https://www.allsmiles.org.uk"
     },
     "openingHours": [
-      { "day": "monday", "opens": "08:00", "closes": "19:00", "closed": false },
+      { "day": "monday", "opens": "08:30", "closes": "18:00", "closed": false },
       {
         "day": "tuesday",
-        "opens": "08:00",
-        "closes": "19:00",
+        "opens": "08:30",
+        "closes": "18:00",
         "closed": false
       },
       {
         "day": "wednesday",
-        "opens": "08:00",
-        "closes": "19:00",
+        "opens": "08:30",
+        "closes": "18:00",
         "closed": false
       },
       {
         "day": "thursday",
-        "opens": "08:00",
-        "closes": "19:00",
+        "opens": "08:30",
+        "closes": "18:00",
         "closed": false
       },
-      { "day": "friday", "opens": "08:00", "closes": "19:00", "closed": false },
+      { "day": "friday", "opens": "08:30", "closes": "18:00", "closed": false },
       {
         "day": "saturday",
         "opens": "09:00",
-        "closes": "16:00",
+        "closes": "18:00",
         "closed": false
       },
       { "day": "sunday", "closed": true }
     ],
     "nhsStatus": "private",
-    "languagesSpoken": ["en", "tr", "ku", "ar"],
+    "languagesSpoken": ["en", "tr"],
     "turkishSpeakingStaff": true,
-    "insuranceIds": [
-      "ins-bupa",
-      "ins-axa-health",
-      "ins-vitality",
-      "ins-cigna-global"
-    ],
-    "specialityIds": [
-      "spec-paediatrics",
-      "spec-oral-surgery",
-      "spec-cbt",
-      "spec-trauma-ptsd",
-      "spec-msk-physiotherapy",
-      "spec-sports-injury",
-      "spec-sports-nutrition"
-    ],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": true,
-      "accessibleToilet": true,
-      "hearingLoop": true,
-      "signLanguageAvailable": true,
-      "assistanceDogsWelcome": true
-    },
-    "images": [],
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5460,-0.0754",
-    "verified": true,
-    "featured": true,
-    "createdAt": "2024-01-22",
-    "updatedAt": "2026-07-01"
-  },
-  {
-    "id": "org-anatolia-manchester-clinic",
-    "slug": "anatolia-manchester-clinic",
-    "type": "clinic",
-    "name": "Anatolia Manchester Clinic",
-    "description": "An NHS-affiliated general practice and dental clinic serving Manchester's Turkish and Kurdish communities in Cheetham Hill.",
-    "address": {
-      "line1": "88 Cheetham Hill Road",
-      "city": "Manchester",
-      "postcode": "M8 8LR",
-      "region": "Greater Manchester",
-      "country": "United Kingdom"
-    },
-    "geo": { "lat": 53.498, "lng": -2.235 },
-    "contact": {
-      "phone": "+44 161 205 4471",
-      "email": "info@anatoliamanchester.example.co.uk",
-      "website": "https://anatoliamanchester.example.co.uk"
-    },
-    "openingHours": [
-      { "day": "monday", "opens": "09:00", "closes": "17:30", "closed": false },
-      {
-        "day": "tuesday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      {
-        "day": "wednesday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      {
-        "day": "thursday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      { "day": "friday", "opens": "09:00", "closes": "17:30", "closed": false },
-      { "day": "saturday", "closed": true },
-      { "day": "sunday", "closed": true }
-    ],
-    "nhsStatus": "both",
-    "languagesSpoken": ["en", "tr", "ku"],
-    "turkishSpeakingStaff": true,
-    "insuranceIds": ["ins-nhs", "ins-bupa"],
-    "specialityIds": ["spec-general-practice", "spec-general-dentistry"],
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
     "accessibility": {
       "wheelchairAccessible": true,
       "stepFreeAccess": true,
@@ -283,10 +425,200 @@
       "assistanceDogsWelcome": true
     },
     "images": [],
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.4980,-2.2350",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.6155,-0.1730",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-the-family-dental-practice",
+    "slug": "the-family-dental-practice",
+    "type": "clinic",
+    "name": "The Family Dental Practice",
+    "description": "A dental practice on the High Road in Wood Green, home to Turkish-speaking dentist Selma, recommended within North London's Turkish-speaking community.",
+    "address": {
+      "line1": "129-131 High Road",
+      "city": "London",
+      "postcode": "N22 6BB",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5975, "lng": -0.109 },
+    "contact": {
+      "phone": "+44 20 8881 6698"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5975,-0.1090",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-terapi-londra",
+    "slug": "terapi-londra",
+    "type": "clinic",
+    "name": "Terapi Londra",
+    "description": "A private Turkish-language psychology practice on Lordship Lane offering individual psychotherapy, couples therapy and child counselling.",
+    "address": {
+      "line1": "419 Lordship Lane",
+      "city": "London",
+      "postcode": "N17 6AG",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.592, "lng": -0.078 },
+    "contact": {
+      "phone": "+44 7803 477970",
+      "website": "https://terapilondra.com"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [
+      "spec-cbt",
+      "spec-family-therapy",
+      "spec-child-psychology"
+    ],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5920,-0.0780",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-maltepe-dental-clinic-london",
+    "slug": "maltepe-dental-clinic-london",
+    "type": "clinic",
+    "name": "Maltepe Dental Clinic London",
+    "description": "A London consultation and aftercare clinic for Maltepe Dental Clinic, an Istanbul-based dental group, staffed by UK-registered Turkish dentist Dr Yusuf Ilhan for patients combining UK consultations with treatment in Turkey.",
+    "address": {
+      "line1": "92 Essex Road",
+      "city": "London",
+      "postcode": "N1 8LU",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.541, "lng": -0.1 },
+    "contact": {
+      "website": "https://www.maltepedentalclinic.com/london-clinic/"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-general-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5410,-0.1000",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-derman",
+    "slug": "derman",
+    "type": "clinic",
+    "name": "DERMAN",
+    "description": "A registered charity (est. 1991) for the well-being of the Kurdish and Turkish communities in London, providing free counselling, psychotherapy, IAPT talking therapies, mental health recovery support groups, and interpreting/advocacy within GP surgeries across 12 sites in Hackney and beyond. Services are free regardless of political, ethnic or religious background.",
+    "address": {
+      "line1": "1st Floor, 66 New North Road",
+      "city": "London",
+      "postcode": "N1 6TG",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5335, "lng": -0.0865 },
+    "contact": {
+      "phone": "+44 20 7613 5944",
+      "email": "services@derman.org.uk",
+      "website": "https://www.derman.org.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en", "tr", "ku"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-cbt", "spec-trauma-ptsd", "spec-family-therapy"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5335,-0.0865",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-esra-caglar-practice",
+    "slug": "esra-caglar-practice",
+    "type": "clinic",
+    "name": "Dr Esra Caglar Practice",
+    "description": "The Queen Anne Street practice of Dr Esra Caglar, Consultant Child and Adolescent Psychiatrist and Adult Psychoanalyst, offering assessment and treatment for anxiety, mood, trauma, neurodevelopmental and family concerns.",
+    "address": {
+      "line1": "55 Queen Anne Street",
+      "city": "London",
+      "postcode": "W1G 9JR",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5195, "lng": -0.1495 },
+    "contact": {
+      "phone": "+44 20 3488 4468",
+      "email": "info@esracaglar.com",
+      "website": "https://www.esracaglar.com"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-psychiatry", "spec-child-psychology"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5195,-0.1495",
     "verified": true,
     "featured": false,
-    "createdAt": "2024-05-09",
-    "updatedAt": "2026-04-14"
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-medicana-winchester",
+    "slug": "medicana-winchester-clinic",
+    "type": "clinic",
+    "name": "Medicana Winchester Clinic",
+    "description": "A UK outpost of Turkish hospital group Medicana, offering advanced diagnostics (including 3T MRI, X-ray and ultrasound) and specialist consultations in orthopaedics, neurology and women's health.",
+    "address": {
+      "line1": "Chilcomb Park, Chilcomb Lane",
+      "city": "Winchester",
+      "postcode": "SO21 1HU",
+      "region": "Hampshire",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.07, "lng": -1.275 },
+    "contact": {
+      "phone": "+44 1962 587821",
+      "website": "https://medicana.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-gynaecology"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.0700,-1.2750",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   }
 ]
