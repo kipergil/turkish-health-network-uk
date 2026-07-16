@@ -1,0 +1,200 @@
+[
+  {
+    "id": "org-anatolia-eczane-pharmacy",
+    "slug": "anatolia-eczane-pharmacy",
+    "type": "pharmacy",
+    "name": "Anatolia Eczane Pharmacy",
+    "description": "A community pharmacy on Green Lanes offering NHS prescriptions, travel vaccinations and Turkish-language medication guidance.",
+    "address": {
+      "line1": "202 Green Lanes",
+      "city": "London",
+      "postcode": "N4 1AG",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5849, "lng": -0.1058 },
+    "contact": {
+      "phone": "+44 20 7226 5544"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "08:00", "closes": "22:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "08:00",
+        "closes": "22:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "08:00",
+        "closes": "22:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "08:00",
+        "closes": "22:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "08:00", "closes": "22:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:00",
+        "closes": "20:00",
+        "closed": false
+      },
+      { "day": "sunday", "opens": "10:00", "closes": "16:00", "closed": false }
+    ],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en", "tr", "ku"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": [],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": false,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5849,-0.1058",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2024-02-01",
+    "updatedAt": "2026-05-05"
+  },
+  {
+    "id": "org-halkevi-pharmacy",
+    "slug": "halkevi-pharmacy",
+    "type": "pharmacy",
+    "name": "Halkevi Pharmacy",
+    "description": "A long-established pharmacy in Walthamstow serving the local Turkish-speaking community with prescriptions and health advice.",
+    "address": {
+      "line1": "17 Hoe Street",
+      "city": "London",
+      "postcode": "E17 7LD",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5908, "lng": -0.0134 },
+    "contact": {
+      "phone": "+44 20 8520 3390"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "09:00", "closes": "19:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "19:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:00",
+        "closes": "17:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": [],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": false,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5908,-0.0134",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2023-12-19",
+    "updatedAt": "2026-04-30"
+  },
+  {
+    "id": "org-manchester-anatolia-pharmacy",
+    "slug": "manchester-anatolia-pharmacy",
+    "type": "pharmacy",
+    "name": "Manchester Anatolia Pharmacy",
+    "description": "A Cheetham Hill pharmacy providing NHS prescriptions and over-the-counter advice in Turkish, Kurdish and English.",
+    "address": {
+      "line1": "92 Cheetham Hill Road",
+      "city": "Manchester",
+      "postcode": "M8 8LR",
+      "region": "Greater Manchester",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 53.4984, "lng": -2.2346 },
+    "contact": {
+      "phone": "+44 161 205 9012"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "08:30", "closes": "18:30", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "08:30",
+        "closes": "18:30",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "08:30",
+        "closes": "18:30",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "08:30",
+        "closes": "18:30",
+        "closed": false
+      },
+      { "day": "friday", "opens": "08:30", "closes": "18:30", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:00",
+        "closes": "13:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en", "tr", "ku"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": [],
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "stepFreeAccess": false,
+      "accessibleToilet": false,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.4984,-2.2346",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2024-06-11",
+    "updatedAt": "2026-02-18"
+  }
+]

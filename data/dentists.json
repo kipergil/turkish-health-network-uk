@@ -1,0 +1,246 @@
+[
+  {
+    "id": "prv-fatma-celik",
+    "slug": "dds-fatma-celik",
+    "category": "dentist",
+    "name": "Fatma Celik",
+    "title": "Dr",
+    "photoUrl": "",
+    "bio": "Private dentist at Bosphorus Dental Clinic specialising in cosmetic dentistry, veneers and smile makeovers, with over a decade of experience treating patients from across London.",
+    "qualifications": ["BDS"],
+    "registrationBody": "GDC",
+    "registrationNumber": "GDC-118823",
+    "yearsOfExperience": 12,
+    "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-bosphorus-dental-clinic"],
+    "insuranceIds": ["ins-bupa", "ins-simplyhealth"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": false,
+      "accessibleToilet": true,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "09:00", "closes": "18:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "20:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:30",
+        "closes": "14:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 20 8888 3021",
+      "email": "f.celik@bosphorusdental.example.co.uk"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5980,-0.1097",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2024-03-18",
+    "updatedAt": "2026-05-20"
+  },
+  {
+    "id": "prv-emre-sahin",
+    "slug": "dds-emre-sahin",
+    "category": "dentist",
+    "name": "Emre Sahin",
+    "title": "Mr",
+    "photoUrl": "",
+    "bio": "Orthodontist at Bosphorus Dental Clinic providing braces and clear aligner treatment for both children and adults, accepting both NHS-referred and private patients.",
+    "qualifications": ["BDS", "MOrth RCS"],
+    "registrationBody": "GDC",
+    "registrationNumber": "GDC-152047",
+    "yearsOfExperience": 8,
+    "specialityIds": ["spec-orthodontics"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "both",
+    "organizationIds": ["org-bosphorus-dental-clinic"],
+    "insuranceIds": ["ins-bupa", "ins-nhs"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": false,
+      "accessibleToilet": true,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "closed": true },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:30",
+        "closes": "14:00",
+        "closed": false
+      },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 20 8888 3021",
+      "email": "e.sahin@bosphorusdental.example.co.uk"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5980,-0.1097",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2024-03-18",
+    "updatedAt": "2026-05-20"
+  },
+  {
+    "id": "prv-zeynep-aydin",
+    "slug": "dds-zeynep-aydin",
+    "category": "dentist",
+    "name": "Zeynep Aydin",
+    "title": "Dr",
+    "photoUrl": "",
+    "bio": "Oral surgeon at Golden Horn Health Hub, providing tooth extractions, dental implants and treatment of impacted wisdom teeth under local and sedation anaesthesia.",
+    "qualifications": ["BDS", "FDS RCS"],
+    "registrationBody": "GDC",
+    "registrationNumber": "GDC-133659",
+    "yearsOfExperience": 14,
+    "specialityIds": ["spec-oral-surgery"],
+    "languagesSpoken": ["en", "tr", "ar"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-golden-horn-health-hub"],
+    "insuranceIds": ["ins-bupa", "ins-axa-health", "ins-cigna-global"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": true,
+      "hearingLoop": true,
+      "signLanguageAvailable": true,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "08:00", "closes": "16:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "08:00",
+        "closes": "16:00",
+        "closed": false
+      },
+      { "day": "wednesday", "closed": true },
+      {
+        "day": "thursday",
+        "opens": "08:00",
+        "closes": "16:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "08:00", "closes": "16:00", "closed": false },
+      { "day": "saturday", "closed": true },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 20 7275 6600",
+      "email": "z.aydin@goldenhornhealth.example.co.uk"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5460,-0.0754",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2024-01-22",
+    "updatedAt": "2026-07-01"
+  },
+  {
+    "id": "prv-nur-polat",
+    "slug": "dds-nur-polat",
+    "category": "dentist",
+    "name": "Nur Polat",
+    "title": "Dr",
+    "photoUrl": "",
+    "bio": "General dentist at Anatolia Manchester Clinic, providing checkups, fillings and preventative care to families across Cheetham Hill and the wider Manchester area.",
+    "qualifications": ["BDS"],
+    "registrationBody": "GDC",
+    "registrationNumber": "GDC-171238",
+    "yearsOfExperience": 5,
+    "specialityIds": ["spec-general-dentistry"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-anatolia-manchester-clinic"],
+    "insuranceIds": ["ins-bupa"],
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "stepFreeAccess": true,
+      "accessibleToilet": false,
+      "hearingLoop": false,
+      "signLanguageAvailable": false,
+      "assistanceDogsWelcome": true
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "09:00", "closes": "17:30", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "17:30",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "17:30",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "17:30",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "17:30", "closed": false },
+      { "day": "saturday", "closed": true },
+      { "day": "sunday", "closed": true }
+    ],
+    "contact": {
+      "phone": "+44 161 205 4471"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.4980,-2.2350",
+    "verified": false,
+    "featured": false,
+    "createdAt": "2024-09-12",
+    "updatedAt": "2026-02-02"
+  }
+]
