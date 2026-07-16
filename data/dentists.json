@@ -1,246 +1,162 @@
 [
   {
-    "id": "prv-fatma-celik",
-    "slug": "dds-fatma-celik",
+    "id": "prv-ozge-erbil-maden",
+    "slug": "ozge-erbil-maden",
     "category": "dentist",
-    "name": "Fatma Celik",
+    "name": "Ozge Erbil Maden",
     "title": "Dr",
     "photoUrl": "",
-    "bio": "Private dentist at Bosphorus Dental Clinic specialising in cosmetic dentistry, veneers and smile makeovers, with over a decade of experience treating patients from across London.",
-    "qualifications": ["BDS"],
+    "bio": "Graduated from Istanbul University Faculty of Dentistry in 2005 and now practices in London, splitting her time between ONClinic and YOUniverse Clinic on Harley Street. Focuses on biological and laser-supported dentistry, cosmetic restorations and digital smile design. Also runs Seesaw Dental Courses, training dentists internationally in laser dentistry.",
+    "qualifications": ["BDS (Turkey)", "ORE (UK)"],
     "registrationBody": "GDC",
-    "registrationNumber": "GDC-118823",
-    "yearsOfExperience": 12,
+    "registrationNumber": "GDC-271459",
     "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
     "languagesSpoken": ["en", "tr"],
     "turkishSpeaking": true,
     "nhsStatus": "private",
-    "organizationIds": ["org-bosphorus-dental-clinic"],
-    "insuranceIds": ["ins-bupa", "ins-simplyhealth"],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": false,
-      "accessibleToilet": true,
-      "hearingLoop": false,
-      "signLanguageAvailable": false,
-      "assistanceDogsWelcome": true
-    },
-    "openingHours": [
-      { "day": "monday", "opens": "09:00", "closes": "18:00", "closed": false },
-      {
-        "day": "tuesday",
-        "opens": "09:00",
-        "closes": "18:00",
-        "closed": false
-      },
-      {
-        "day": "wednesday",
-        "opens": "09:00",
-        "closes": "18:00",
-        "closed": false
-      },
-      {
-        "day": "thursday",
-        "opens": "09:00",
-        "closes": "20:00",
-        "closed": false
-      },
-      { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
-      {
-        "day": "saturday",
-        "opens": "09:30",
-        "closes": "14:00",
-        "closed": false
-      },
-      { "day": "sunday", "closed": true }
-    ],
-    "contact": {
-      "phone": "+44 20 8888 3021",
-      "email": "f.celik@bosphorusdental.example.co.uk"
-    },
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5980,-0.1097",
+    "organizationIds": ["org-onclinic", "org-youniverse-clinic"],
+    "insuranceIds": ["ins-bupa"],
+    "openingHours": [],
+    "contact": {},
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5205,-0.1465",
     "verified": true,
     "featured": true,
-    "createdAt": "2024-03-18",
-    "updatedAt": "2026-05-20"
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   },
   {
-    "id": "prv-emre-sahin",
-    "slug": "dds-emre-sahin",
+    "id": "prv-ilay-maden",
+    "slug": "ilay-maden",
     "category": "dentist",
-    "name": "Emre Sahin",
-    "title": "Mr",
+    "name": "Ilay Maden",
+    "title": "Dr",
     "photoUrl": "",
-    "bio": "Orthodontist at Bosphorus Dental Clinic providing braces and clear aligner treatment for both children and adults, accepting both NHS-referred and private patients.",
-    "qualifications": ["BDS", "MOrth RCS"],
+    "bio": "Periodontist and implantologist at YOUniverse Clinic on Harley Street, with an MSc in Laser Dentistry from Germany and a PhD in Periodontology from Turkey. Specialises in periodontics, implantology, laser dentistry and anti-snoring treatment, and serves as Scientific Director of Seesaw Dental Courses, lecturing internationally.",
+    "qualifications": [
+      "BDS (Turkey)",
+      "ORE (UK)",
+      "MSc Laser Dentistry",
+      "PhD Periodontology"
+    ],
     "registrationBody": "GDC",
-    "registrationNumber": "GDC-152047",
-    "yearsOfExperience": 8,
-    "specialityIds": ["spec-orthodontics"],
+    "registrationNumber": "GDC-266862",
+    "specialityIds": ["spec-oral-surgery", "spec-anti-snoring"],
     "languagesSpoken": ["en", "tr"],
     "turkishSpeaking": true,
-    "nhsStatus": "both",
-    "organizationIds": ["org-bosphorus-dental-clinic"],
-    "insuranceIds": ["ins-bupa", "ins-nhs"],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": false,
-      "accessibleToilet": true,
-      "hearingLoop": false,
-      "signLanguageAvailable": false,
-      "assistanceDogsWelcome": true
-    },
+    "nhsStatus": "private",
+    "organizationIds": ["org-youniverse-clinic"],
+    "insuranceIds": [],
+    "openingHours": [],
+    "contact": {},
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5205,-0.1465",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "prv-handan-sabahlar",
+    "slug": "handan-sabahlar",
+    "category": "dentist",
+    "name": "Handan Sabahlar",
+    "title": "Dr",
+    "photoUrl": "",
+    "bio": "Turkish dentist who has worked in general dental practice across North London since 2001, taking over All Smiles In Finchley in April 2012. Offers comprehensive aesthetic dentistry including crowns, bridges and veneers, plus walk-in hygiene appointments.",
+    "qualifications": [],
+    "yearsOfExperience": 24,
+    "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-all-smiles-in-finchley"],
+    "insuranceIds": [],
     "openingHours": [
-      { "day": "monday", "closed": true },
+      { "day": "monday", "opens": "08:30", "closes": "18:00", "closed": false },
       {
         "day": "tuesday",
-        "opens": "09:00",
+        "opens": "08:30",
         "closes": "18:00",
         "closed": false
       },
       {
         "day": "wednesday",
-        "opens": "09:00",
+        "opens": "08:30",
         "closes": "18:00",
         "closed": false
       },
       {
         "day": "thursday",
-        "opens": "09:00",
+        "opens": "08:30",
         "closes": "18:00",
         "closed": false
       },
-      { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
+      { "day": "friday", "opens": "08:30", "closes": "18:00", "closed": false },
       {
         "day": "saturday",
-        "opens": "09:30",
-        "closes": "14:00",
+        "opens": "09:00",
+        "closes": "18:00",
         "closed": false
       },
       { "day": "sunday", "closed": true }
     ],
     "contact": {
-      "phone": "+44 20 8888 3021",
-      "email": "e.sahin@bosphorusdental.example.co.uk"
+      "phone": "+44 20 8445 2114",
+      "email": "hs@allsmiles.org.uk"
     },
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5980,-0.1097",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.6155,-0.1730",
     "verified": true,
-    "featured": false,
-    "createdAt": "2024-03-18",
-    "updatedAt": "2026-05-20"
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   },
   {
-    "id": "prv-zeynep-aydin",
-    "slug": "dds-zeynep-aydin",
+    "id": "prv-yusuf-ilhan",
+    "slug": "yusuf-ilhan",
     "category": "dentist",
-    "name": "Zeynep Aydin",
+    "name": "Yusuf Ilhan",
     "title": "Dr",
     "photoUrl": "",
-    "bio": "Oral surgeon at Golden Horn Health Hub, providing tooth extractions, dental implants and treatment of impacted wisdom teeth under local and sedation anaesthesia.",
-    "qualifications": ["BDS", "FDS RCS"],
+    "bio": "UK-registered Turkish dentist providing consultations and aftercare in London for patients undertaking primary dental treatment with Maltepe Dental Clinic in Istanbul.",
+    "qualifications": [],
     "registrationBody": "GDC",
-    "registrationNumber": "GDC-133659",
-    "yearsOfExperience": 14,
-    "specialityIds": ["spec-oral-surgery"],
-    "languagesSpoken": ["en", "tr", "ar"],
-    "turkishSpeaking": true,
-    "nhsStatus": "private",
-    "organizationIds": ["org-golden-horn-health-hub"],
-    "insuranceIds": ["ins-bupa", "ins-axa-health", "ins-cigna-global"],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": true,
-      "accessibleToilet": true,
-      "hearingLoop": true,
-      "signLanguageAvailable": true,
-      "assistanceDogsWelcome": true
-    },
-    "openingHours": [
-      { "day": "monday", "opens": "08:00", "closes": "16:00", "closed": false },
-      {
-        "day": "tuesday",
-        "opens": "08:00",
-        "closes": "16:00",
-        "closed": false
-      },
-      { "day": "wednesday", "closed": true },
-      {
-        "day": "thursday",
-        "opens": "08:00",
-        "closes": "16:00",
-        "closed": false
-      },
-      { "day": "friday", "opens": "08:00", "closes": "16:00", "closed": false },
-      { "day": "saturday", "closed": true },
-      { "day": "sunday", "closed": true }
-    ],
-    "contact": {
-      "phone": "+44 20 7275 6600",
-      "email": "z.aydin@goldenhornhealth.example.co.uk"
-    },
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5460,-0.0754",
-    "verified": true,
-    "featured": false,
-    "createdAt": "2024-01-22",
-    "updatedAt": "2026-07-01"
-  },
-  {
-    "id": "prv-nur-polat",
-    "slug": "dds-nur-polat",
-    "category": "dentist",
-    "name": "Nur Polat",
-    "title": "Dr",
-    "photoUrl": "",
-    "bio": "General dentist at Anatolia Manchester Clinic, providing checkups, fillings and preventative care to families across Cheetham Hill and the wider Manchester area.",
-    "qualifications": ["BDS"],
-    "registrationBody": "GDC",
-    "registrationNumber": "GDC-171238",
-    "yearsOfExperience": 5,
+    "registrationNumber": "GDC-304923",
     "specialityIds": ["spec-general-dentistry"],
     "languagesSpoken": ["en", "tr"],
     "turkishSpeaking": true,
     "nhsStatus": "private",
-    "organizationIds": ["org-anatolia-manchester-clinic"],
-    "insuranceIds": ["ins-bupa"],
-    "accessibility": {
-      "wheelchairAccessible": true,
-      "stepFreeAccess": true,
-      "accessibleToilet": false,
-      "hearingLoop": false,
-      "signLanguageAvailable": false,
-      "assistanceDogsWelcome": true
-    },
-    "openingHours": [
-      { "day": "monday", "opens": "09:00", "closes": "17:30", "closed": false },
-      {
-        "day": "tuesday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      {
-        "day": "wednesday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      {
-        "day": "thursday",
-        "opens": "09:00",
-        "closes": "17:30",
-        "closed": false
-      },
-      { "day": "friday", "opens": "09:00", "closes": "17:30", "closed": false },
-      { "day": "saturday", "closed": true },
-      { "day": "sunday", "closed": true }
-    ],
+    "organizationIds": ["org-maltepe-dental-clinic-london"],
+    "insuranceIds": [],
+    "openingHours": [],
+    "contact": {},
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5410,-0.1000",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "prv-selma",
+    "slug": "selma-wood-green",
+    "category": "dentist",
+    "name": "Selma",
+    "title": "Ms",
+    "photoUrl": "",
+    "bio": "Turkish-speaking dentist at The Family Dental Practice in Wood Green, recommended within North London's Turkish-speaking community. Full surname not published by source.",
+    "qualifications": [],
+    "specialityIds": ["spec-general-dentistry"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": ["org-the-family-dental-practice"],
+    "insuranceIds": [],
+    "openingHours": [],
     "contact": {
-      "phone": "+44 161 205 4471"
+      "phone": "+44 20 8881 6698"
     },
-    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.4980,-2.2350",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5975,-0.1090",
     "verified": false,
     "featured": false,
-    "createdAt": "2024-09-12",
-    "updatedAt": "2026-02-02"
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   }
 ]

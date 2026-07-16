@@ -42,6 +42,20 @@
     "categories": ["doctor"]
   },
   {
+    "id": "spec-psychiatry",
+    "slug": "psychiatry",
+    "name": "Psychiatry",
+    "description": "Medical diagnosis and treatment of mental health conditions, including medication management.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-hair-restoration",
+    "slug": "hair-restoration",
+    "name": "Hair Restoration",
+    "description": "Hair loss assessment and hair transplant procedures.",
+    "categories": ["doctor"]
+  },
+  {
     "id": "spec-general-dentistry",
     "slug": "general-dentistry",
     "name": "General Dentistry",
@@ -74,6 +88,13 @@
     "slug": "oral-surgery",
     "name": "Oral Surgery",
     "description": "Tooth extractions, implants and surgical procedures.",
+    "categories": ["dentist"]
+  },
+  {
+    "id": "spec-anti-snoring",
+    "slug": "anti-snoring-treatment",
+    "name": "Anti-Snoring & Periodontal Treatment",
+    "description": "Treatment of snoring, gum disease and periodontal conditions.",
     "categories": ["dentist"]
   },
   {
