@@ -105,5 +105,162 @@
     "featured": false,
     "createdAt": "2026-07-16",
     "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-leeds-general-infirmary",
+    "slug": "leeds-general-infirmary",
+    "type": "hospital",
+    "name": "Leeds General Infirmary",
+    "description": "An NHS teaching hospital in Leeds, part of Leeds Teaching Hospitals NHS Trust. Consultant neurosurgeon Mr Kenan Deniz (spine, neurovascular and skull base surgery) practices here, recommended within the Turkish-speaking community for paediatric epilepsy and neurology referrals.",
+    "address": {
+      "line1": "Great George Street",
+      "city": "Leeds",
+      "postcode": "LS1 3EX",
+      "region": "West Yorkshire",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 53.8017, "lng": -1.5491 },
+    "contact": {
+      "website": "https://www.leedsth.nhs.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-neurosurgery"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.8017,-1.5491",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-chelsea-westminster-hospital",
+    "slug": "chelsea-and-westminster-hospital",
+    "type": "hospital",
+    "name": "Chelsea and Westminster Hospital",
+    "description": "An NHS teaching hospital with a private care wing, home to the Pelvic Health Physiotherapy department where Elmas Court, a specialist pelvic health physiotherapist for all genders and ages, practices both on the NHS and privately.",
+    "address": {
+      "line1": "369 Fulham Road",
+      "city": "London",
+      "postcode": "SW10 9NH",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.4835, "lng": -0.1815 },
+    "contact": {
+      "website": "https://www.chelwest.nhs.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "both",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-pelvic-health"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4835,-0.1815",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-st-marks-hospital",
+    "slug": "st-marks-hospital",
+    "type": "hospital",
+    "name": "St Mark's Hospital",
+    "description": "The National Bowel Hospital, an NHS specialist centre for colorectal and intestinal conditions in Harrow, where consultant colorectal surgeon Mr Tushar Agarwal practices.",
+    "address": {
+      "line1": "Watford Road",
+      "city": "Harrow",
+      "postcode": "HA1 3UJ",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.581, "lng": -0.336 },
+    "contact": {
+      "website": "https://www.stmarkshospital.nhs.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-general-surgery"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5810,-0.3360",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-the-london-clinic",
+    "slug": "the-london-clinic",
+    "type": "hospital",
+    "name": "The London Clinic",
+    "description": "A large private hospital on Devonshire Place, where consultant colorectal and general surgeon Mr Tushar Agarwal sees private patients.",
+    "address": {
+      "line1": "20 Devonshire Place",
+      "city": "London",
+      "postcode": "W1G 6BW",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5213, "lng": -0.152 },
+    "contact": {
+      "website": "https://www.thelondonclinic.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": [
+      "ins-bupa",
+      "ins-axa-health",
+      "ins-vitality",
+      "ins-wpa",
+      "ins-aviva",
+      "ins-cigna-global"
+    ],
+    "specialityIds": ["spec-general-surgery"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5213,-0.1520",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-western-eye-hospital",
+    "slug": "western-eye-hospital",
+    "type": "hospital",
+    "name": "Western Eye Hospital",
+    "description": "An NHS eye hospital, part of Imperial College Healthcare NHS Trust, providing ophthalmology services including emergency eye care. Used by a member of the community's WhatsApp group in an emergency.",
+    "address": {
+      "line1": "153-173 Marylebone Road",
+      "city": "London",
+      "postcode": "NW1 5QH",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5225, "lng": -0.1655 },
+    "contact": {
+      "website": "https://www.imperial.nhs.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "nhs",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": [],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5225,-0.1655",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
   }
 ]

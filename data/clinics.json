@@ -138,7 +138,7 @@
     "slug": "mediwell-clinic",
     "type": "clinic",
     "name": "MediWell Clinic",
-    "description": "A private multi-disciplinary clinic in Tottenham offering medical, dental and hair transplant services, home to gynaecologist Dr Zehra Koçer.",
+    "description": "A CQC-registered private multi-disciplinary clinic in Tottenham with a Turkish-first-language patient base, offering GP, dermatology, cardiology, urology, gastroenterology, dental and hair transplant services. Home to gynaecologist Dr Zehra Koçer and Dr Meltem Özkan Girgin. Sister dental site: dentalondon.co.uk.",
     "address": {
       "line1": "1C Lansdowne Road",
       "city": "London",
@@ -148,7 +148,8 @@
     },
     "geo": { "lat": 51.5885, "lng": -0.07 },
     "contact": {
-      "phone": "+44 7437 212998",
+      "phone": "+44 20 3951 0203",
+      "email": "info@mediwellclinic.co.uk",
       "website": "https://mediwellclinic.co.uk"
     },
     "openingHours": [],
@@ -236,7 +237,7 @@
     "slug": "onclinic",
     "type": "clinic",
     "name": "ONClinic",
-    "description": "A private dental clinic on Harley Street specialising in cosmetic dentistry and orthodontics, home to laser and biological dentistry specialist Özge Erbil Maden.",
+    "description": "A private dental clinic on Harley Street specialising in cosmetic dentistry and orthodontics, home to laser and biological dentistry specialist Özge Erbil Maden. Dr İlay Maden is also a partner here.",
     "address": {
       "line1": "22 Harley Street",
       "city": "London",
@@ -271,17 +272,18 @@
     "slug": "youniverse-clinic",
     "type": "clinic",
     "name": "YOUniverse Clinic",
-    "description": "A private dental clinic on Harley Street led by Özge Erbil Maden and İlay Maden, specialising in biological, laser and periodontal dentistry, implantology and anti-snoring treatment.",
+    "description": "A private dental clinic led by Özge Erbil Maden and İlay Maden, specialising in biological, laser and periodontal dentistry, implantology and anti-snoring treatment. Note: sources disagree on the current address — the clinic's own website lists 128 Harley Street, W1G 7JT, while a July 2026 community verification gave 1 Orchard Street, W1H 6HJ; the latter (more recent) is used here, but call ahead to confirm.",
     "address": {
-      "line1": "128 Harley Street, 1st Floor",
+      "line1": "1 Orchard Street",
       "city": "London",
-      "postcode": "W1G 7JT",
+      "postcode": "W1H 6HJ",
       "region": "Greater London",
       "country": "United Kingdom"
     },
-    "geo": { "lat": 51.5205, "lng": -0.1465 },
+    "geo": { "lat": 51.5145, "lng": -0.1585 },
     "contact": {
-      "phone": "+44 20 3500 0770",
+      "phone": "+44 7426 075979",
+      "email": "smile@youniverseclinic.co.uk",
       "website": "https://www.youniverseclinic.co.uk"
     },
     "openingHours": [],
@@ -585,6 +587,399 @@
     "specialityIds": ["spec-psychiatry", "spec-child-psychology"],
     "images": [],
     "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5195,-0.1495",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-mhw-clinic",
+    "slug": "my-health-and-wellbeing-clinic",
+    "type": "clinic",
+    "name": "My Health & Wellbeing Clinic (MHW)",
+    "description": "A CQC-registered private GP and specialist clinic in Whitechapel offering primary care, urgent care, cardiology, gynaecology, sonography and psychology, plus HCPC-registered physiotherapy. Co-founded and medically directed by Dr Haydar Bolat.",
+    "address": {
+      "line1": "97-99 Whitechapel Road",
+      "city": "London",
+      "postcode": "E1 1DT",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5175, "lng": -0.065 },
+    "contact": {
+      "phone": "+44 20 7916 0029",
+      "email": "info@mhwclinic.co.uk",
+      "website": "https://mhwclinic.co.uk"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "09:00", "closes": "19:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "19:00", "closed": false },
+      {
+        "day": "saturday",
+        "opens": "09:00",
+        "closes": "19:00",
+        "closed": false
+      },
+      { "day": "sunday", "opens": "09:00", "closes": "19:00", "closed": false }
+    ],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [
+      "spec-general-practice",
+      "spec-cardiology",
+      "spec-gynaecology"
+    ],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5175,-0.0650",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-memorial-healthcare-uk-leeds",
+    "slug": "memorial-healthcare-uk-leeds",
+    "type": "clinic",
+    "name": "Memorial Healthcare UK (Leeds)",
+    "description": "The UK office of Memorial Hospitals Group (Turkey), opened in Leeds in January 2024, handling referrals and second opinions for patients considering treatment at Memorial's hospitals in Turkey.",
+    "address": {
+      "line1": "9 Park Square East",
+      "city": "Leeds",
+      "postcode": "LS1 2LH",
+      "region": "West Yorkshire",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 53.7996, "lng": -1.5442 },
+    "contact": {
+      "phone": "+44 113 375 0075",
+      "website": "https://memorialhospitalsgroup.com/uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=53.7996,-1.5442",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-psikolog-londra-terapi-platformu",
+    "slug": "psikolog-londra-terapi-platformu",
+    "type": "clinic",
+    "name": "Psikolog Londra Terapi Platformu",
+    "description": "A Turkish-language psychiatry and psychology practice on Bishopsgate offering ADHD and autism assessment, adult and child psychiatry, and psychological therapy without an NHS waiting list. Home to Prof Dr Ömer Geçici (psychiatry), Dr Hava Drummond and psychologist Eda Ertürk.",
+    "address": {
+      "line1": "154 Bishopsgate",
+      "city": "London",
+      "postcode": "EC2M 4LN",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5178, "lng": -0.0805 },
+    "contact": {
+      "phone": "+44 7761 931518",
+      "website": "https://psikologlondra.com"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": ["spec-psychiatry", "spec-cbt", "spec-child-psychology"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5178,-0.0805",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-80-kensington-dental-clinic",
+    "slug": "80-kensington-dental-clinic",
+    "type": "clinic",
+    "name": "80 Kensington Dental Clinic",
+    "description": "An NHS and private dental practice above High Street Kensington, offering dental implants and general dentistry.",
+    "address": {
+      "line1": "80 Kensington High Street",
+      "city": "London",
+      "postcode": "W8 4SG",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5, "lng": -0.192 },
+    "contact": {
+      "phone": "+44 20 7938 2833",
+      "website": "https://www.kensingtondentalclinic.co.uk"
+    },
+    "openingHours": [
+      { "day": "monday", "opens": "09:00", "closes": "18:00", "closed": false },
+      {
+        "day": "tuesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "wednesday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      {
+        "day": "thursday",
+        "opens": "09:00",
+        "closes": "18:00",
+        "closed": false
+      },
+      { "day": "friday", "opens": "09:00", "closes": "18:00", "closed": false },
+      { "day": "saturday", "closed": true },
+      { "day": "sunday", "closed": true }
+    ],
+    "nhsStatus": "both",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-general-dentistry", "spec-oral-surgery"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5000,-0.1920",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-beckenham-dental-centre",
+    "slug": "beckenham-dental-centre",
+    "type": "clinic",
+    "name": "Beckenham Dental Centre",
+    "description": "An NHS and private dental practice in Beckenham, recommended within the Turkish-speaking community for weekend emergency appointments.",
+    "address": {
+      "line1": "14 Bromley Road",
+      "city": "Beckenham",
+      "postcode": "BR3 5JE",
+      "region": "Kent",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.4085, "lng": -0.0245 },
+    "contact": {
+      "phone": "+44 20 8650 1209",
+      "website": "https://www.beckenhamdentist.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "both",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-general-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4085,-0.0245",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-harley-street-dental-studio",
+    "slug": "harley-street-dental-studio",
+    "type": "clinic",
+    "name": "Harley Street Dental Studio",
+    "description": "A private cosmetic dentistry practice on Harley Street led by Dr Adam Thorne. Not Turkish-run, but praised within the community's WhatsApp group.",
+    "address": {
+      "line1": "52 Harley Street",
+      "city": "London",
+      "postcode": "W1G 9PY",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5198, "lng": -0.1478 },
+    "contact": {
+      "website": "https://www.harleystreetdentalstudio.com"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": [],
+    "specialityIds": ["spec-cosmetic-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5198,-0.1478",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-sweetcroft-dental-practice",
+    "slug": "sweetcroft-dental-practice",
+    "type": "clinic",
+    "name": "Sweetcroft Dental Practice",
+    "description": "An NHS and private dental practice in Hillingdon, recommended within the Turkish-speaking community for family dentistry and pricing.",
+    "address": {
+      "line1": "267 Long Lane",
+      "city": "Uxbridge",
+      "postcode": "UB10 9JR",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5455, "lng": -0.4685 },
+    "contact": {
+      "phone": "+44 1895 232733",
+      "website": "https://sweetcroftdental.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "both",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-general-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5455,-0.4685",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-dental-beauty-islington",
+    "slug": "dental-beauty-islington",
+    "type": "clinic",
+    "name": "Dental Beauty Islington",
+    "description": "An NHS and private dental practice on Upper Street, offering general, cosmetic and preventive dentistry. Recommended in the community's WhatsApp group.",
+    "address": {
+      "line1": "103-104 Upper Street",
+      "city": "London",
+      "postcode": "N1 1QN",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.5395, "lng": -0.1035 },
+    "contact": {
+      "phone": "+44 20 7359 6103",
+      "email": "info@dentalbeautyislington.co.uk",
+      "website": "https://dentalbeautyislington.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "both",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": ["ins-nhs"],
+    "specialityIds": ["spec-general-dentistry", "spec-cosmetic-dentistry"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5395,-0.1035",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-circumcision-clinic-london",
+    "slug": "circumcision-clinic-london",
+    "type": "clinic",
+    "name": "Circumcision Clinic London",
+    "description": "A CQC-registered private clinic in Surbiton led by Mr Anwar Khan FRCS (Edin), who has performed over 25,000 circumcision procedures for infants, children and adults.",
+    "address": {
+      "line1": "Ground Floor, Transcend Consulting Rooms, 65 Warren Drive",
+      "city": "Surbiton",
+      "postcode": "KT5 9LG",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.3865, "lng": -0.2895 },
+    "contact": {
+      "website": "https://circumcisioncliniclondon.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": [],
+    "specialityIds": ["spec-circumcision"],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.3865,-0.2895",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-wellzone-clinics",
+    "slug": "wellzone-clinics",
+    "type": "clinic",
+    "name": "WellZone Clinics",
+    "description": "A GP and specialist clinic in Bermondsey, mentioned within the community's WhatsApp group. Address approximate — not independently verified.",
+    "address": {
+      "line1": "Bermondsey",
+      "city": "London",
+      "postcode": "SE16",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.4975, "lng": -0.0805 },
+    "contact": {},
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en"],
+    "turkishSpeakingStaff": false,
+    "insuranceIds": [],
+    "specialityIds": [],
+    "images": [],
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "org-motherscan",
+    "slug": "motherscan",
+    "type": "clinic",
+    "name": "MotherScan",
+    "description": "A private pregnancy 3D/4D ultrasound clinic in Raynes Park (plus a Wimbledon location), repeatedly recommended within the Turkish-speaking community's WhatsApp group. Community sources name Turkish doctors \"Dr Hakan\" and \"Nesrin hanım\" as sonographers — surnames not independently confirmed.",
+    "address": {
+      "line1": "7 Approach Road",
+      "city": "London",
+      "postcode": "SW20 8BA",
+      "region": "Greater London",
+      "country": "United Kingdom"
+    },
+    "geo": { "lat": 51.404, "lng": -0.2335 },
+    "contact": {
+      "phone": "+44 7951 600202",
+      "email": "info@motherscan.co.uk",
+      "website": "https://motherscan.co.uk"
+    },
+    "openingHours": [],
+    "nhsStatus": "private",
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeakingStaff": true,
+    "insuranceIds": [],
+    "specialityIds": [],
+    "images": [],
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4040,-0.2335",
     "verified": true,
     "featured": false,
     "createdAt": "2026-07-16",

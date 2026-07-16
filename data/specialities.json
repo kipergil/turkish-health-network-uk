@@ -56,6 +56,27 @@
     "categories": ["doctor"]
   },
   {
+    "id": "spec-neurosurgery",
+    "slug": "neurosurgery",
+    "name": "Neurosurgery",
+    "description": "Surgical treatment of conditions affecting the brain, spine and nervous system.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-general-surgery",
+    "slug": "general-colorectal-surgery",
+    "name": "General & Colorectal Surgery",
+    "description": "Surgical treatment of colorectal conditions, cancers and general surgical needs.",
+    "categories": ["doctor"]
+  },
+  {
+    "id": "spec-circumcision",
+    "slug": "circumcision",
+    "name": "Circumcision",
+    "description": "Male circumcision for infants, children and adults.",
+    "categories": ["doctor"]
+  },
+  {
     "id": "spec-general-dentistry",
     "slug": "general-dentistry",
     "name": "General Dentistry",
@@ -144,6 +165,13 @@
     "slug": "post-surgical-rehabilitation",
     "name": "Post-Surgical Rehabilitation",
     "description": "Recovery support following surgery.",
+    "categories": ["physiotherapist"]
+  },
+  {
+    "id": "spec-pelvic-health",
+    "slug": "pelvic-health-physiotherapy",
+    "name": "Pelvic Health Physiotherapy",
+    "description": "Assessment and treatment of pelvic floor dysfunction for all genders and ages.",
     "categories": ["physiotherapist"]
   },
   {
