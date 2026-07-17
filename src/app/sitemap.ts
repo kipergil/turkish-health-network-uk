@@ -17,6 +17,7 @@ const STATIC_ROUTES = [
   "/insurance",
   "/about",
   "/nhs-doctors",
+  "/turkey-doctors",
   ...Object.values(PROVIDER_CATEGORY_ROUTES),
   ...Object.values(ORGANIZATION_TYPE_ROUTES),
 ].map((route) => (route.startsWith("/") || route === "" ? route : `/${route}`));

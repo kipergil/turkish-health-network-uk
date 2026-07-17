@@ -54,6 +54,12 @@ export const UTILITY_NAV_ITEMS: NavItem[] = [
     description: "Insurers accepted across the network",
   },
   {
+    label: "Recommended in Turkey",
+    href: "/turkey-doctors",
+    description:
+      "Doctors, dentists and clinics in Turkey recommended for treatment trips",
+  },
+  {
     label: "About",
     href: "/about",
     description: "About Turkish Health Network UK",

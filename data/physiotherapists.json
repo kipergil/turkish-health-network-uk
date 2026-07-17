@@ -1,1 +1,82 @@
-[]
+[
+  {
+    "id": "prv-elmas-court",
+    "slug": "elmas-court",
+    "category": "physiotherapist",
+    "name": "Elmas Court",
+    "title": "Ms",
+    "photoUrl": "",
+    "bio": "Specialist pelvic health physiotherapist for all genders and ages, working in the Pelvic Health Physiotherapy department at Chelsea and Westminster Hospital NHS Foundation Trust, and privately in the hospital's private wing on weekday evenings and Saturdays. Assesses and treats pelvic floor dysfunction, including for trans men and trans women, and is proficient in acupuncture for pelvic floor conditions. Active member of the community's WhatsApp group.",
+    "qualifications": ["BSc"],
+    "registrationBody": "HCPC",
+    "specialityIds": ["spec-pelvic-health"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "both",
+    "organizationIds": ["org-chelsea-westminster-hospital"],
+    "insuranceIds": [],
+    "openingHours": [],
+    "contact": {
+      "website": "https://www.allgenderspelvichealth.com"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.4835,-0.1815",
+    "verified": true,
+    "featured": true,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "prv-mizanur-rahman",
+    "slug": "mizanur-rahman",
+    "category": "physiotherapist",
+    "name": "Mizanur Rahman",
+    "title": "Mr",
+    "photoUrl": "",
+    "bio": "HCPC-registered physiotherapist at My Health & Wellbeing Clinic in Whitechapel, treating musculoskeletal conditions, sports injuries, post-surgical recovery, chronic pain and workplace ergonomics. Speaks English and Bengali (not Turkish), but is based at a clinic serving the Turkish-speaking community.",
+    "qualifications": [],
+    "registrationBody": "HCPC",
+    "specialityIds": [
+      "spec-msk-physiotherapy",
+      "spec-sports-injury",
+      "spec-post-surgical-rehab"
+    ],
+    "languagesSpoken": ["en"],
+    "turkishSpeaking": false,
+    "nhsStatus": "private",
+    "organizationIds": ["org-mhw-clinic"],
+    "insuranceIds": [],
+    "openingHours": [],
+    "contact": {
+      "website": "https://towerbridgehospital.co.uk/mizanur-rahman/"
+    },
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=51.5175,-0.0650",
+    "verified": true,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  },
+  {
+    "id": "prv-esin-anlas-atli",
+    "slug": "esin-anlas-atli",
+    "category": "physiotherapist",
+    "name": "Esin Anlaş Atlı",
+    "title": "Dr. Fzt.",
+    "photoUrl": "",
+    "bio": "Physiotherapist self-introduced within the community's WhatsApp group, offering treatment for back and neck pain, lymphoedema massage, dry needling, stroke rehabilitation and hacamat (cupping). Practice location not published by source.",
+    "qualifications": [],
+    "specialityIds": ["spec-msk-physiotherapy", "spec-post-surgical-rehab"],
+    "languagesSpoken": ["en", "tr"],
+    "turkishSpeaking": true,
+    "nhsStatus": "private",
+    "organizationIds": [],
+    "insuranceIds": [],
+    "openingHours": [],
+    "contact": {
+      "phone": "+44 7340 033828"
+    },
+    "verified": false,
+    "featured": false,
+    "createdAt": "2026-07-16",
+    "updatedAt": "2026-07-16"
+  }
+]
