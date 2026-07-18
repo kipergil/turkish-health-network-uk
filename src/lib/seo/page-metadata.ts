@@ -13,7 +13,7 @@ export function providerCategoryMetadata(category: ProviderCategory): Metadata {
   const plural = PROVIDER_CATEGORY_PLURAL_LABELS[category];
   return {
     title: plural,
-    description: `Find Turkish, Kurdish and Cypriot-speaking ${PROVIDER_CATEGORY_LABELS[category].toLowerCase()}s across the UK. Filter by speciality, NHS or private status, language and insurance.`,
+    description: `Find Turkish-speaking ${PROVIDER_CATEGORY_LABELS[category].toLowerCase()}s across the UK. Filter by speciality, NHS or private status, language and insurance.`,
   };
 }
 

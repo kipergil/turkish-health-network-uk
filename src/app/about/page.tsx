@@ -44,8 +44,8 @@ export default function AboutPage() {
         About {SITE_NAME}
       </h1>
       <p className="text-muted-foreground mt-4">
-        {SITE_NAME} helps Turkish, Kurdish and Cypriot-speaking people across
-        the UK find healthcare providers who speak their language — doctors,
+        {SITE_NAME} helps Turkish-speaking people across the UK find
+        healthcare providers who speak their language — doctors,
         dentists, psychologists, physiotherapists, dietitians, clinics,
         hospitals and pharmacies — whether they need NHS or private care.
       </p>

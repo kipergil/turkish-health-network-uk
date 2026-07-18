@@ -19,7 +19,7 @@ import {
 export const metadata: Metadata = {
   title: "NHS Doctors",
   description:
-    "Find Turkish, Kurdish and Cypriot-speaking doctors accepting NHS patients across the UK.",
+    "Find Turkish-speaking doctors accepting NHS patients across the UK.",
 };
 
 export default async function NhsDoctorsPage({

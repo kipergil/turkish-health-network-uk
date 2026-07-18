@@ -6,7 +6,6 @@
 export const LANGUAGE_CODES = [
   "en",
   "tr",
-  "ku",
   "ar",
   "el",
   "bg",
@@ -21,7 +20,6 @@ export type LanguageCode = (typeof LANGUAGE_CODES)[number];
 export const LANGUAGE_LABELS: Record<LanguageCode, string> = {
   en: "English",
   tr: "Turkish",
-  ku: "Kurdish",
   ar: "Arabic",
   el: "Greek",
   bg: "Bulgarian",
