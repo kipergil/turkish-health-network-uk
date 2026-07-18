@@ -18,7 +18,7 @@ export function OrganizationCard({
   const href = `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`;
 
   return (
-    <Card className="h-full transition-shadow hover:shadow-md">
+    <Card className="hover:border-primary/30 h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
           <Building2

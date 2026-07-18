@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HeartPulse } from "lucide-react";
 import {
   PROVIDER_NAV_ITEMS,
   ORGANIZATION_NAV_ITEMS,
@@ -11,23 +12,47 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-border bg-muted/30 border-t">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-4">
+    <footer className="border-border from-muted/40 to-muted/70 border-t bg-gradient-to-b">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div>
-          <p className="font-semibold">{SITE_NAME}</p>
-          <p className="text-muted-foreground mt-2 text-sm">{SITE_TAGLINE}</p>
+          <Link href="/" className="inline-flex items-center gap-2.5">
+            <span className="from-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg bg-gradient-to-br to-blue-700 dark:to-blue-900">
+              <HeartPulse className="size-4.5" aria-hidden="true" />
+            </span>
+            <span className="font-semibold tracking-tight">{SITE_NAME}</span>
+          </Link>
+          <p className="text-muted-foreground mt-3 max-w-xs text-sm">
+            {SITE_TAGLINE}
+          </p>
+          <p className="text-muted-foreground mt-4 text-xs">
+            Medical emergency? Call{" "}
+            <a
+              href="tel:999"
+              className="text-primary font-medium hover:underline"
+            >
+              999
+            </a>
+            . Non-emergency NHS advice:{" "}
+            <a
+              href="tel:111"
+              className="text-primary font-medium hover:underline"
+            >
+              111
+            </a>
+            .
+          </p>
         </div>
 
         <nav aria-label="Practitioners">
           <h2 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Practitioners
           </h2>
-          <ul className="mt-3 space-y-2 text-sm">
+          <ul className="mt-3 space-y-2.5 text-sm">
             {PROVIDER_NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -36,7 +61,7 @@ export function SiteFooter() {
             <li>
               <Link
                 href={NHS_DOCTORS_NAV_ITEM.href}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 {NHS_DOCTORS_NAV_ITEM.label}
               </Link>
@@ -48,12 +73,12 @@ export function SiteFooter() {
           <h2 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Places
           </h2>
-          <ul className="mt-3 space-y-2 text-sm">
+          <ul className="mt-3 space-y-2.5 text-sm">
             {ORGANIZATION_NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Link>
@@ -66,12 +91,12 @@ export function SiteFooter() {
           <h2 className="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
             Explore
           </h2>
-          <ul className="mt-3 space-y-2 text-sm">
+          <ul className="mt-3 space-y-2.5 text-sm">
             {UTILITY_NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
                 </Link>
