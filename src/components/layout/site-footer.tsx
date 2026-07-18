@@ -108,21 +108,33 @@ export function SiteFooter() {
 
       <div className="border-border border-t px-4 py-4 sm:px-6">
         <div className="mx-auto flex max-w-6xl flex-col gap-3">
-          <p className="border-primary/20 bg-primary/5 text-foreground flex items-start gap-2.5 rounded-lg border px-3.5 py-3 text-xs leading-relaxed">
+          <div className="border-primary/20 bg-primary/5 text-foreground flex items-start gap-2.5 rounded-lg border px-3.5 py-3 text-xs leading-relaxed">
             <Info
               className="text-primary mt-0.5 size-4 shrink-0"
               aria-hidden="true"
             />
-            <span>
-              Bu sitede yer alan bilgiler yapay zekâ (AI) desteğiyle
-              derlenmiştir ve yalnızca genel bilgilendirme amacı taşır. Randevu
-              almadan veya herhangi bir sağlık hizmetinden yararlanmadan önce,
-              lütfen ilgili doktor, klinik, hastane veya kurumla doğrudan
-              iletişime geçerek bilgilerin doğruluğunu ve güncelliğini teyit
-              ediniz. {SITE_NAME}, sitede yer alan bilgilerin doğruluğundan,
-              eksiksizliğinden veya güncelliğinden sorumlu tutulamaz.
-            </span>
-          </p>
+            <div className="space-y-2">
+              <p>
+                Bu sitede yer alan bilgiler yapay zekâ (AI) desteğiyle
+                derlenmiştir ve yalnızca genel bilgilendirme amacı taşır.
+                Randevu almadan veya herhangi bir sağlık hizmetinden
+                yararlanmadan önce, lütfen ilgili doktor, klinik, hastane veya
+                kurumla doğrudan iletişime geçerek bilgilerin doğruluğunu ve
+                güncelliğini teyit ediniz. {SITE_NAME}, sitede yer alan
+                bilgilerin doğruluğundan, eksiksizliğinden veya güncelliğinden
+                sorumlu tutulamaz.
+              </p>
+              <p className="border-primary/15 border-t pt-2">
+                The information on this site has been compiled with the help of
+                AI and is provided for general informational purposes only.
+                Before booking an appointment or using any healthcare service,
+                please contact the relevant doctor, clinic, hospital or
+                organisation directly to confirm its accuracy and currency.{" "}
+                {SITE_NAME} accepts no responsibility for the accuracy,
+                completeness or currency of this information.
+              </p>
+            </div>
+          </div>
           <p className="text-muted-foreground text-xs">
             © {year} {SITE_NAME}. Community-maintained, open-source directory.
           </p>
