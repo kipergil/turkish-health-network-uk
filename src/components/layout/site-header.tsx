@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeartPulse, Menu, Phone, Search as SearchIcon } from "lucide-react";
+import { HeartPulse, Menu, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -68,13 +68,9 @@ export function SiteHeader() {
           />
         </nav>
 
-        <div className="flex items-center gap-1">
-          <Button variant="ghost" size="icon" className="md:hidden" asChild>
-            <Link href="/search" aria-label="Search">
-              <SearchIcon className="size-4.5" aria-hidden="true" />
-            </Link>
-          </Button>
+        <QuickSearchForm compact className="hidden md:flex md:w-48 lg:w-64" />
 
+        <div className="flex items-center gap-1">
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -100,9 +96,7 @@ export function SiteHeader() {
               </SheetHeader>
 
               <div className="flex-1 overflow-y-auto px-4 py-4">
-                <QuickSearchForm />
-
-                <p className="text-muted-foreground mt-6 mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
+                <p className="text-muted-foreground mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
                   Directory
                 </p>
                 <nav
@@ -169,6 +163,10 @@ export function SiteHeader() {
             </SheetContent>
           </Sheet>
         </div>
+      </div>
+
+      <div className="border-border border-t px-4 py-2 md:hidden">
+        <QuickSearchForm compact />
       </div>
     </header>
   );

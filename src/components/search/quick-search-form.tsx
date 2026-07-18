@@ -5,8 +5,15 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export function QuickSearchForm() {
+export function QuickSearchForm({
+  className,
+  compact = false,
+}: {
+  className?: string;
+  compact?: boolean;
+}) {
   const router = useRouter();
   const [value, setValue] = useState("");
 
@@ -20,7 +27,11 @@ export function QuickSearchForm() {
           query ? `/search?q=${encodeURIComponent(query)}` : "/search",
         );
       }}
-      className="flex w-full max-w-xl items-center gap-2"
+      className={cn(
+        "flex w-full items-center gap-2",
+        compact ? "max-w-none" : "max-w-xl",
+        className,
+      )}
     >
       <div className="relative flex-1">
         <Search
@@ -31,12 +42,20 @@ export function QuickSearchForm() {
           type="search"
           value={value}
           onChange={(event) => setValue(event.target.value)}
-          placeholder="Search doctors, dentists, clinics…"
+          placeholder={
+            compact ? "Search…" : "Search doctors, dentists, clinics…"
+          }
           aria-label="Search the Turkish Health Network directory"
           className="pl-9"
         />
       </div>
-      <Button type="submit">Search</Button>
+      {compact ? (
+        <Button type="submit" size="icon" variant="ghost" aria-label="Search">
+          <Search className="size-4" aria-hidden="true" />
+        </Button>
+      ) : (
+        <Button type="submit">Search</Button>
+      )}
     </form>
   );
 }
