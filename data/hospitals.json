@@ -4,7 +4,7 @@
     "slug": "north-middlesex-university-hospital",
     "type": "hospital",
     "name": "North Middlesex University Hospital",
-    "description": "An NHS general hospital in Edmonton providing emergency care, inpatient and outpatient services to North London, including the Haringey and Enfield areas with significant Turkish, Kurdish and Cypriot communities.",
+    "description": "An NHS general hospital in Edmonton providing emergency care, inpatient and outpatient services to North London, including the Haringey and Enfield areas with a significant Turkish community.",
     "address": {
       "line1": "Sterling Way",
       "city": "London",
@@ -26,7 +26,7 @@
       { "day": "sunday", "closed": false }
     ],
     "nhsStatus": "nhs",
-    "languagesSpoken": ["en", "tr", "ku"],
+    "languagesSpoken": ["en", "tr"],
     "turkishSpeakingStaff": true,
     "insuranceIds": ["ins-nhs"],
     "specialityIds": [],

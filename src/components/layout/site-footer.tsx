@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeartPulse } from "lucide-react";
+import { HeartPulse, Info } from "lucide-react";
 import {
   PROVIDER_NAV_ITEMS,
   ORGANIZATION_NAV_ITEMS,
@@ -107,11 +107,26 @@ export function SiteFooter() {
       </div>
 
       <div className="border-border border-t px-4 py-4 sm:px-6">
-        <p className="text-muted-foreground mx-auto max-w-6xl text-xs">
-          © {year} {SITE_NAME}. Community-maintained, open-source directory.
-          Always verify NHS registration and appointment availability directly
-          with the provider.
-        </p>
+        <div className="mx-auto flex max-w-6xl flex-col gap-3">
+          <p className="border-primary/20 bg-primary/5 text-foreground flex items-start gap-2.5 rounded-lg border px-3.5 py-3 text-xs leading-relaxed">
+            <Info
+              className="text-primary mt-0.5 size-4 shrink-0"
+              aria-hidden="true"
+            />
+            <span>
+              Bu sitede yer alan bilgiler yapay zekâ (AI) desteğiyle
+              derlenmiştir ve yalnızca genel bilgilendirme amacı taşır. Randevu
+              almadan veya herhangi bir sağlık hizmetinden yararlanmadan önce,
+              lütfen ilgili doktor, klinik, hastane veya kurumla doğrudan
+              iletişime geçerek bilgilerin doğruluğunu ve güncelliğini teyit
+              ediniz. {SITE_NAME}, sitede yer alan bilgilerin doğruluğundan,
+              eksiksizliğinden veya güncelliğinden sorumlu tutulamaz.
+            </span>
+          </p>
+          <p className="text-muted-foreground text-xs">
+            © {year} {SITE_NAME}. Community-maintained, open-source directory.
+          </p>
+        </div>
       </div>
     </footer>
   );

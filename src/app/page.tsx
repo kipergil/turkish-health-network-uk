@@ -64,7 +64,7 @@ export default async function HomePage() {
           <div className="animate-fade-up">
             <span className="border-primary/20 bg-primary/10 text-primary inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
               <Sparkles className="size-3.5" aria-hidden="true" />
-              Turkish · Kurdish · Cypriot-speaking care
+              Turkish-speaking care
             </span>
 
             <h1 className="mt-4 max-w-2xl text-4xl font-bold tracking-tight text-balance sm:text-5xl">

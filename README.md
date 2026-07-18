@@ -1,6 +1,6 @@
 # Turkish Health Network UK
 
-A directory of Turkish, Kurdish and Cypriot-speaking healthcare providers across the United
+A directory of Turkish-speaking healthcare providers across the United
 Kingdom — doctors, dentists, psychologists, physiotherapists, dietitians, clinics, hospitals and
 pharmacies. Search by language, NHS/private status, speciality, insurance and location, or find
 what's nearby on an interactive map.

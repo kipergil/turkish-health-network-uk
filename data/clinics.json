@@ -76,7 +76,7 @@
     "slug": "medplus-clinic",
     "type": "clinic",
     "name": "Medplus Clinic",
-    "description": "A private GP and dermatology clinic in Enfield offering diagnostics alongside general practice, serving the Turkish and Kurdish communities of North London.",
+    "description": "A private GP and dermatology clinic in Enfield offering diagnostics alongside general practice, serving the Turkish community of North London.",
     "address": {
       "line1": "175 Fore Street",
       "city": "London",
@@ -533,7 +533,7 @@
     "slug": "derman",
     "type": "clinic",
     "name": "DERMAN",
-    "description": "A registered charity (est. 1991) for the well-being of the Kurdish and Turkish communities in London, providing free counselling, psychotherapy, IAPT talking therapies, mental health recovery support groups, and interpreting/advocacy within GP surgeries across 12 sites in Hackney and beyond. Services are free regardless of political, ethnic or religious background.",
+    "description": "A registered charity (est. 1991) for the well-being of the Turkish community in London, providing free counselling, psychotherapy, IAPT talking therapies, mental health recovery support groups, and interpreting/advocacy within GP surgeries across 12 sites in Hackney and beyond. Services are free regardless of political, ethnic or religious background.",
     "address": {
       "line1": "1st Floor, 66 New North Road",
       "city": "London",
@@ -549,7 +549,7 @@
     },
     "openingHours": [],
     "nhsStatus": "nhs",
-    "languagesSpoken": ["en", "tr", "ku"],
+    "languagesSpoken": ["en", "tr"],
     "turkishSpeakingStaff": true,
     "insuranceIds": ["ins-nhs"],
     "specialityIds": ["spec-cbt", "spec-trauma-ptsd", "spec-family-therapy"],
