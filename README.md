@@ -163,6 +163,11 @@ To bootstrap or refresh the original researched UK dataset, edit the relevant fi
 and re-run `pnpm directus:seed` — it's idempotent and only creates ids that don't already exist in
 Directus, so hand edits made afterwards in the Data Studio are never overwritten.
 
+If this app's Directus instance is shared with other projects, `pnpm directus:apply-schema` nests
+every collection this app owns under a single **"health"** folder in the Data Studio sidebar
+(a folder-only collection, no table) so it doesn't mix into a shared, flat collection list. Re-run
+it any time to re-apply the grouping — it's a no-op if a collection is already grouped correctly.
+
 ## Authentication & member features
 
 Sign-in is handled by Clerk (`@clerk/nextjs`) and gates three optional features — the directory

@@ -9,10 +9,21 @@ import {
   createDirectus,
   createCollection,
   readCollections,
+  updateCollection,
   rest,
   staticToken,
 } from "@directus/sdk";
 import type { NestedPartial, DirectusField } from "@directus/sdk";
+
+/**
+ * This Directus instance is shared with other apps (their collections are
+ * grouped separately in the Data Studio nav). "health" is a folder-only
+ * collection (no table — `schema: null`) that nests every collection below
+ * under one entry in the sidebar so it doesn't mix into the shared list.
+ */
+const GROUP_NAME = "health";
+const GROUP_NOTE =
+  "Turkish Health Network UK — directory + member-feature collections";
 
 const DIRECTUS_URL = process.env.DIRECTUS_URL;
 const DIRECTUS_TOKEN = process.env.DIRECTUS_TOKEN;
@@ -262,21 +273,39 @@ async function main() {
   const existing = await directus.request(readCollections());
   const existingNames = new Set(existing.map((c) => c.collection));
 
+  if (!existingNames.has(GROUP_NAME)) {
+    await directus.request(
+      createCollection({
+        collection: GROUP_NAME,
+        meta: { note: GROUP_NOTE, icon: "medical_services" },
+        schema: null,
+      }),
+    );
+    console.log(`+ created "${GROUP_NAME}" collection group`);
+  } else {
+    console.log(`= "${GROUP_NAME}" collection group already exists`);
+  }
+
   for (const def of collections) {
     if (existingNames.has(def.collection)) {
-      console.log(`= ${def.collection} already exists, skipping`);
+      await directus.request(
+        updateCollection(def.collection, { meta: { group: GROUP_NAME } }),
+      );
+      console.log(
+        `= ${def.collection} already exists, grouped under "${GROUP_NAME}"`,
+      );
       continue;
     }
 
     await directus.request(
       createCollection({
         collection: def.collection,
-        meta: { note: def.note },
+        meta: { note: def.note, group: GROUP_NAME },
         schema: { name: def.collection, comment: def.note },
         fields: def.fields,
       }),
     );
-    console.log(`+ created ${def.collection}`);
+    console.log(`+ created ${def.collection} (grouped under "${GROUP_NAME}")`);
   }
 
   console.log("Schema apply complete.");
