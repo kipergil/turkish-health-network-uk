@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -46,8 +46,18 @@ export function QuickSearchForm({
             compact ? "Search…" : "Search doctors, dentists, clinics…"
           }
           aria-label="Search the Turkish Health Network directory"
-          className="pl-9"
+          className={cn("pl-9", value.length > 0 && "pr-8")}
         />
+        {value.length > 0 && (
+          <button
+            type="button"
+            onClick={() => setValue("")}
+            aria-label="Clear search"
+            className="text-muted-foreground hover:text-foreground focus-visible:ring-ring/50 absolute top-1/2 right-2 -translate-y-1/2 rounded p-0.5 focus-visible:ring-2 focus-visible:outline-none"
+          >
+            <X className="size-4" aria-hidden="true" />
+          </button>
+        )}
       </div>
       {compact ? (
         <Button type="submit" size="icon" variant="ghost" aria-label="Search">

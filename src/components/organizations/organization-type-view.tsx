@@ -1,12 +1,16 @@
 import { DirectoryFilters } from "@/components/filters/directory-filters";
+import { FiltersDisclosure } from "@/components/filters/filters-disclosure";
 import { OrganizationCard } from "@/components/organizations/organization-card";
 import { EmptyState } from "@/components/shared/empty-state";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
+import { ResultsView } from "@/components/shared/results-view";
+import type { MapEntry } from "@/components/map/network-map";
 import {
   getAllInsurances,
   getOrganizationsByType,
   getAllSpecialities,
 } from "@/lib/data";
+import { getDirectoryEntries } from "@/lib/directory";
 import {
   ORGANIZATION_TYPE_PLURAL_LABELS,
   type OrganizationType,
@@ -25,11 +29,13 @@ export async function OrganizationTypeView({
   type: OrganizationType;
   searchParams: SearchParamsInput;
 }) {
-  const [organizations, specialities, insurances] = await Promise.all([
-    getOrganizationsByType(type),
-    getAllSpecialities(),
-    getAllInsurances(),
-  ]);
+  const [organizations, specialities, insurances, directoryEntries] =
+    await Promise.all([
+      getOrganizationsByType(type),
+      getAllSpecialities(),
+      getAllInsurances(),
+      getDirectoryEntries(),
+    ]);
 
   const filters = parseDirectoryFilters(searchParams);
   const filtered = filterOrganizations(
@@ -38,6 +44,24 @@ export async function OrganizationTypeView({
     specialities,
     insurances,
   );
+
+  const filteredIds = new Set(filtered.map((organization) => organization.id));
+  const mapEntries: MapEntry[] = directoryEntries
+    .filter(
+      (entry): entry is typeof entry & { geo: NonNullable<typeof entry.geo> } =>
+        entry.kind === "organization" &&
+        filteredIds.has(entry.id) &&
+        entry.geo !== undefined,
+    )
+    .map((entry) => ({
+      id: entry.id,
+      kind: entry.kind,
+      name: entry.name,
+      href: entry.href,
+      categoryLabel: entry.categoryLabel,
+      geo: entry.geo,
+    }));
+
   const pluralLabel = ORGANIZATION_TYPE_PLURAL_LABELS[type];
 
   return (
@@ -52,13 +76,15 @@ export async function OrganizationTypeView({
       </p>
 
       <div className="mt-6">
-        <DirectoryFilters
-          insuranceOptions={insurances.map((i) => ({
-            slug: i.slug,
-            name: i.name,
-          }))}
-          languageOptions={[...LANGUAGE_CODES]}
-        />
+        <FiltersDisclosure>
+          <DirectoryFilters
+            insuranceOptions={insurances.map((i) => ({
+              slug: i.slug,
+              name: i.name,
+            }))}
+            languageOptions={[...LANGUAGE_CODES]}
+          />
+        </FiltersDisclosure>
       </div>
 
       <p className="text-muted-foreground mt-4 text-sm" role="status">
@@ -70,13 +96,17 @@ export async function OrganizationTypeView({
           <EmptyState />
         </div>
       ) : (
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {filtered.map((organization) => (
-            <OrganizationCard
-              key={organization.id}
-              organization={organization}
-            />
-          ))}
+        <div className="mt-4">
+          <ResultsView mapEntries={mapEntries} totalCount={filtered.length}>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {filtered.map((organization) => (
+                <OrganizationCard
+                  key={organization.id}
+                  organization={organization}
+                />
+              ))}
+            </div>
+          </ResultsView>
         </div>
       )}
     </div>
