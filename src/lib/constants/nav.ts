@@ -14,6 +14,8 @@ import {
   ShieldCheck,
   Plane,
   Info,
+  Heart,
+  FilePlus,
 } from "lucide-react";
 import {
   PROVIDER_CATEGORIES,
@@ -109,6 +111,23 @@ export const UTILITY_NAV_ITEMS: NavItem[] = [
     href: "/about",
     description: "About Turkish Health Network UK",
     icon: Info,
+  },
+];
+
+/** Clerk-gated member features — kept separate from UTILITY_NAV_ITEMS since
+ * these require signing in, not just content categories. */
+export const MEMBER_NAV_ITEMS: NavItem[] = [
+  {
+    label: "Favorites",
+    href: "/favorites",
+    description: "Providers and organizations you've saved",
+    icon: Heart,
+  },
+  {
+    label: "Suggest a listing",
+    href: "/suggest",
+    description: "Suggest a doctor, clinic or organization to add",
+    icon: FilePlus,
   },
 ];
 

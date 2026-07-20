@@ -18,7 +18,12 @@ import {
 } from "@/components/ui/sheet";
 import { QuickSearchForm } from "@/components/search/quick-search-form";
 import { PrimaryNavLinks } from "@/components/layout/primary-nav-links";
-import { DIRECTORY_NAV_ITEMS, UTILITY_NAV_ITEMS } from "@/lib/constants/nav";
+import { UserMenu } from "@/components/layout/user-menu";
+import {
+  DIRECTORY_NAV_ITEMS,
+  MEMBER_NAV_ITEMS,
+  UTILITY_NAV_ITEMS,
+} from "@/lib/constants/nav";
 import { SITE_NAME } from "@/lib/constants/site";
 
 export function SiteHeader() {
@@ -70,7 +75,9 @@ export function SiteHeader() {
 
         <QuickSearchForm compact className="hidden md:flex md:w-48 lg:w-64" />
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
+          <UserMenu />
+
           <Sheet>
             <SheetTrigger asChild>
               <Button
@@ -124,6 +131,26 @@ export function SiteHeader() {
                 </p>
                 <nav aria-label="Explore" className="flex flex-col gap-0.5">
                   {UTILITY_NAV_ITEMS.map((item) => (
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="hover:bg-accent focus-visible:ring-ring/50 flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:outline-none"
+                      >
+                        <item.icon
+                          className="text-muted-foreground size-4.5"
+                          aria-hidden="true"
+                        />
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </nav>
+
+                <p className="text-muted-foreground mt-6 mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
+                  Your account
+                </p>
+                <nav aria-label="Account" className="flex flex-col gap-0.5">
+                  {MEMBER_NAV_ITEMS.map((item) => (
                     <SheetClose asChild key={item.href}>
                       <Link
                         href={item.href}

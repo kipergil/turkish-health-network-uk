@@ -1,25 +1,29 @@
 import "server-only";
-import specialitiesJson from "@data/specialities.json";
+import { cache } from "react";
+import { readItems } from "@directus/sdk";
+import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import { specialitiesFileSchema, type Speciality } from "@/lib/schemas";
 import type { ProviderCategory } from "@/lib/constants/categories";
 
 /**
- * Repository for specialities. Currently reads a static JSON file; once a
- * database is introduced this module is the only place that needs to
- * change (e.g. to `prisma.speciality.findMany()`) — callers throughout the
- * app only ever import from `@/lib/data/*`.
+ * Repository for specialities, now backed by Directus. `cache()` dedupes
+ * the fetch within a single render pass — each request re-fetches from
+ * Directus rather than holding the array in memory indefinitely the way
+ * the old JSON-backed module-scope constant did.
  */
-export const allSpecialities: Speciality[] =
-  specialitiesFileSchema.parse(specialitiesJson);
-
-export async function getAllSpecialities(): Promise<Speciality[]> {
-  return allSpecialities;
-}
+export const getAllSpecialities = cache(async (): Promise<Speciality[]> => {
+  const items = await directus.request(
+    readItems("specialities", { limit: -1 }),
+  );
+  return specialitiesFileSchema.parse(stripNulls(items));
+});
 
 export async function getSpecialitiesByCategory(
   category: ProviderCategory,
 ): Promise<Speciality[]> {
-  return allSpecialities.filter((speciality) =>
+  const specialities = await getAllSpecialities();
+  return specialities.filter((speciality) =>
     speciality.categories.includes(category),
   );
 }
@@ -27,12 +31,14 @@ export async function getSpecialitiesByCategory(
 export async function getSpecialityBySlug(
   slug: string,
 ): Promise<Speciality | undefined> {
-  return allSpecialities.find((speciality) => speciality.slug === slug);
+  const specialities = await getAllSpecialities();
+  return specialities.find((speciality) => speciality.slug === slug);
 }
 
 export async function getSpecialitiesByIds(
   ids: readonly string[],
 ): Promise<Speciality[]> {
+  const specialities = await getAllSpecialities();
   const idSet = new Set(ids);
-  return allSpecialities.filter((speciality) => idSet.has(speciality.id));
+  return specialities.filter((speciality) => idSet.has(speciality.id));
 }

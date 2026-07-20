@@ -1,26 +1,33 @@
 import "server-only";
-import turkeyReferralsJson from "@data/turkey-referrals.json";
+import { cache } from "react";
+import { readItems } from "@directus/sdk";
+import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import {
   turkeyReferralsFileSchema,
   type TurkeyReferral,
   type TurkeyReferralKind,
 } from "@/lib/schemas";
 
-const allTurkeyReferrals: TurkeyReferral[] =
-  turkeyReferralsFileSchema.parse(turkeyReferralsJson);
-
-export async function getAllTurkeyReferrals(): Promise<TurkeyReferral[]> {
-  return allTurkeyReferrals;
-}
+export const getAllTurkeyReferrals = cache(
+  async (): Promise<TurkeyReferral[]> => {
+    const items = await directus.request(
+      readItems("turkey_referrals", { limit: -1 }),
+    );
+    return turkeyReferralsFileSchema.parse(stripNulls(items));
+  },
+);
 
 export async function getTurkeyReferralsByKind(
   kind: TurkeyReferralKind,
 ): Promise<TurkeyReferral[]> {
-  return allTurkeyReferrals.filter((referral) => referral.kind === kind);
+  const referrals = await getAllTurkeyReferrals();
+  return referrals.filter((referral) => referral.kind === kind);
 }
 
 export async function getTurkeyReferralBySlug(
   slug: string,
 ): Promise<TurkeyReferral | undefined> {
-  return allTurkeyReferrals.find((referral) => referral.slug === slug);
+  const referrals = await getAllTurkeyReferrals();
+  return referrals.find((referral) => referral.slug === slug);
 }

@@ -1,8 +1,10 @@
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
+import { FavoriteButton } from "@/components/shared/favorite-button";
 import {
   GoogleMapsDirectionsLink,
   GoogleMapsLink,
@@ -13,12 +15,16 @@ import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { ProviderCard } from "@/components/providers/provider-card";
+import { ReviewForm } from "@/components/reviews/review-form";
+import { ReviewList } from "@/components/reviews/review-list";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   getAllInsurances,
   getOrganizationBySlug,
   getProvidersByOrganization,
+  getPublishedReviewsForSubject,
   getSpecialitiesByIds,
+  isFavorite,
 } from "@/lib/data";
 import {
   ORGANIZATION_TYPE_LABELS,
@@ -45,15 +51,21 @@ export async function OrganizationProfileView({
 }: {
   organization: Organization;
 }) {
-  const [specialities, insurances, providers] = await Promise.all([
-    getSpecialitiesByIds(organization.specialityIds),
-    getAllInsurances().then((all) =>
-      all.filter((insurance) =>
-        organization.insuranceIds.includes(insurance.id),
+  const { userId } = await auth();
+  const [specialities, insurances, providers, reviews, alreadyFavorited] =
+    await Promise.all([
+      getSpecialitiesByIds(organization.specialityIds),
+      getAllInsurances().then((all) =>
+        all.filter((insurance) =>
+          organization.insuranceIds.includes(insurance.id),
+        ),
       ),
-    ),
-    getProvidersByOrganization(organization.id),
-  ]);
+      getProvidersByOrganization(organization.id),
+      getPublishedReviewsForSubject("organization", organization.id),
+      userId ? isFavorite(userId, "organization", organization.id) : false,
+    ]);
+
+  const profilePath = `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -68,21 +80,30 @@ export async function OrganizationProfileView({
         ]}
       />
 
-      <div className="mt-4">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          {organization.name}
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          {ORGANIZATION_TYPE_LABELS[organization.type]} ·{" "}
-          {organization.address.city}
-        </p>
-        <div className="mt-2 flex flex-wrap items-center gap-1.5">
-          <NhsStatusBadge status={organization.nhsStatus} />
-          {organization.turkishSpeakingStaff ? <TurkishSpeakingBadge /> : null}
-          {organization.verified ? (
-            <Badge variant="secondary">Verified</Badge>
-          ) : null}
+      <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            {organization.name}
+          </h1>
+          <p className="text-muted-foreground mt-1">
+            {ORGANIZATION_TYPE_LABELS[organization.type]} ·{" "}
+            {organization.address.city}
+          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <NhsStatusBadge status={organization.nhsStatus} />
+            {organization.turkishSpeakingStaff ? (
+              <TurkishSpeakingBadge />
+            ) : null}
+            {organization.verified ? (
+              <Badge variant="secondary">Verified</Badge>
+            ) : null}
+          </div>
         </div>
+        <FavoriteButton
+          subjectKind="organization"
+          subjectId={organization.id}
+          initialFavorited={alreadyFavorited}
+        />
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-3">
@@ -164,6 +185,22 @@ export async function OrganizationProfileView({
               </div>
             </section>
           )}
+
+          <section aria-labelledby="reviews-heading">
+            <h2 id="reviews-heading" className="text-lg font-semibold">
+              Reviews
+            </h2>
+            <div className="mt-2">
+              <ReviewList reviews={reviews} />
+            </div>
+            <div className="mt-4">
+              <ReviewForm
+                subjectKind="organization"
+                subjectId={organization.id}
+                profilePath={profilePath}
+              />
+            </div>
+          </section>
         </div>
 
         <aside className="space-y-4">
