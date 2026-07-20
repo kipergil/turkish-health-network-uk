@@ -9,9 +9,13 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "directus:apply-schema": "tsx --env-file=.env.local scripts/directus/apply-schema.ts",
+    "directus:seed": "tsx --env-file=.env.local scripts/directus/seed.ts"
   },
   "dependencies": {
+    "@clerk/nextjs": "^7.5.20",
+    "@directus/sdk": "^23.0.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -39,6 +43,7 @@
     "prettier": "^3.9.5",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.1",
     "typescript": "^5"
   }
 }

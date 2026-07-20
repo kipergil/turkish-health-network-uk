@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
+import { auth } from "@clerk/nextjs/server";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
+import { FavoriteButton } from "@/components/shared/favorite-button";
 import {
   GoogleMapsDirectionsLink,
   GoogleMapsLink,
@@ -14,12 +16,16 @@ import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { OrganizationCard } from "@/components/organizations/organization-card";
+import { ReviewForm } from "@/components/reviews/review-form";
+import { ReviewList } from "@/components/reviews/review-list";
 import { JsonLd } from "@/components/seo/json-ld";
 import {
   getInsurancesByIds,
   getOrganizationsByIds,
   getProviderBySlug,
+  getPublishedReviewsForSubject,
   getSpecialitiesByIds,
+  isFavorite,
 } from "@/lib/data";
 import {
   PROVIDER_CATEGORY_LABELS,
@@ -47,13 +53,18 @@ export async function ProviderProfileView({
 }: {
   provider: Provider;
 }) {
-  const [specialities, insurances, organizations] = await Promise.all([
-    getSpecialitiesByIds(provider.specialityIds),
-    getInsurancesByIds(provider.insuranceIds),
-    getOrganizationsByIds(provider.organizationIds),
-  ]);
+  const { userId } = await auth();
+  const [specialities, insurances, organizations, reviews, alreadyFavorited] =
+    await Promise.all([
+      getSpecialitiesByIds(provider.specialityIds),
+      getInsurancesByIds(provider.insuranceIds),
+      getOrganizationsByIds(provider.organizationIds),
+      getPublishedReviewsForSubject("provider", provider.id),
+      userId ? isFavorite(userId, "provider", provider.id) : false,
+    ]);
 
   const primaryOrganization = organizations[0];
+  const profilePath = `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -68,33 +79,40 @@ export async function ProviderProfileView({
         ]}
       />
 
-      <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-        <Avatar className="size-20">
-          {provider.photoUrl ? (
-            <AvatarImage src={provider.photoUrl} alt="" />
-          ) : null}
-          <AvatarFallback className="bg-muted text-foreground text-xl font-medium">
-            {initialsFor(provider.name)}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            {provider.title} {provider.name}
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            {PROVIDER_CATEGORY_LABELS[provider.category]}
-            {specialities.length > 0
-              ? ` · ${specialities.map((s) => s.name).join(", ")}`
-              : ""}
-          </p>
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <NhsStatusBadge status={provider.nhsStatus} />
-            {provider.turkishSpeaking ? <TurkishSpeakingBadge /> : null}
-            {provider.verified ? (
-              <Badge variant="secondary">Verified</Badge>
+      <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <Avatar className="size-20">
+            {provider.photoUrl ? (
+              <AvatarImage src={provider.photoUrl} alt="" />
             ) : null}
+            <AvatarFallback className="bg-muted text-foreground text-xl font-medium">
+              {initialsFor(provider.name)}
+            </AvatarFallback>
+          </Avatar>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              {provider.title} {provider.name}
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              {PROVIDER_CATEGORY_LABELS[provider.category]}
+              {specialities.length > 0
+                ? ` · ${specialities.map((s) => s.name).join(", ")}`
+                : ""}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <NhsStatusBadge status={provider.nhsStatus} />
+              {provider.turkishSpeaking ? <TurkishSpeakingBadge /> : null}
+              {provider.verified ? (
+                <Badge variant="secondary">Verified</Badge>
+              ) : null}
+            </div>
           </div>
         </div>
+        <FavoriteButton
+          subjectKind="provider"
+          subjectId={provider.id}
+          initialFavorited={alreadyFavorited}
+        />
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-3">
@@ -177,6 +195,22 @@ export async function ProviderProfileView({
               </div>
             </section>
           )}
+
+          <section aria-labelledby="reviews-heading">
+            <h2 id="reviews-heading" className="text-lg font-semibold">
+              Reviews
+            </h2>
+            <div className="mt-2">
+              <ReviewList reviews={reviews} />
+            </div>
+            <div className="mt-4">
+              <ReviewForm
+                subjectKind="provider"
+                subjectId={provider.id}
+                profilePath={profilePath}
+              />
+            </div>
+          </section>
         </div>
 
         <aside className="space-y-4">
