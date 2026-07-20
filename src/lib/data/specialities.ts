@@ -2,21 +2,21 @@ import "server-only";
 import { cache } from "react";
 import { readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import { specialitiesFileSchema, type Speciality } from "@/lib/schemas";
 import type { ProviderCategory } from "@/lib/constants/categories";
 
 /**
  * Repository for specialities, now backed by Directus. `cache()` dedupes
- * the fetch within a single render pass — cross-request freshness comes
- * from the route-level `revalidate` window (see src/app/layout.tsx), not
- * from holding the array in memory indefinitely the way the old
- * JSON-backed module scope constant did.
+ * the fetch within a single render pass — each request re-fetches from
+ * Directus rather than holding the array in memory indefinitely the way
+ * the old JSON-backed module-scope constant did.
  */
 export const getAllSpecialities = cache(async (): Promise<Speciality[]> => {
   const items = await directus.request(
     readItems("specialities", { limit: -1 }),
   );
-  return specialitiesFileSchema.parse(items);
+  return specialitiesFileSchema.parse(stripNulls(items));
 });
 
 export async function getSpecialitiesByCategory(

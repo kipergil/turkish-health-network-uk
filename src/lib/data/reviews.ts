@@ -1,6 +1,7 @@
 import "server-only";
 import { createItem, readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import {
   reviewSchema,
   type FavoriteSubjectKind,
@@ -22,7 +23,7 @@ export async function getPublishedReviewsForSubject(
       limit: -1,
     }),
   );
-  return reviewSchema.array().parse(items);
+  return reviewSchema.array().parse(stripNulls(items));
 }
 
 export async function createReview(input: {
@@ -43,5 +44,5 @@ export async function createReview(input: {
       createdAt: new Date().toISOString(),
     }),
   );
-  return reviewSchema.parse(item);
+  return reviewSchema.parse(stripNulls(item));
 }

@@ -1,6 +1,7 @@
 import "server-only";
 import { createItem } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import {
   listingSuggestionSchema,
   type ListingSuggestion,
@@ -31,5 +32,5 @@ export async function createListingSuggestion(input: {
       createdAt: new Date().toISOString(),
     }),
   );
-  return listingSuggestionSchema.parse(item);
+  return listingSuggestionSchema.parse(stripNulls(item));
 }

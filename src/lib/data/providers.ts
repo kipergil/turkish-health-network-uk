@@ -2,6 +2,7 @@ import "server-only";
 import { cache } from "react";
 import { readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
+import { stripNulls } from "@/lib/directus/normalize";
 import { providersFileSchema, type Provider } from "@/lib/schemas";
 import type { ProviderCategory } from "@/lib/constants/categories";
 import { getAllOrganizations } from "@/lib/data/organizations";
@@ -18,7 +19,7 @@ export const getAllProviders = cache(async (): Promise<Provider[]> => {
     getAllInsurances(),
     getAllOrganizations(),
   ]);
-  const providers = providersFileSchema.parse(items);
+  const providers = providersFileSchema.parse(stripNulls(items));
 
   const specialityIdSet = new Set(
     specialities.map((speciality) => speciality.id),
