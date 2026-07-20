@@ -4,6 +4,7 @@ import type { Provider } from "@/lib/schemas/provider";
 import type { Organization } from "@/lib/schemas/organization";
 import type { Speciality } from "@/lib/schemas/speciality";
 import type { Insurance } from "@/lib/schemas/insurance";
+import type { TurkeyReferral } from "@/lib/schemas/turkey-referral";
 
 export type SearchParamsInput = Record<string, string | string[] | undefined>;
 
@@ -85,6 +86,37 @@ export function filterOrganizations(
       return false;
     if (insuranceId && !organization.insuranceIds.includes(insuranceId))
       return false;
+    return true;
+  });
+}
+
+/**
+ * Turkey referrals record speciality/city as free text (see the schema
+ * comment for why — no UK speciality taxonomy or address model applies),
+ * so filtering is a plain string match rather than an id lookup.
+ */
+export interface TurkeyReferralFilterValues {
+  speciality?: string;
+  city?: string;
+}
+
+export function parseTurkeyReferralFilters(
+  searchParams: SearchParamsInput,
+): TurkeyReferralFilterValues {
+  return {
+    speciality: firstValue(searchParams.speciality),
+    city: firstValue(searchParams.city),
+  };
+}
+
+export function filterTurkeyReferrals(
+  referrals: readonly TurkeyReferral[],
+  filters: TurkeyReferralFilterValues,
+): TurkeyReferral[] {
+  return referrals.filter((referral) => {
+    if (filters.speciality && referral.specialityText !== filters.speciality)
+      return false;
+    if (filters.city && referral.city !== filters.city) return false;
     return true;
   });
 }
