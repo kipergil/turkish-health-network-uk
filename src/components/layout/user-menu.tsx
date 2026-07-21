@@ -1,5 +1,6 @@
 "use client";
 
+import { Heart, FilePlus } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
@@ -22,7 +23,22 @@ export function UserMenu() {
   }
 
   if (isSignedIn) {
-    return <UserButton />;
+    return (
+      <UserButton>
+        <UserButton.MenuItems>
+          <UserButton.Link
+            label="Favorites"
+            href="/favorites"
+            labelIcon={<Heart className="size-4" />}
+          />
+          <UserButton.Link
+            label="Suggest a listing"
+            href="/suggest"
+            labelIcon={<FilePlus className="size-4" />}
+          />
+        </UserButton.MenuItems>
+      </UserButton>
+    );
   }
 
   return (

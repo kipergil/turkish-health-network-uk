@@ -104,6 +104,29 @@ export function SiteHeader() {
 
               <div className="flex-1 overflow-y-auto px-4 py-4">
                 <p className="text-muted-foreground mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
+                  Your account
+                </p>
+                <nav
+                  aria-label="Account"
+                  className="mb-6 flex flex-col gap-0.5"
+                >
+                  {MEMBER_NAV_ITEMS.map((item) => (
+                    <SheetClose asChild key={item.href}>
+                      <Link
+                        href={item.href}
+                        className="border-primary/30 bg-primary/5 hover:bg-primary/10 focus-visible:ring-ring/50 flex items-center gap-3 rounded-lg border px-2.5 py-2.5 text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:outline-none"
+                      >
+                        <item.icon
+                          className="text-primary size-4.5"
+                          aria-hidden="true"
+                        />
+                        {item.label}
+                      </Link>
+                    </SheetClose>
+                  ))}
+                </nav>
+
+                <p className="text-muted-foreground mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
                   Directory
                 </p>
                 <nav
@@ -131,26 +154,6 @@ export function SiteHeader() {
                 </p>
                 <nav aria-label="Explore" className="flex flex-col gap-0.5">
                   {UTILITY_NAV_ITEMS.map((item) => (
-                    <SheetClose asChild key={item.href}>
-                      <Link
-                        href={item.href}
-                        className="hover:bg-accent focus-visible:ring-ring/50 flex items-center gap-3 rounded-lg px-2.5 py-2.5 text-sm font-medium transition-colors focus-visible:ring-3 focus-visible:outline-none"
-                      >
-                        <item.icon
-                          className="text-muted-foreground size-4.5"
-                          aria-hidden="true"
-                        />
-                        {item.label}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                </nav>
-
-                <p className="text-muted-foreground mt-6 mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
-                  Your account
-                </p>
-                <nav aria-label="Account" className="flex flex-col gap-0.5">
-                  {MEMBER_NAV_ITEMS.map((item) => (
                     <SheetClose asChild key={item.href}>
                       <Link
                         href={item.href}
