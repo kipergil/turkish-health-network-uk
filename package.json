@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "directus:apply-schema": "tsx --env-file=.env.local scripts/directus/apply-schema.ts",
-    "directus:seed": "tsx --env-file=.env.local scripts/directus/seed.ts"
+    "directus:seed": "tsx --env-file=.env.local scripts/directus/seed.ts",
+    "directus:apply-flows": "tsx --env-file=.env.local scripts/directus/apply-flows.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.20",
