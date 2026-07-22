@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { TurkeyReferralCard } from "@/components/turkey/turkey-referral-card";
 import { TurkeyReferralFilters } from "@/components/turkey/turkey-referral-filters";
 import { getAllTurkeyReferrals } from "@/lib/data";
+import { isAdmin } from "@/lib/admin";
 import { TURKEY_REFERRAL_KIND_PLURAL_LABELS } from "@/lib/constants/turkey-referrals";
 import type { TurkeyReferralKind } from "@/lib/schemas/turkey-referral";
 import {
@@ -28,7 +29,10 @@ export default async function TurkeyDoctorsPage({
   searchParams: Promise<SearchParamsInput>;
 }) {
   const resolvedSearchParams = await searchParams;
-  const referrals = await getAllTurkeyReferrals();
+  const [referrals, canEditInDirectus] = await Promise.all([
+    getAllTurkeyReferrals(),
+    isAdmin(),
+  ]);
   const verifiedCount = referrals.filter(
     (referral) => referral.verified,
   ).length;
@@ -109,7 +113,11 @@ export default async function TurkeyDoctorsPage({
               </h2>
               <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {group.map((referral) => (
-                  <TurkeyReferralCard key={referral.id} referral={referral} />
+                  <TurkeyReferralCard
+                    key={referral.id}
+                    referral={referral}
+                    canEditInDirectus={canEditInDirectus}
+                  />
                 ))}
               </div>
             </section>

@@ -1,10 +1,21 @@
 import { Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { GoogleSearchLink } from "@/components/shared/google-search-link";
+import { directusItemAdminUrl } from "@/lib/directus/admin-url";
 import type { TurkeyReferral } from "@/lib/schemas/turkey-referral";
 
-export function TurkeyReferralCard({ referral }: { referral: TurkeyReferral }) {
+export function TurkeyReferralCard({
+  referral,
+  canEditInDirectus = false,
+}: {
+  referral: TurkeyReferral;
+  canEditInDirectus?: boolean;
+}) {
+  const directusEditUrl = canEditInDirectus
+    ? directusItemAdminUrl("turkey_referrals", referral.id)
+    : null;
   const googleSearchQuery = [
     referral.title,
     referral.name,
@@ -17,10 +28,15 @@ export function TurkeyReferralCard({ referral }: { referral: TurkeyReferral }) {
   return (
     <Card className="h-full">
       <CardHeader className="space-y-0">
-        <h3 className="leading-tight font-semibold">
-          {referral.title ? `${referral.title} ` : ""}
-          {referral.name}
-        </h3>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="leading-tight font-semibold">
+            {referral.title ? `${referral.title} ` : ""}
+            {referral.name}
+          </h3>
+          {directusEditUrl ? (
+            <DirectusEditLink href={directusEditUrl} iconOnly />
+          ) : null}
+        </div>
         <p className="text-muted-foreground text-sm">
           {referral.specialityText} · {referral.city}
         </p>

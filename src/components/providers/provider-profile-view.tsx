@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
+import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import {
   GoogleMapsDirectionsLink,
@@ -34,6 +35,8 @@ import {
   PROVIDER_CATEGORY_ROUTES,
   type ProviderCategory,
 } from "@/lib/constants/categories";
+import { isAdmin } from "@/lib/admin";
+import { directusItemAdminUrl } from "@/lib/directus/admin-url";
 import { initialsFor } from "@/lib/initials";
 import { providerJsonLd } from "@/lib/seo/structured-data";
 import type { Provider } from "@/lib/schemas/provider";
@@ -55,17 +58,21 @@ export async function ProviderProfileView({
   provider: Provider;
 }) {
   const { userId } = await auth();
-  const [specialities, insurances, organizations, reviews, alreadyFavorited] =
+  const [specialities, insurances, organizations, reviews, alreadyFavorited, canEditInDirectus] =
     await Promise.all([
       getSpecialitiesByIds(provider.specialityIds),
       getInsurancesByIds(provider.insuranceIds),
       getOrganizationsByIds(provider.organizationIds),
       getPublishedReviewsForSubject("provider", provider.id),
       userId ? isFavorite(userId, "provider", provider.id) : false,
+      isAdmin(),
     ]);
 
   const primaryOrganization = organizations[0];
   const profilePath = `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`;
+  const directusEditUrl = canEditInDirectus
+    ? directusItemAdminUrl("providers", provider.id)
+    : null;
   const googleSearchQuery = [
     provider.title,
     provider.name,
@@ -117,11 +124,14 @@ export async function ProviderProfileView({
             </div>
           </div>
         </div>
-        <FavoriteButton
-          subjectKind="provider"
-          subjectId={provider.id}
-          initialFavorited={alreadyFavorited}
-        />
+        <div className="flex items-center gap-2">
+          {directusEditUrl ? <DirectusEditLink href={directusEditUrl} /> : null}
+          <FavoriteButton
+            subjectKind="provider"
+            subjectId={provider.id}
+            initialFavorited={alreadyFavorited}
+          />
+        </div>
       </div>
 
       <div className="mt-8 grid gap-8 md:grid-cols-3">
