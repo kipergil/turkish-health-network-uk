@@ -1,9 +1,19 @@
 import { Globe } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import type { TurkeyReferral } from "@/lib/schemas/turkey-referral";
 
 export function TurkeyReferralCard({ referral }: { referral: TurkeyReferral }) {
+  const googleSearchQuery = [
+    referral.title,
+    referral.name,
+    referral.city,
+    referral.city.toLowerCase() === "turkey" ? null : "Turkey",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
     <Card className="h-full">
       <CardHeader className="space-y-0">
@@ -52,6 +62,7 @@ export function TurkeyReferralCard({ referral }: { referral: TurkeyReferral }) {
             </a>
           ) : null}
         </div>
+        <GoogleSearchLink query={googleSearchQuery} />
       </CardContent>
     </Card>
   );

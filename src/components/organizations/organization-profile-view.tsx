@@ -9,6 +9,7 @@ import {
   GoogleMapsDirectionsLink,
   GoogleMapsLink,
 } from "@/components/shared/google-maps-link";
+import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
@@ -66,6 +67,7 @@ export async function OrganizationProfileView({
     ]);
 
   const profilePath = `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`;
+  const googleSearchQuery = `${organization.name} ${organization.address.city}`;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -253,6 +255,7 @@ export async function OrganizationProfileView({
               <div className="flex flex-col gap-2">
                 <GoogleMapsLink geo={organization.geo} />
                 <GoogleMapsDirectionsLink geo={organization.geo} />
+                <GoogleSearchLink query={googleSearchQuery} />
               </div>
             </CardContent>
           </Card>
