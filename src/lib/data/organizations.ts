@@ -10,6 +10,7 @@ import type { GeoPoint } from "@/lib/schemas/common";
 import { assertReferencesExist } from "@/lib/data/integrity";
 import { getAllSpecialities } from "@/lib/data/specialities";
 import { getAllInsurances } from "@/lib/data/insurances";
+import { applyTranslations } from "@/lib/i18n/apply-translations";
 
 export const getAllOrganizations = cache(async (): Promise<Organization[]> => {
   const [items, specialities, insurances] = await Promise.all([
@@ -38,7 +39,10 @@ export const getAllOrganizations = cache(async (): Promise<Organization[]> => {
     );
   }
 
-  return organizations;
+  return applyTranslations("organizations", organizations, [
+    "name",
+    "description",
+  ]);
 });
 
 export async function getOrganizationsByType(

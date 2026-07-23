@@ -19,14 +19,18 @@ import {
 import { QuickSearchForm } from "@/components/search/quick-search-form";
 import { PrimaryNavLinks } from "@/components/layout/primary-nav-links";
 import { UserMenu } from "@/components/layout/user-menu";
+import { LanguageSwitcher } from "@/components/shared/language-switcher";
 import {
   DIRECTORY_NAV_ITEMS,
   MEMBER_NAV_ITEMS,
   UTILITY_NAV_ITEMS,
 } from "@/lib/constants/nav";
 import { SITE_NAME } from "@/lib/constants/site";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  const currentLanguage = await getCurrentLanguage();
+
   return (
     <header className="border-border bg-background/85 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-40 border-b backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-4 sm:px-6">
@@ -76,6 +80,7 @@ export function SiteHeader() {
         <QuickSearchForm compact className="hidden md:flex md:w-48 lg:w-64" />
 
         <div className="flex items-center gap-2">
+          <LanguageSwitcher current={currentLanguage} />
           <UserMenu />
 
           <Sheet>
