@@ -3,11 +3,13 @@ import { cache } from "react";
 import { readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
 import { stripNulls } from "@/lib/directus/normalize";
+import { applyTranslations } from "@/lib/i18n/apply-translations";
 import { pagesFileSchema, type Page } from "@/lib/schemas";
 
 export const getAllPages = cache(async (): Promise<Page[]> => {
   const items = await directus.request(readItems("pages", { limit: -1 }));
-  return pagesFileSchema.parse(stripNulls(items));
+  const pages = pagesFileSchema.parse(stripNulls(items));
+  return applyTranslations("pages", pages, ["title", "body"]);
 });
 
 export async function getPublishedPages(): Promise<Page[]> {

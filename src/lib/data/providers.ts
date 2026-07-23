@@ -11,6 +11,7 @@ import type { GeoPoint } from "@/lib/schemas/common";
 import { assertReferencesExist } from "@/lib/data/integrity";
 import { getAllSpecialities } from "@/lib/data/specialities";
 import { getAllInsurances } from "@/lib/data/insurances";
+import { applyTranslations } from "@/lib/i18n/apply-translations";
 
 export const getAllProviders = cache(async (): Promise<Provider[]> => {
   const [items, specialities, insurances, organizations] = await Promise.all([
@@ -50,7 +51,7 @@ export const getAllProviders = cache(async (): Promise<Provider[]> => {
     );
   }
 
-  return providers;
+  return applyTranslations("providers", providers, ["bio"]);
 });
 
 export async function getProvidersByCategory(

@@ -5,6 +5,7 @@ export * from "@/lib/schemas/provider";
 export * from "@/lib/schemas/organization";
 export * from "@/lib/schemas/turkey-referral";
 export * from "@/lib/schemas/page";
+export * from "@/lib/schemas/translation";
 export * from "@/lib/schemas/app-user";
 export * from "@/lib/schemas/favorite";
 export * from "@/lib/schemas/review";

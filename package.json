@@ -13,7 +13,8 @@
     "directus:apply-schema": "tsx --env-file=.env.local scripts/directus/apply-schema.ts",
     "directus:seed": "tsx --env-file=.env.local scripts/directus/seed.ts",
     "directus:apply-flows": "tsx --env-file=.env.local scripts/directus/apply-flows.ts",
-    "directus:seed-pages": "tsx --env-file=.env.local scripts/directus/seed-pages.ts"
+    "directus:seed-pages": "tsx --env-file=.env.local scripts/directus/seed-pages.ts",
+    "directus:seed-translations": "tsx --env-file=.env.local scripts/directus/seed-translations.ts"
   },
   "dependencies": {
     "@clerk/nextjs": "^7.5.20",

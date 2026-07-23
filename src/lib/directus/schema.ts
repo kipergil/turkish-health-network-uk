@@ -8,6 +8,7 @@ import type {
   Provider,
   Review,
   Speciality,
+  Translation,
   TurkeyReferral,
 } from "@/lib/schemas";
 
@@ -29,6 +30,7 @@ export interface DirectusSchema {
   reviews: Review[];
   listing_suggestions: ListingSuggestion[];
   pages: Page[];
+  translations: Translation[];
 }
 
 export type DirectusCollectionName = keyof DirectusSchema;

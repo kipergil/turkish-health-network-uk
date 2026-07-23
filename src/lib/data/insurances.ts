@@ -3,11 +3,13 @@ import { cache } from "react";
 import { readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
 import { stripNulls } from "@/lib/directus/normalize";
+import { applyTranslations } from "@/lib/i18n/apply-translations";
 import { insurancesFileSchema, type Insurance } from "@/lib/schemas";
 
 export const getAllInsurances = cache(async (): Promise<Insurance[]> => {
   const items = await directus.request(readItems("insurances", { limit: -1 }));
-  return insurancesFileSchema.parse(stripNulls(items));
+  const insurances = insurancesFileSchema.parse(stripNulls(items));
+  return applyTranslations("insurances", insurances, ["name", "description"]);
 });
 
 export async function getInsuranceBySlug(

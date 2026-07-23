@@ -3,6 +3,7 @@ import { cache } from "react";
 import { readItems } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
 import { stripNulls } from "@/lib/directus/normalize";
+import { applyTranslations } from "@/lib/i18n/apply-translations";
 import { specialitiesFileSchema, type Speciality } from "@/lib/schemas";
 import type { ProviderCategory } from "@/lib/constants/categories";
 
@@ -16,7 +17,11 @@ export const getAllSpecialities = cache(async (): Promise<Speciality[]> => {
   const items = await directus.request(
     readItems("specialities", { limit: -1 }),
   );
-  return specialitiesFileSchema.parse(stripNulls(items));
+  const specialities = specialitiesFileSchema.parse(stripNulls(items));
+  return applyTranslations("specialities", specialities, [
+    "name",
+    "description",
+  ]);
 });
 
 export async function getSpecialitiesByCategory(

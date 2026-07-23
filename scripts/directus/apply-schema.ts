@@ -31,6 +31,10 @@ import {
   REGISTRATION_BODIES,
 } from "../../src/lib/constants/categories";
 import { LANGUAGE_CODES, LANGUAGE_LABELS } from "../../src/lib/constants/languages";
+import {
+  DEFAULT_LANGUAGE,
+  SUPPORTED_LANGUAGES,
+} from "../../src/lib/i18n/languages";
 
 /**
  * This Directus instance is shared with other apps (their collections are
@@ -199,6 +203,21 @@ const pageStatusChoices: Choice[] = [
   { text: "Draft", value: "draft" },
   { text: "Published", value: "published" },
 ];
+// Every collection with translatable text fields (kept in sync by hand
+// with the `applyTranslations(...)` calls in src/lib/data/*.ts).
+const translatableCollectionChoices: Choice[] = [
+  { text: "Specialities", value: "specialities" },
+  { text: "Insurances", value: "insurances" },
+  { text: "Organizations", value: "organizations" },
+  { text: "Providers", value: "providers" },
+  { text: "Turkey Referrals", value: "turkey_referrals" },
+  { text: "Pages", value: "pages" },
+];
+// Only non-default languages are ever stored as translation rows — English
+// is always the base value already on the item.
+const translationLanguageChoices: Choice[] = SUPPORTED_LANGUAGES.filter(
+  (language) => language.code !== DEFAULT_LANGUAGE,
+).map((language) => ({ text: language.label, value: language.code }));
 const ratingChoices: Choice[] = [1, 2, 3, 4, 5].map((n) => ({
   text: `${n} star${n === 1 ? "" : "s"}`,
   value: n,
@@ -448,6 +467,31 @@ const collections: CollectionDef[] = [
         choices: reviewStatusChoices,
       }),
       field("createdAt", "timestamp", { required: true }),
+    ],
+  },
+  {
+    collection: "translations",
+    note: "A per-field translation override for another collection's item, in a non-default language. English itself is never stored here — it's already the value on the item; add a row here only for other languages (e.g. Turkish).",
+    fields: [
+      uuidPk(),
+      field("collection", "string", {
+        required: true,
+        note: "Which collection this translation belongs to.",
+        choices: translatableCollectionChoices,
+      }),
+      field("itemId", "string", {
+        required: true,
+        note: "The id of the item being translated, e.g. spec-cardiology.",
+      }),
+      field("field", "string", {
+        required: true,
+        note: "The field name being translated, e.g. name, description, bio.",
+      }),
+      field("language", "string", {
+        required: true,
+        choices: translationLanguageChoices,
+      }),
+      field("value", "text", { required: true }),
     ],
   },
   {
