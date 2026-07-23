@@ -22,7 +22,7 @@ export function ProviderCard({
   const href = `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`;
 
   return (
-    <Card className="hover:border-primary/30 h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+    <Card className="hover:border-primary/30 relative h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <Avatar className="size-12 shrink-0">
           {provider.photoUrl ? (
@@ -36,7 +36,7 @@ export function ProviderCard({
           <h3 className="truncate leading-tight font-semibold">
             <Link
               href={href}
-              className="focus-visible:ring-ring/50 rounded-sm hover:underline focus-visible:ring-3 focus-visible:outline-none"
+              className="focus-visible:ring-ring/50 rounded-sm after:absolute after:inset-0 hover:underline focus-visible:ring-3 focus-visible:outline-none"
             >
               {provider.title} {provider.name}
             </Link>

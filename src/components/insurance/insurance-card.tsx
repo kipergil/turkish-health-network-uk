@@ -12,7 +12,7 @@ const INSURANCE_KIND_LABELS: Record<Insurance["kind"], string> = {
 
 export function InsuranceCard({ insurance }: { insurance: Insurance }) {
   return (
-    <Card className="hover:border-primary/30 h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+    <Card className="hover:border-primary/30 relative h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
           <ShieldCheck
@@ -24,7 +24,7 @@ export function InsuranceCard({ insurance }: { insurance: Insurance }) {
           <h3 className="truncate leading-tight font-semibold">
             <Link
               href={`/insurance/${insurance.slug}`}
-              className="focus-visible:ring-ring/50 rounded-sm hover:underline focus-visible:ring-3 focus-visible:outline-none"
+              className="focus-visible:ring-ring/50 rounded-sm after:absolute after:inset-0 hover:underline focus-visible:ring-3 focus-visible:outline-none"
             >
               {insurance.name}
             </Link>
