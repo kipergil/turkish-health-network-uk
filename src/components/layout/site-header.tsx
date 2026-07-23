@@ -24,9 +24,11 @@ import {
   DIRECTORY_NAV_ITEMS,
   MEMBER_NAV_ITEMS,
   UTILITY_NAV_ITEMS,
+  resolveNavLabel,
 } from "@/lib/constants/nav";
 import { SITE_NAME } from "@/lib/constants/site";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
+import { t } from "@/lib/i18n/messages";
 
 export async function SiteHeader() {
   const currentLanguage = await getCurrentLanguage();
@@ -51,7 +53,7 @@ export async function SiteHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="sm" className="font-medium">
-                Directory
+                {t("nav_directory", currentLanguage)}
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-72">
@@ -62,7 +64,7 @@ export async function SiteHeader() {
                       className="text-primary size-4"
                       aria-hidden="true"
                     />
-                    <span>{item.label}</span>
+                    <span>{resolveNavLabel(item, currentLanguage)}</span>
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -70,9 +72,9 @@ export async function SiteHeader() {
           </DropdownMenu>
 
           <PrimaryNavLinks
-            items={UTILITY_NAV_ITEMS.map(({ label, href }) => ({
-              label,
-              href,
+            items={UTILITY_NAV_ITEMS.map((item) => ({
+              label: resolveNavLabel(item, currentLanguage),
+              href: item.href,
             }))}
           />
         </nav>
@@ -81,7 +83,7 @@ export async function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher current={currentLanguage} />
-          <UserMenu />
+          <UserMenu language={currentLanguage} />
 
           <Sheet>
             <SheetTrigger asChild>
@@ -89,7 +91,7 @@ export async function SiteHeader() {
                 variant="ghost"
                 size="icon"
                 className="md:hidden"
-                aria-label="Open menu"
+                aria-label={t("open_menu", currentLanguage)}
               >
                 <Menu className="size-5" aria-hidden="true" />
               </Button>
@@ -109,7 +111,7 @@ export async function SiteHeader() {
 
               <div className="flex-1 overflow-y-auto px-4 py-4">
                 <p className="text-muted-foreground mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
-                  Your account
+                  {t("nav_your_account_heading", currentLanguage)}
                 </p>
                 <nav
                   aria-label="Account"
@@ -125,14 +127,14 @@ export async function SiteHeader() {
                           className="text-primary size-4.5"
                           aria-hidden="true"
                         />
-                        {item.label}
+                        {resolveNavLabel(item, currentLanguage)}
                       </Link>
                     </SheetClose>
                   ))}
                 </nav>
 
                 <p className="text-muted-foreground mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
-                  Directory
+                  {t("nav_directory_heading", currentLanguage)}
                 </p>
                 <nav
                   aria-label="Directory"
@@ -148,14 +150,14 @@ export async function SiteHeader() {
                           className="text-primary size-4.5"
                           aria-hidden="true"
                         />
-                        {item.label}
+                        {resolveNavLabel(item, currentLanguage)}
                       </Link>
                     </SheetClose>
                   ))}
                 </nav>
 
                 <p className="text-muted-foreground mt-6 mb-2 px-1 text-xs font-semibold tracking-wide uppercase">
-                  Explore
+                  {t("nav_explore_heading", currentLanguage)}
                 </p>
                 <nav aria-label="Explore" className="flex flex-col gap-0.5">
                   {UTILITY_NAV_ITEMS.map((item) => (
@@ -168,7 +170,7 @@ export async function SiteHeader() {
                           className="text-muted-foreground size-4.5"
                           aria-hidden="true"
                         />
-                        {item.label}
+                        {resolveNavLabel(item, currentLanguage)}
                       </Link>
                     </SheetClose>
                   ))}

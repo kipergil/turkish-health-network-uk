@@ -36,6 +36,8 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
+import { t } from "@/lib/i18n/messages";
 import { organizationJsonLd } from "@/lib/seo/structured-data";
 import type { Organization } from "@/lib/schemas/organization";
 
@@ -56,19 +58,27 @@ export async function OrganizationProfileView({
   organization: Organization;
 }) {
   const { userId } = await auth();
-  const [specialities, insurances, providers, reviews, alreadyFavorited, canEditInDirectus] =
-    await Promise.all([
-      getSpecialitiesByIds(organization.specialityIds),
-      getAllInsurances().then((all) =>
-        all.filter((insurance) =>
-          organization.insuranceIds.includes(insurance.id),
-        ),
+  const [
+    specialities,
+    insurances,
+    providers,
+    reviews,
+    alreadyFavorited,
+    canEditInDirectus,
+    language,
+  ] = await Promise.all([
+    getSpecialitiesByIds(organization.specialityIds),
+    getAllInsurances().then((all) =>
+      all.filter((insurance) =>
+        organization.insuranceIds.includes(insurance.id),
       ),
-      getProvidersByOrganization(organization.id),
-      getPublishedReviewsForSubject("organization", organization.id),
-      userId ? isFavorite(userId, "organization", organization.id) : false,
-      isAdmin(),
-    ]);
+    ),
+    getProvidersByOrganization(organization.id),
+    getPublishedReviewsForSubject("organization", organization.id),
+    userId ? isFavorite(userId, "organization", organization.id) : false,
+    isAdmin(),
+    getCurrentLanguage(),
+  ]);
 
   const profilePath = `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`;
   const googleSearchQuery = `${organization.name} ${organization.address.city}`;
@@ -99,12 +109,15 @@ export async function OrganizationProfileView({
             {organization.address.city}
           </p>
           <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <NhsStatusBadge status={organization.nhsStatus} />
+            <NhsStatusBadge
+              status={organization.nhsStatus}
+              language={language}
+            />
             {organization.turkishSpeakingStaff ? (
-              <TurkishSpeakingBadge />
+              <TurkishSpeakingBadge language={language} />
             ) : null}
             {organization.verified ? (
-              <Badge variant="secondary">Verified</Badge>
+              <Badge variant="secondary">{t("verified", language)}</Badge>
             ) : null}
           </div>
         </div>
@@ -114,6 +127,7 @@ export async function OrganizationProfileView({
             subjectKind="organization"
             subjectId={organization.id}
             initialFavorited={alreadyFavorited}
+            language={language}
           />
         </div>
       </div>

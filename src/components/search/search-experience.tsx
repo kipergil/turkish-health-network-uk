@@ -10,6 +10,7 @@ import { EmptyState } from "@/components/shared/empty-state";
 import { ResultsView } from "@/components/shared/results-view";
 import type { MapEntry } from "@/components/map/network-map";
 import { LANGUAGE_LABELS } from "@/lib/constants/languages";
+import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
 import type { DirectoryEntry } from "@/lib/directory";
 
 interface SearchableEntry extends DirectoryEntry {
@@ -19,9 +20,11 @@ interface SearchableEntry extends DirectoryEntry {
 export function SearchExperience({
   entries,
   initialQuery = "",
+  language = DEFAULT_LANGUAGE,
 }: {
   entries: DirectoryEntry[];
   initialQuery?: string;
+  language?: LanguageCode;
 }) {
   const [query, setQuery] = useState(initialQuery);
 
@@ -119,6 +122,7 @@ export function SearchExperience({
               <DirectoryResultCard
                 key={`${entry.kind}-${entry.id}`}
                 entry={entry}
+                language={language}
               />
             ))}
           </div>

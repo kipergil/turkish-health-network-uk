@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { SearchExperience } from "@/components/search/search-experience";
 import { getDirectoryEntries } from "@/lib/directory";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
 
 export const metadata: Metadata = {
   title: "Search",
@@ -14,7 +15,10 @@ export default async function SearchPage({
   searchParams: Promise<{ q?: string }>;
 }) {
   const { q } = await searchParams;
-  const entries = await getDirectoryEntries();
+  const [entries, language] = await Promise.all([
+    getDirectoryEntries(),
+    getCurrentLanguage(),
+  ]);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
@@ -26,7 +30,11 @@ export default async function SearchPage({
         dietitian, clinic, hospital and pharmacy in the network.
       </p>
       <div className="mt-6">
-        <SearchExperience entries={entries} initialQuery={q ?? ""} />
+        <SearchExperience
+          entries={entries}
+          initialQuery={q ?? ""}
+          language={language}
+        />
       </div>
     </div>
   );

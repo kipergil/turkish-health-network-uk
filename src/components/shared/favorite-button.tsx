@@ -6,16 +6,20 @@ import { Heart, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { toggleFavoriteAction } from "@/lib/actions/member-actions";
+import { t } from "@/lib/i18n/messages";
+import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
 import type { FavoriteSubjectKind } from "@/lib/schemas";
 
 export function FavoriteButton({
   subjectKind,
   subjectId,
   initialFavorited,
+  language = DEFAULT_LANGUAGE,
 }: {
   subjectKind: FavoriteSubjectKind;
   subjectId: string;
   initialFavorited: boolean;
+  language?: LanguageCode;
 }) {
   const { isLoaded, isSignedIn } = useUser();
   const clerk = useClerk();
@@ -62,7 +66,7 @@ export function FavoriteButton({
           aria-hidden="true"
         />
       )}
-      {favorited ? "Saved" : "Save"}
+      {favorited ? t("saved", language) : t("save", language)}
     </Button>
   );
 }

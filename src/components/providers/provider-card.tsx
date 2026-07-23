@@ -8,17 +8,19 @@ import {
   PROVIDER_CATEGORY_LABELS,
   PROVIDER_CATEGORY_ROUTES,
 } from "@/lib/constants/categories";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { initialsFor } from "@/lib/initials";
 import type { Provider } from "@/lib/schemas/provider";
 import type { Speciality } from "@/lib/schemas/speciality";
 
-export function ProviderCard({
+export async function ProviderCard({
   provider,
   specialities,
 }: {
   provider: Provider;
   specialities: Speciality[];
 }) {
+  const language = await getCurrentLanguage();
   const href = `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`;
 
   return (
@@ -53,8 +55,10 @@ export function ProviderCard({
           </p>
         ) : null}
         <div className="flex flex-wrap items-center gap-1.5">
-          <NhsStatusBadge status={provider.nhsStatus} />
-          {provider.turkishSpeaking ? <TurkishSpeakingBadge /> : null}
+          <NhsStatusBadge status={provider.nhsStatus} language={language} />
+          {provider.turkishSpeaking ? (
+            <TurkishSpeakingBadge language={language} />
+          ) : null}
         </div>
         <LanguageBadges languages={provider.languagesSpoken} />
       </CardContent>
