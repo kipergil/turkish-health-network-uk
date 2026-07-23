@@ -16,6 +16,7 @@ import {
   Info,
   Heart,
   FilePlus,
+  BookOpen,
 } from "lucide-react";
 import {
   PROVIDER_CATEGORIES,
@@ -27,6 +28,7 @@ import {
   type ProviderCategory,
   type OrganizationType,
 } from "@/lib/constants/categories";
+import { NHS_BENEFITS_GUIDE_SLUG } from "@/lib/constants/pages";
 
 export interface NavItem {
   label: string;
@@ -98,6 +100,12 @@ export const UTILITY_NAV_ITEMS: NavItem[] = [
     href: "/insurance",
     description: "Insurers accepted across the network",
     icon: ShieldCheck,
+  },
+  {
+    label: "NHS Benefits Guide",
+    href: `/pages/${NHS_BENEFITS_GUIDE_SLUG}`,
+    description: "How to benefit from NHS insurance and health services in the UK",
+    icon: BookOpen,
   },
   {
     label: "Recommended in Turkey",

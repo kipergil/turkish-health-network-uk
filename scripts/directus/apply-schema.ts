@@ -195,6 +195,10 @@ const subjectKindChoices: Choice[] = [
   { text: "Provider", value: "provider" },
   { text: "Organization", value: "organization" },
 ];
+const pageStatusChoices: Choice[] = [
+  { text: "Draft", value: "draft" },
+  { text: "Published", value: "published" },
+];
 const ratingChoices: Choice[] = [1, 2, 3, 4, 5].map((n) => ({
   text: `${n} star${n === 1 ? "" : "s"}`,
   value: n,
@@ -444,6 +448,26 @@ const collections: CollectionDef[] = [
         choices: reviewStatusChoices,
       }),
       field("createdAt", "timestamp", { required: true }),
+    ],
+  },
+  {
+    collection: "pages",
+    note: "A simple CMS static page (title + rich-text body), e.g. informational guides. Only 'published' pages are shown; managed entirely in this admin.",
+    fields: [
+      stringPk("Human-readable id, e.g. page-nhs-benefits-guide"),
+      field("slug", "string", { required: true }),
+      field("title", "string", { required: true }),
+      field("body", "text", {
+        required: true,
+        interface: "input-rich-text-html",
+        note: "Rich-text page content, rendered as HTML on the site.",
+      }),
+      field("status", "string", {
+        required: true,
+        choices: pageStatusChoices,
+      }),
+      field("createdAt", "timestamp", { required: true }),
+      field("updatedAt", "timestamp", { required: true }),
     ],
   },
   {

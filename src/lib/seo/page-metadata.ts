@@ -8,6 +8,7 @@ import {
 } from "@/lib/constants/categories";
 import type { Provider } from "@/lib/schemas/provider";
 import type { Organization } from "@/lib/schemas/organization";
+import type { Page } from "@/lib/schemas/page";
 
 export function providerCategoryMetadata(category: ProviderCategory): Metadata {
   const plural = PROVIDER_CATEGORY_PLURAL_LABELS[category];
@@ -39,5 +40,17 @@ export function organizationProfileMetadata(
   return {
     title: organization.name,
     description: organization.description,
+  };
+}
+
+export function pageMetadata(page: Page): Metadata {
+  const plainText = page.body
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return {
+    title: page.title,
+    description:
+      plainText.length > 160 ? `${plainText.slice(0, 157)}...` : plainText,
   };
 }

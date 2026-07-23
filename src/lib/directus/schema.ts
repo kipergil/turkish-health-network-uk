@@ -4,6 +4,7 @@ import type {
   Insurance,
   ListingSuggestion,
   Organization,
+  Page,
   Provider,
   Review,
   Speciality,
@@ -27,6 +28,7 @@ export interface DirectusSchema {
   favorites: Favorite[];
   reviews: Review[];
   listing_suggestions: ListingSuggestion[];
+  pages: Page[];
 }
 
 export type DirectusCollectionName = keyof DirectusSchema;
