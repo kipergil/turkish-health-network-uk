@@ -5,9 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
+import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
 import type { DirectoryEntry } from "@/lib/directory";
 
-export function DirectoryResultCard({ entry }: { entry: DirectoryEntry }) {
+export function DirectoryResultCard({
+  entry,
+  language = DEFAULT_LANGUAGE,
+}: {
+  entry: DirectoryEntry;
+  language?: LanguageCode;
+}) {
   const Icon = entry.kind === "provider" ? User : Building2;
 
   return (
@@ -38,8 +45,10 @@ export function DirectoryResultCard({ entry }: { entry: DirectoryEntry }) {
           {entry.summary}
         </p>
         <div className="flex flex-wrap items-center gap-1.5">
-          <NhsStatusBadge status={entry.nhsStatus} />
-          {entry.turkishSpeaking ? <TurkishSpeakingBadge /> : null}
+          <NhsStatusBadge status={entry.nhsStatus} language={language} />
+          {entry.turkishSpeaking ? (
+            <TurkishSpeakingBadge language={language} />
+          ) : null}
         </div>
         <LanguageBadges languages={entry.languagesSpoken} />
       </CardContent>

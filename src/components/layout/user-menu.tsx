@@ -3,6 +3,8 @@
 import { Heart, FilePlus } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { t } from "@/lib/i18n/messages";
+import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
 
 /**
  * Client component so signed-in state renders via Clerk's hydrated
@@ -10,7 +12,11 @@ import { Button } from "@/components/ui/button";
  * check in the root layout — keeping directory pages statically
  * renderable rather than forcing the whole app dynamic on every request.
  */
-export function UserMenu() {
+export function UserMenu({
+  language = DEFAULT_LANGUAGE,
+}: {
+  language?: LanguageCode;
+}) {
   const { isLoaded, isSignedIn } = useUser();
 
   if (!isLoaded) {
@@ -27,12 +33,12 @@ export function UserMenu() {
       <UserButton>
         <UserButton.MenuItems>
           <UserButton.Link
-            label="Favorites"
+            label={t("nav_favorites", language)}
             href="/favorites"
             labelIcon={<Heart className="size-4" />}
           />
           <UserButton.Link
-            label="Suggest a listing"
+            label={t("nav_suggest_listing", language)}
             href="/suggest"
             labelIcon={<FilePlus className="size-4" />}
           />
@@ -44,7 +50,7 @@ export function UserMenu() {
   return (
     <SignInButton mode="modal">
       <Button variant="ghost" size="sm">
-        Sign in
+        {t("sign_in", language)}
       </Button>
     </SignInButton>
   );

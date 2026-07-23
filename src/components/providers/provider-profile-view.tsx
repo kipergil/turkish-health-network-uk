@@ -37,6 +37,8 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
+import { t } from "@/lib/i18n/messages";
 import { initialsFor } from "@/lib/initials";
 import { providerJsonLd } from "@/lib/seo/structured-data";
 import type { Provider } from "@/lib/schemas/provider";
@@ -58,15 +60,23 @@ export async function ProviderProfileView({
   provider: Provider;
 }) {
   const { userId } = await auth();
-  const [specialities, insurances, organizations, reviews, alreadyFavorited, canEditInDirectus] =
-    await Promise.all([
-      getSpecialitiesByIds(provider.specialityIds),
-      getInsurancesByIds(provider.insuranceIds),
-      getOrganizationsByIds(provider.organizationIds),
-      getPublishedReviewsForSubject("provider", provider.id),
-      userId ? isFavorite(userId, "provider", provider.id) : false,
-      isAdmin(),
-    ]);
+  const [
+    specialities,
+    insurances,
+    organizations,
+    reviews,
+    alreadyFavorited,
+    canEditInDirectus,
+    language,
+  ] = await Promise.all([
+    getSpecialitiesByIds(provider.specialityIds),
+    getInsurancesByIds(provider.insuranceIds),
+    getOrganizationsByIds(provider.organizationIds),
+    getPublishedReviewsForSubject("provider", provider.id),
+    userId ? isFavorite(userId, "provider", provider.id) : false,
+    isAdmin(),
+    getCurrentLanguage(),
+  ]);
 
   const primaryOrganization = organizations[0];
   const profilePath = `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`;
@@ -116,10 +126,12 @@ export async function ProviderProfileView({
                 : ""}
             </p>
             <div className="mt-2 flex flex-wrap items-center gap-1.5">
-              <NhsStatusBadge status={provider.nhsStatus} />
-              {provider.turkishSpeaking ? <TurkishSpeakingBadge /> : null}
+              <NhsStatusBadge status={provider.nhsStatus} language={language} />
+              {provider.turkishSpeaking ? (
+                <TurkishSpeakingBadge language={language} />
+              ) : null}
               {provider.verified ? (
-                <Badge variant="secondary">Verified</Badge>
+                <Badge variant="secondary">{t("verified", language)}</Badge>
               ) : null}
             </div>
           </div>
@@ -130,6 +142,7 @@ export async function ProviderProfileView({
             subjectKind="provider"
             subjectId={provider.id}
             initialFavorited={alreadyFavorited}
+            language={language}
           />
         </div>
       </div>

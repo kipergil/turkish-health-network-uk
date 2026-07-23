@@ -1,15 +1,12 @@
 import { MapPin, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
+import { t } from "@/lib/i18n/messages";
 import { googleMapsDirectionsUrl, googleMapsSearchUrl } from "@/lib/geo";
 import type { GeoPoint } from "@/lib/schemas/common";
 
-export function GoogleMapsLink({
-  geo,
-  label = "View on Google Maps",
-}: {
-  geo: GeoPoint;
-  label?: string;
-}) {
+export async function GoogleMapsLink({ geo }: { geo: GeoPoint }) {
+  const language = await getCurrentLanguage();
   return (
     <Button variant="outline" size="sm" asChild>
       <a
@@ -18,13 +15,14 @@ export function GoogleMapsLink({
         rel="noopener noreferrer"
       >
         <MapPin aria-hidden="true" />
-        {label}
+        {t("view_on_google_maps", language)}
       </a>
     </Button>
   );
 }
 
-export function GoogleMapsDirectionsLink({ geo }: { geo: GeoPoint }) {
+export async function GoogleMapsDirectionsLink({ geo }: { geo: GeoPoint }) {
+  const language = await getCurrentLanguage();
   return (
     <Button variant="outline" size="sm" asChild>
       <a
@@ -33,7 +31,7 @@ export function GoogleMapsDirectionsLink({ geo }: { geo: GeoPoint }) {
         rel="noopener noreferrer"
       >
         <Navigation aria-hidden="true" />
-        Get directions
+        {t("get_directions", language)}
       </a>
     </Button>
   );

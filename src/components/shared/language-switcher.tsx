@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { setLanguageAction } from "@/lib/actions/language-actions";
 import { SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/i18n/languages";
+import { t } from "@/lib/i18n/messages";
 
 export function LanguageSwitcher({ current }: { current: LanguageCode }) {
   const router = useRouter();
@@ -34,7 +35,7 @@ export function LanguageSwitcher({ current }: { current: LanguageCode }) {
           variant="ghost"
           size="sm"
           disabled={isPending}
-          aria-label={`Change language (currently ${currentLanguage.label})`}
+          aria-label={`${t("change_language", current)} (${currentLanguage.label})`}
           className="gap-1.5 px-2"
         >
           <span aria-hidden="true" className="text-base leading-none">

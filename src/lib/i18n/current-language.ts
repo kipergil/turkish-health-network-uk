@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { cookies } from "next/headers";
 import {
   DEFAULT_LANGUAGE,
@@ -14,8 +15,12 @@ export const LANGUAGE_COOKIE = "site_lang";
  * a cookie from at all — `generateStaticParams` and `sitemap.ts` call the
  * same data-layer functions at build time, outside any HTTP request, where
  * `cookies()` throws rather than returning an empty store.
+ *
+ * `cache()`-wrapped since UI-chrome components (badges, buttons) now call
+ * this directly rather than receiving language as a prop, so it can be
+ * read many times per request.
  */
-export async function getCurrentLanguage(): Promise<LanguageCode> {
+export const getCurrentLanguage = cache(async (): Promise<LanguageCode> => {
   try {
     const store = await cookies();
     const value = store.get(LANGUAGE_COOKIE)?.value;
@@ -23,4 +28,4 @@ export async function getCurrentLanguage(): Promise<LanguageCode> {
   } catch {
     return DEFAULT_LANGUAGE;
   }
-}
+});

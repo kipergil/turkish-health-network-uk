@@ -8,13 +8,15 @@ import {
   ORGANIZATION_TYPE_LABELS,
   ORGANIZATION_TYPE_ROUTES,
 } from "@/lib/constants/categories";
+import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import type { Organization } from "@/lib/schemas/organization";
 
-export function OrganizationCard({
+export async function OrganizationCard({
   organization,
 }: {
   organization: Organization;
 }) {
+  const language = await getCurrentLanguage();
   const href = `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`;
 
   return (
@@ -46,8 +48,10 @@ export function OrganizationCard({
           {organization.description}
         </p>
         <div className="flex flex-wrap items-center gap-1.5">
-          <NhsStatusBadge status={organization.nhsStatus} />
-          {organization.turkishSpeakingStaff ? <TurkishSpeakingBadge /> : null}
+          <NhsStatusBadge status={organization.nhsStatus} language={language} />
+          {organization.turkishSpeakingStaff ? (
+            <TurkishSpeakingBadge language={language} />
+          ) : null}
         </div>
         <LanguageBadges languages={organization.languagesSpoken} />
       </CardContent>
