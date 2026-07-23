@@ -1,9 +1,10 @@
 /**
  * Idempotently seeds Turkish translation rows into the "translations"
- * collection (created by apply-schema.ts), demonstrating the multi-language
- * feature end-to-end. Safe to re-run: skips any (collection, itemId, field,
- * language) combination that already has a row, so edits made afterwards in
- * the Directus Data Studio are never overwritten.
+ * collection (created by apply-schema.ts), covering every existing record's
+ * translatable fields at the time this was generated. Safe to re-run: skips
+ * any (collection, itemId, field, language) combination that already has a
+ * row, so edits made afterwards in the Directus Data Studio are never
+ * overwritten.
  *
  * Usage:
  *   npx tsx --env-file=.env.local scripts/directus/seed-translations.ts
@@ -31,191 +32,1331 @@ interface TranslationDef {
   value: string;
 }
 
-const LANGUAGE = "tr";
-
-// specialities: { id: [name_tr, description_tr] }
-const SPECIALITY_TRANSLATIONS: Record<string, [string, string]> = {
-  "spec-anti-snoring": [
-    "Horlama Karşıtı ve Periodontal Tedavi",
-    "Horlama, diş eti hastalığı ve periodontal rahatsızlıkların tedavisi.",
-  ],
-  "spec-cardiology": [
-    "Kardiyoloji",
-    "Kalp ve kardiyovasküler hastalıkların teşhis ve tedavisi.",
-  ],
-  "spec-cbt": [
-    "Bilişsel Davranışçı Terapi",
-    "Kaygı, depresyon ve stres için yapılandırılmış konuşma terapisi.",
-  ],
-  "spec-child-psychology": [
-    "Çocuk Psikolojisi",
-    "Çocuklar için duygusal ve davranışsal destek.",
-  ],
-  "spec-circumcision": [
-    "Sünnet",
-    "Bebekler, çocuklar ve yetişkinler için erkek sünneti.",
-  ],
-  "spec-cosmetic-dentistry": [
-    "Estetik Diş Hekimliği",
-    "Kaplama, diş beyazlatma ve gülüş estetiği.",
-  ],
-  "spec-dermatology": ["Dermatoloji", "Cilt, saç ve tırnak rahatsızlıkları."],
-  "spec-diabetes-nutrition": [
-    "Diyabet Beslenmesi",
-    "Tip 1 ve Tip 2 diyabetin beslenme yoluyla yönetimi.",
-  ],
-  "spec-endocrinology": [
-    "Endokrinoloji ve Diyabet",
-    "Hormonal sağlık ile diyabetin teşhis, tedavi ve yönetimi.",
-  ],
-  "spec-family-therapy": [
-    "Aile Terapisi",
-    "Aile ilişkileri ve anlaşmazlıkları için destek.",
-  ],
-  "spec-general-dentistry": [
-    "Genel Diş Hekimliği",
-    "Kontroller, dolgular, temizlik ve günlük ağız bakımı.",
-  ],
-  "spec-general-practice": [
-    "Aile Hekimliği",
-    "Günlük tıbbi bakım, kontroller, sevkler ve uzun süreli hastalık yönetimi.",
-  ],
-  "spec-general-surgery": [
-    "Genel ve Kolorektal Cerrahi",
-    "Kolorektal rahatsızlıklar, kanserler ve genel cerrahi ihtiyaçların ameliyatla tedavisi.",
-  ],
-  "spec-gynaecology": ["Jinekoloji", "Kadın üreme sağlığı."],
-  "spec-hair-restoration": [
-    "Saç Ekimi",
-    "Saç dökülmesi değerlendirmesi ve saç ekimi işlemleri.",
-  ],
-  "spec-msk-physiotherapy": [
-    "Kas-İskelet Sistemi Fizyoterapisi",
-    "Kas, eklem ve sırt ağrılarının tedavisi.",
-  ],
-  "spec-neurosurgery": [
-    "Beyin ve Sinir Cerrahisi",
-    "Beyin, omurga ve sinir sistemini etkileyen rahatsızlıkların ameliyatla tedavisi.",
-  ],
-  "spec-oral-surgery": [
-    "Ağız Cerrahisi",
-    "Diş çekimi, implant ve cerrahi işlemler.",
-  ],
-  "spec-orthodontics": [
-    "Ortodonti",
-    "Diş teli, şeffaf plak ve diş-çene dizilim düzeltmesi.",
-  ],
-  "spec-paediatrics": [
-    "Çocuk Sağlığı ve Hastalıkları",
-    "Bebekler, çocuklar ve ergenler için tıbbi bakım.",
-  ],
-  "spec-pelvic-health": [
-    "Pelvik Sağlık Fizyoterapisi",
-    "Her cinsiyet ve yaş için pelvik taban disfonksiyonunun değerlendirilmesi ve tedavisi.",
-  ],
-  "spec-post-surgical-rehab": [
-    "Ameliyat Sonrası Rehabilitasyon",
-    "Ameliyat sonrası iyileşme desteği.",
-  ],
-  "spec-psychiatry": [
-    "Psikiyatri",
-    "Ruh sağlığı rahatsızlıklarının, ilaç yönetimi dahil, tıbbi teşhis ve tedavisi.",
-  ],
-  "spec-root-canal": [
-    "Kanal Tedavisi",
-    "Enfekte veya hasarlı diş pulpasının tedavisi.",
-  ],
-  "spec-sports-injury": [
-    "Spor Yaralanması Rehabilitasyonu",
-    "Spor yaralanmalarından iyileşme ve rehabilitasyon.",
-  ],
-  "spec-sports-nutrition": [
-    "Spor Beslenmesi",
-    "Sportif performans ve toparlanma için beslenme planlaması.",
-  ],
-  "spec-trauma-ptsd": [
-    "Travma ve TSSB",
-    "Travma, travma sonrası stres bozukluğu (TSSB) ve göçle ilişkili sıkıntılar için destek.",
-  ],
-  "spec-weight-management": [
-    "Kilo Yönetimi",
-    "Sağlıklı kilo yönetimi için kişiselleştirilmiş beslenme planları.",
-  ],
-};
-
-const NHS_PAGE_TITLE_TR =
-  "İngiltere'de NHS Sigortası ve Sağlık Hizmetlerinden Nasıl Yararlanılır";
-
-const NHS_PAGE_BODY_TR = `
-<p>NHS (National Health Service — Ulusal Sağlık Hizmeti), Birleşik Krallık'ta sağlık hizmetlerinin büyük bölümünü kullanım anında ücretsiz olarak sağlar ve genel vergilendirme ile Ulusal Sigorta (National Insurance) yoluyla finanse edilir. Bu rehber, NHS'yi kullanmaya başlamak için pratik adımları ve özel sağlık sigortasının NHS ile nasıl bir arada kullanılabileceğini kapsar.</p>
-
-<h2>1. Bir aile hekimliği (GP) kliniğine kayıt olun</h2>
-<p>Aile hekimliği (GP) kliniği, acil olmayan sağlık sorunları için neredeyse her zaman ilk başvuru noktasıdır ve bir kliniğe kayıt olmak atılacak en önemli adımdır. Yaşadığınız bölgeyi kapsayan herhangi bir kliniğe, göçmenlik statünüzden bağımsız olarak kayıt olabilirsiniz — kaydın kendisi ücretsizdir ve adres kanıtı, kimlik veya göçmenlik belgesi gerektirmez, ancak bazı klinikler nezaketen bunları isteyebilir. <a href="https://www.nhs.uk/service-search/find-a-gp" target="_blank" rel="noopener noreferrer">nhs.uk</a> üzerinden arama yapabilir veya Türkçe konuşan klinikleri bulmak için bu dizinin <a href="/map">haritasını</a> kullanabilirsiniz.</p>
-<p>Kayıt olduktan sonra, tüm sağlık sistemi genelinde kayıtlarınızı birbirine bağlamak için kullanılan bir NHS numarası verilir.</p>
-
-<h2>2. Ücretsiz NHS bakımına kimler hak kazanır</h2>
-<p>Aile hekimi muayeneleri Birleşik Krallık'ta yaşayan herkes için ücretsizdir. Hastane tedavisi genellikle Birleşik Krallık'ta "olağan ikametgahı" olan herkes için ücretsizdir; çoğu çalışma ve aile vizesi dahil bazı vize kategorileri, vize başvurusunun bir parçası olarak ödenen bir Göçmenlik Sağlık Ek Ücreti içerir ve bu, sahibine bir yerleşikle büyük ölçüde aynı temelde NHS bakımı hakkı tanır. Kısa süreli ziyaretçiler ve bazı diğer kategoriler belirli hastane hizmetleri için ücretlendirilebilir. Uygunluk kuralları değiştiği ve kişisel duruma bağlı olduğu için, güncel rehberliği <a href="https://www.gov.uk/guidance/healthcare-for-visitors-and-migrants-to-england" target="_blank" rel="noopener noreferrer">gov.uk</a> üzerinden kontrol edin veya emin değilseniz doğrudan aile hekimliği kliniğinizin resepsiyonuna sorun.</p>
-
-<h2>3. Reçeteler, diş ve göz bakımı</h2>
-<p>İngiltere'de yazılan reçeteler, kalem başına standart bir ücret taşır; çocuklar, 60 yaş üstü kişiler, hamile veya yakın zamanda hamile kalmış kadınlar ve belirli uzun süreli rahatsızlıkları olan veya düşük gelirli kişiler için yaygın muafiyetler bulunur — İskoçya, Galler ve Kuzey İrlanda'da reçeteler bu kategorilerden bağımsız olarak ücretsizdir. NHS diş tedavisi, işlem başına değil sabit bantlı oranlarla ücretlendirilir ve NHS göz muayeneleri, reçete ücretinden muaf olan aynı gruplar için ücretsizdir. Güncel ücretler ve muafiyet kriterleri <a href="https://www.nhs.uk/nhs-services/help-with-health-costs/" target="_blank" rel="noopener noreferrer">nhs.uk</a> üzerinde listelenmiştir.</p>
-
-<h2>4. Doğru hizmeti seçmek</h2>
-<ul>
-<li><strong>Aile hekimliği kliniği</strong> — rutin ve devam eden sağlık sorunları, uzmana sevkler, tekrarlanan reçeteler.</li>
-<li><strong>NHS 111</strong> (telefon veya çevrimiçi) — acil ancak hayati tehlike arz etmeyen durumlar, aile hekiminiz kapalıyken veya nereye başvuracağınızdan emin değilseniz.</li>
-<li><strong>A&E (acil servis) veya 999</strong> — yalnızca acil durumlar: göğüs ağrısı, ciddi kanama, nefes almada zorluk, bilinç kaybı.</li>
-<li><strong>Eczane</strong> — küçük rahatsızlıklar, tavsiye ve giderek genişleyen hizmet yelpazesi (bazı eczaneler artık belirli durumları aile hekimine gitmeden doğrudan tedavi edebilir).</li>
-</ul>
-
-<h2>5. NHS'nin yanında özel sağlık sigortası</h2>
-<p>Birleşik Krallık'ta özel sağlık sigortası NHS'nin yerini almaz — genellikle daha hızlı uzman randevularına ve elektif (acil olmayan) işlemlere, özel hastane odalarına veya NHS tarafından rutin olarak finanse edilmeyen tedavilere erişmek için NHS ile birlikte kullanılır. Acil bakım, özel sigortadan bağımsız olarak her zaman NHS üzerinden yürütülür. Birçok işveren özel sağlık sigortasını bir yan hak olarak sunar; bireysel poliçeler de yaygın olarak mevcuttur. Bu dizin, yerel sağlayıcıların hangi <a href="/insurance">sigorta şirketlerini ve nakit planlarını</a> kabul ettiğini listeler, böylece randevu almadan önce uyumluluğu kontrol edebilirsiniz.</p>
-
-<h2>6. Dil desteği</h2>
-<p>Aile hekimliği klinikleri ve hastaneler dahil NHS randevularında ücretsiz olarak tercüman talep etme hakkınız vardır — kendi tercümanınızı getirmenize gerek yoktur, ancak birçok kişi mümkün olduğunda doğrudan Türkçe konuşan bir sağlayıcıyı görmeyi tercih eder. Bu dizin tam olarak bunu kolaylaştırmak için var: her kayıt, sağlayıcının konuştuğu dilleri belirtir.</p>
-
-<h2>Yardım nereden alınır</h2>
-<p>Durumunuza özel herhangi bir konu için en güvenilir kaynaklar <a href="https://www.nhs.uk" target="_blank" rel="noopener noreferrer">nhs.uk</a>, <a href="https://www.gov.uk/browse/healthcare" target="_blank" rel="noopener noreferrer">gov.uk</a> ve kendi aile hekimliği kliniğinizdir. Bu sayfa genel bir başlangıç noktasıdır, resmi rehberliğin yerini tutmaz ve kurallar değişebilir — önemli bir konuya güvenmeden önce her zaman doğrudan NHS veya gov.uk ile teyit edin.</p>
-`.trim();
-
-function buildTranslations(): TranslationDef[] {
-  const translations: TranslationDef[] = [];
-
-  for (const [itemId, [name, description]] of Object.entries(
-    SPECIALITY_TRANSLATIONS,
-  )) {
-    translations.push({
-      collection: "specialities",
-      itemId,
-      field: "name",
-      language: LANGUAGE,
-      value: name,
-    });
-    translations.push({
-      collection: "specialities",
-      itemId,
-      field: "description",
-      language: LANGUAGE,
-      value: description,
-    });
-  }
-
-  translations.push({
-    collection: "pages",
-    itemId: "page-nhs-benefits-guide",
-    field: "title",
-    language: LANGUAGE,
-    value: NHS_PAGE_TITLE_TR,
-  });
-  translations.push({
+const TRANSLATIONS: TranslationDef[] = [
+  {
+    collection: "insurances",
+    itemId: "ins-aviva",
+    field: "description",
+    language: "tr",
+    value: "Bireyler ve aileler için özel sağlık sigortası planları.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-axa-health",
+    field: "description",
+    language: "tr",
+    value: "Konsültasyon, tanı ve tedaviyi kapsayan özel sağlık sigortası.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-bupa",
+    field: "description",
+    language: "tr",
+    value: "Birleşik Krallık'ın en büyük özel sağlık sigortacılarından biri; klinikler ve hastaneler genelinde yaygın olarak kabul edilir.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-cigna-global",
+    field: "description",
+    language: "tr",
+    value: "Yurt dışı poliçesi olan yeni gelenler için faydalı, uluslararası özel sağlık sigortası.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-nhs",
+    field: "description",
+    language: "tr",
+    value: "Ulusal Sağlık Hizmeti (NHS) tarafından finanse edilen, uygun hastalar için kullanım anında ücretsiz bakım.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-simplyhealth",
+    field: "description",
+    language: "tr",
+    value: "Diş ve göz bakımı gibi günlük masrafların karşılanmasına yardımcı olan sağlık nakit planları.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-vitality",
+    field: "description",
+    language: "tr",
+    value: "Ödül tabanlı bir sağlıklı yaşam programına sahip özel sağlık sigortası.",
+  },
+  {
+    collection: "insurances",
+    itemId: "ins-wpa",
+    field: "description",
+    language: "tr",
+    value: "Western Provident Association, kâr amacı gütmeyen bir özel sağlık sigortacısı.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-80-kensington-dental-clinic",
+    field: "description",
+    language: "tr",
+    value: "High Street Kensington üzerinde yer alan, diş implantları ve genel diş hekimliği hizmetleri sunan bir NHS ve özel diş kliniği.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-all-smiles-in-finchley",
+    field: "description",
+    language: "tr",
+    value: "North Finchley'de 35 yılı aşkın süredir faaliyet gösteren, 2012 yılında Türk diş hekimi Dr Handan Sabahlar tarafından devralınan bir diş kliniği. Genel ve estetik diş hekimliği hizmetleri sunar; zemin katta yer alan tesisleri tekerlekli sandalye erişimine uygundur.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-beckenham-dental-centre",
+    field: "description",
+    language: "tr",
+    value: "Beckenham'da bulunan bir NHS ve özel diş kliniği; hafta sonu acil randevuları konusunda Türkçe konuşan toplum içinde tavsiye edilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-boston-orthodontics",
+    field: "description",
+    language: "tr",
+    value: "Belgravia'da bulunan, Invisalign ve diş teli (braces) uygulamalarında uzmanlaşmış özel bir ortodonti kliniği.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-chase-lodge-hospital",
+    field: "description",
+    language: "tr",
+    value: "Mill Hill'de bulunan, cerrahi ve ayakta tedavi hizmetleri sunan çok branşlı özel bir hastane.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-chelsea-westminster-hospital",
+    field: "description",
+    language: "tr",
+    value: "Özel bakım bölümüne de sahip bir NHS eğitim hastanesi. Tüm cinsiyetler ve yaş gruplarına yönelik uzman pelvik sağlık fizyoterapisti Elmas Court'un hem NHS bünyesinde hem de özel olarak hizmet verdiği Pelvik Sağlık Fizyoterapisi (Pelvic Health Physiotherapy) bölümüne ev sahipliği yapar.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-circumcision-clinic-london",
+    field: "description",
+    language: "tr",
+    value: "Surbiton'da bulunan, CQC tarafından ruhsatlandırılmış özel bir klinik. Bebekler, çocuklar ve yetişkinler üzerinde 25.000'in üzerinde sünnet (circumcision) işlemi gerçekleştirmiş olan Mr Anwar Khan FRCS (Edin) tarafından yönetilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-dental-beauty-islington",
+    field: "description",
+    language: "tr",
+    value: "Upper Street üzerinde bulunan, genel, kozmetik ve koruyucu diş hekimliği hizmetleri sunan bir NHS ve özel diş kliniği. Topluluğun WhatsApp grubunda tavsiye edilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-derman",
+    field: "description",
+    language: "tr",
+    value: "Londra'daki Türk toplumunun refahı için 1991 yılında kurulmuş, kayıtlı bir hayır kurumu (charity). Hackney ve çevresindeki 12 lokasyonda, GP muayenehanelerinde ücretsiz danışmanlık, psikoterapi, IAPT konuşma terapileri, ruh sağlığı iyileşme destek grupları ile tercümanlık/danışmanlık hizmetleri sunmaktadır. Hizmetler, siyasi, etnik veya dini geçmişe bakılmaksızın ücretsizdir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-doctors-4-you",
+    field: "description",
+    language: "tr",
+    value: "Wood Green'de bulunan, CQC tarafından ruhsatlandırılmış ve GMC kayıtlı hekimlerin görev yaptığı çok branşlı özel bir klinik. Aynı gün GP randevuları, pediatri, jinekoloji ve kardiyoloji konsültasyonları sunar; Kuzey Londra'daki Türkçe konuşan toplum arasında rağbet görmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-esra-caglar-practice",
+    field: "description",
+    language: "tr",
+    value: "Uzman Çocuk ve Ergen Psikiyatristi ve Yetişkin Psikanalisti Dr Esra Caglar'ın Queen Anne Street'teki muayenehanesi; anksiyete, duygudurum, travma, nörogelişimsel ve aile sorunlarına yönelik değerlendirme ve tedavi hizmetleri sunar.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-green-light-pharmacy-green-lanes",
+    field: "description",
+    language: "tr",
+    value: "Harringay'in kalbinde, Green Lanes üzerindeki Grand Parade'de bulunan bir semt eczanesi; yerel Türkçe konuşan topluma NHS reçeteleri ve sağlık danışmanlığı sunmaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-harley-street-dental-studio",
+    field: "description",
+    language: "tr",
+    value: "Harley Street'te bulunan, Dr Adam Thorne liderliğindeki özel bir kozmetik diş hekimliği kliniği. Türkler tarafından işletilmemekle birlikte, topluluğun WhatsApp grubunda övgüyle bahsedilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-leeds-general-infirmary",
+    field: "description",
+    language: "tr",
+    value: "Leeds'te bulunan, Leeds Teaching Hospitals NHS Trust bünyesindeki bir NHS eğitim hastanesi. Uzman beyin cerrahı (konsültan nöroşirürjiyen) Mr Kenan Deniz (omurga, nörovasküler ve kafatabanı cerrahisi) burada görev yapmaktadır; pediatrik epilepsi ve nöroloji sevkleri konusunda Türkçe konuşan toplum içinde tavsiye edilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-liv-harley-street-hospital",
+    field: "description",
+    language: "tr",
+    value: "Harley Street'te bulunan, kişiye özel konsültasyonlardan cerrahi operasyonlara kadar hizmet sunan, bünyesinde laboratuvar ve ameliyathane tesisleri bulunan özel bir hastane; Türk LIV Hospital grubu tarafından işletilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-maltepe-dental-clinic-london",
+    field: "description",
+    language: "tr",
+    value: "İstanbul merkezli bir diş grubu olan Maltepe Dental Clinic'in Londra'daki konsültasyon ve tedavi sonrası bakım kliniği. İngiltere'de kayıtlı Türk diş hekimi Dr Yusuf Ilhan tarafından yürütülmekte olup, İngiltere'deki konsültasyonları Türkiye'deki tedavi ile birleştirmek isteyen hastalara hizmet vermektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-med-chem-pharmacy",
+    field: "description",
+    language: "tr",
+    value: "Green Lanes üzerindeki Grand Parade'de bulunan, Ali Ozbek tarafından işletilen ve Turkish Business UK rehberinde listelenen bir semt eczanesi; yerel Türkçe konuşan topluma yılın 365 günü ilaç temini, sağlık danışmanlığı ve destek sunmaktadır. Topluluğun WhatsApp grubunda ayrıca Türkiye'den ilaç temin ettiği belirtilen \"Eczacı Murat Bey\" (+44 7367 658489) adlı bir eczacıdan da söz edilmektedir — bu bilgi bağımsız olarak doğrulanmamıştır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-medicana-winchester",
+    field: "description",
+    language: "tr",
+    value: "Türk hastane grubu Medicana'nın İngiltere'deki uzantısı; ileri düzey tanı hizmetleri (3T MRI, röntgen ve ultrason dahil) ile ortopedi, nöroloji ve kadın sağlığı alanlarında uzman konsültasyonları sunmaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-medi-park-clinic",
+    field: "description",
+    language: "tr",
+    value: "Haringey'de, Green Lanes üzerinde bulunan; fiziksel ve ruh sağlığı hizmetlerini estetik ve tanı hizmetleriyle bir araya getiren özel bir klinik. Londra'nın Türkçe konuşan topluluğunun kalbinde konumlanmıştır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-mediwell-clinic",
+    field: "description",
+    language: "tr",
+    value: "Tottenham'da bulunan, CQC tarafından ruhsatlandırılmış, hasta kitlesinin çoğunluğu anadili Türkçe olan çok disiplinli özel bir klinik. GP, dermatoloji, kardiyoloji, üroloji, gastroenteroloji, diş hekimliği ve saç ekimi hizmetleri sunmaktadır. Jinekolog Dr Zehra Koçer ve Dr Meltem Özkan Girgin burada görev yapmaktadır. Kardeş diş kliniği: dentalondon.co.uk.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-medplus-clinic",
+    field: "description",
+    language: "tr",
+    value: "Enfield'da bulunan, genel pratisyenlik hizmetlerinin yanı sıra tanı (diagnostik) hizmetleri de sunan özel bir aile hekimliği ve dermatoloji kliniği olup, Kuzey Londra'daki Türk toplumuna hizmet vermektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-medstar",
+    field: "description",
+    language: "tr",
+    value: "Gray's Inn Road üzerinde bulunan ve Barnet'te ikinci bir şubesi olan, dijital sağlık platformuna sahip özel bir aile hekimliği ve tanı kliniği.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-memorial-healthcare-uk-leeds",
+    field: "description",
+    language: "tr",
+    value: "Memorial Hospitals Group'un (Türkiye) İngiltere ofisi olup, Ocak 2024'te Leeds'te açılmıştır; Türkiye'deki Memorial hastanelerinde tedavi görmeyi düşünen hastalar için sevk ve ikinci görüş (second opinion) işlemlerini yürütmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-mhw-clinic",
+    field: "description",
+    language: "tr",
+    value: "Whitechapel'da bulunan, CQC (Care Quality Commission) tarafından kayıtlı özel bir aile hekimliği ve uzmanlık kliniği olup; birinci basamak bakım, acil bakım, kardiyoloji, jinekoloji, sonografi ve psikoloji hizmetlerinin yanı sıra HCPC kayıtlı fizyoterapi de sunmaktadır. Kliniğin kurucu ortağı ve tıbbi direktörü Dr Haydar Bolat'tır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-motherscan",
+    field: "description",
+    language: "tr",
+    value: "Raynes Park'ta bulunan (ayrıca Wimbledon'da da bir şubesi olan) özel bir gebelik 3D/4D ultrason kliniği olup, Türkçe konuşan toplumun WhatsApp grubunda defalarca tavsiye edilmiştir. Topluluk kaynakları, sonografist olarak Türk doktorlar \"Dr Hakan\" ve \"Nesrin hanım\"ı işaret etmektedir — soyadları bağımsız olarak doğrulanmamıştır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-north-middlesex-hospital",
+    field: "description",
+    language: "tr",
+    value: "Edmonton'da bulunan bir NHS genel hastanesi olup, Kuzey Londra'ya -önemli bir Türk topluluğunun bulunduğu Haringey ve Enfield bölgeleri dahil- acil servis, yataklı tedavi ve ayakta tedavi hizmetleri sunmaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-onclinic",
+    field: "description",
+    language: "tr",
+    value: "Harley Street üzerinde bulunan, estetik diş hekimliği ve ortodonti alanında uzmanlaşmış özel bir diş kliniği olup, lazer ve biyolojik diş hekimliği uzmanı Özge Erbil Maden'e ev sahipliği yapmaktadır. Dr İlay Maden de burada ortak olarak yer almaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-parade-pharmacy",
+    field: "description",
+    language: "tr",
+    value: "Harringay, Green Lanes, Grand Parade üzerinde bulunan bir toplum eczanesi olup, yerel topluma NHS reçeteleri ve sağlıklı yaşam tavsiyeleri ile hizmet vermektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-psikolog-londra-terapi-platformu",
+    field: "description",
+    language: "tr",
+    value: "Bishopsgate'te bulunan, Türkçe hizmet veren bir psikiyatri ve psikoloji merkezi olup; NHS bekleme listesi olmaksızın DEHB (ADHD) ve otizm değerlendirmesi, yetişkin ve çocuk psikiyatrisi ile psikolojik terapi sunmaktadır. Bünyesinde Prof Dr Ömer Geçici (psikiyatri), Dr Hava Drummond ve psikolog Eda Ertürk yer almaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-smilestone-dental-clinic",
+    field: "description",
+    language: "tr",
+    value: "Hackney Road üzerinde bulunan, estetik ve genel diş hekimliği hizmetleri sunan özel bir diş kliniği.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-st-marks-hospital",
+    field: "description",
+    language: "tr",
+    value: "Ulusal Bağırsak Hastanesi (National Bowel Hospital) olarak da bilinen, Harrow'da bulunan kolorektal ve bağırsak rahatsızlıkları konusunda uzmanlaşmış bir NHS merkezi olup, konsültan kolorektal cerrah Mr Tushar Agarwal burada hizmet vermektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-sweetcroft-dental-practice",
+    field: "description",
+    language: "tr",
+    value: "Hillingdon'da bulunan, hem NHS hem de özel hizmet veren bir diş kliniği olup, aile diş hekimliği ve fiyatlandırması açısından Türkçe konuşan toplum içinde tavsiye edilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-terapi-londra",
+    field: "description",
+    language: "tr",
+    value: "Lordship Lane üzerinde bulunan, Türkçe hizmet veren özel bir psikoloji merkezi olup, bireysel psikoterapi, çift terapisi ve çocuk danışmanlığı hizmetleri sunmaktadır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-the-family-dental-practice",
+    field: "description",
+    language: "tr",
+    value: "Wood Green'de High Road üzerinde bulunan bir diş kliniği olup, Türkçe konuşan diş hekimi Selma'ya ev sahipliği yapmakta ve Kuzey Londra'daki Türkçe konuşan toplum içinde tavsiye edilmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-the-london-clinic",
+    field: "description",
+    language: "tr",
+    value: "Devonshire Place üzerinde bulunan büyük bir özel hastane olup, konsültan kolorektal ve genel cerrah Mr Tushar Agarwal burada özel hastalarını kabul etmektedir.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-uk-vital-clinic",
+    field: "description",
+    language: "tr",
+    value: "Twickenham'da bulunan, koruyucu sağlık hizmetleri ve kişiselleştirilmiş sağlık yönetimi sunan özel bir klinik.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-wellzone-clinics",
+    field: "description",
+    language: "tr",
+    value: "Bermondsey'de bulunan, aile hekimliği hizmetleri, kan tahlilleri, saç ekimi ve diş bakımı sunan özel bir aile hekimliği ve uzmanlık kliniği.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-western-eye-hospital",
+    field: "description",
+    language: "tr",
+    value: "Imperial College Healthcare NHS Trust bünyesinde yer alan bir NHS göz hastanesi olup, acil göz bakımı da dahil olmak üzere oftalmoloji hizmetleri sunmaktadır. Topluluğun WhatsApp grubundan bir üye tarafından acil bir durumda kullanılmıştır.",
+  },
+  {
+    collection: "organizations",
+    itemId: "org-youniverse-clinic",
+    field: "description",
+    language: "tr",
+    value: "Özge Erbil Maden ve İlay Maden liderliğinde, biyolojik, lazer ve periodontal diş hekimliği, implantoloji ve horlama karşıtı tedavi alanlarında uzmanlaşmış özel bir diş kliniği. Not: mevcut adres konusunda kaynaklar arasında tutarsızlık bulunmaktadır — kliniğin kendi web sitesi 128 Harley Street, W1G 7JT adresini belirtirken, Temmuz 2026'da yapılan bir topluluk doğrulaması 1 Orchard Street, W1H 6HJ adresini vermiştir; burada daha güncel olan ikinci adres kullanılmıştır, ancak gitmeden önce telefonla teyit etmeniz önerilir.",
+  },
+  {
     collection: "pages",
     itemId: "page-nhs-benefits-guide",
     field: "body",
-    language: LANGUAGE,
-    value: NHS_PAGE_BODY_TR,
-  });
-
-  return translations;
-}
+    language: "tr",
+    value: "<p>NHS (National Health Service — Ulusal Sağlık Hizmeti), Birleşik Krallık'ta sağlık hizmetlerinin büyük bölümünü kullanım anında ücretsiz olarak sağlar ve genel vergilendirme ile Ulusal Sigorta (National Insurance) yoluyla finanse edilir. Bu rehber, NHS'yi kullanmaya başlamak için pratik adımları ve özel sağlık sigortasının NHS ile nasıl bir arada kullanılabileceğini kapsar.</p>\n\n<h2>1. Bir aile hekimliği (GP) kliniğine kayıt olun</h2>\n<p>Aile hekimliği (GP) kliniği, acil olmayan sağlık sorunları için neredeyse her zaman ilk başvuru noktasıdır ve bir kliniğe kayıt olmak atılacak en önemli adımdır. Yaşadığınız bölgeyi kapsayan herhangi bir kliniğe, göçmenlik statünüzden bağımsız olarak kayıt olabilirsiniz — kaydın kendisi ücretsizdir ve adres kanıtı, kimlik veya göçmenlik belgesi gerektirmez, ancak bazı klinikler nezaketen bunları isteyebilir. <a href=\"https://www.nhs.uk/service-search/find-a-gp\" target=\"_blank\" rel=\"noopener noreferrer\">nhs.uk</a> üzerinden arama yapabilir veya Türkçe konuşan klinikleri bulmak için bu dizinin <a href=\"/map\">haritasını</a> kullanabilirsiniz.</p>\n<p>Kayıt olduktan sonra, tüm sağlık sistemi genelinde kayıtlarınızı birbirine bağlamak için kullanılan bir NHS numarası verilir.</p>\n\n<h2>2. Ücretsiz NHS bakımına kimler hak kazanır</h2>\n<p>Aile hekimi muayeneleri Birleşik Krallık'ta yaşayan herkes için ücretsizdir. Hastane tedavisi genellikle Birleşik Krallık'ta \"olağan ikametgahı\" olan herkes için ücretsizdir; çoğu çalışma ve aile vizesi dahil bazı vize kategorileri, vize başvurusunun bir parçası olarak ödenen bir Göçmenlik Sağlık Ek Ücreti içerir ve bu, sahibine bir yerleşikle büyük ölçüde aynı temelde NHS bakımı hakkı tanır. Kısa süreli ziyaretçiler ve bazı diğer kategoriler belirli hastane hizmetleri için ücretlendirilebilir. Uygunluk kuralları değiştiği ve kişisel duruma bağlı olduğu için, güncel rehberliği <a href=\"https://www.gov.uk/guidance/healthcare-for-visitors-and-migrants-to-england\" target=\"_blank\" rel=\"noopener noreferrer\">gov.uk</a> üzerinden kontrol edin veya emin değilseniz doğrudan aile hekimliği kliniğinizin resepsiyonuna sorun.</p>\n\n<h2>3. Reçeteler, diş ve göz bakımı</h2>\n<p>İngiltere'de yazılan reçeteler, kalem başına standart bir ücret taşır; çocuklar, 60 yaş üstü kişiler, hamile veya yakın zamanda hamile kalmış kadınlar ve belirli uzun süreli rahatsızlıkları olan veya düşük gelirli kişiler için yaygın muafiyetler bulunur — İskoçya, Galler ve Kuzey İrlanda'da reçeteler bu kategorilerden bağımsız olarak ücretsizdir. NHS diş tedavisi, işlem başına değil sabit bantlı oranlarla ücretlendirilir ve NHS göz muayeneleri, reçete ücretinden muaf olan aynı gruplar için ücretsizdir. Güncel ücretler ve muafiyet kriterleri <a href=\"https://www.nhs.uk/nhs-services/help-with-health-costs/\" target=\"_blank\" rel=\"noopener noreferrer\">nhs.uk</a> üzerinde listelenmiştir.</p>\n\n<h2>4. Doğru hizmeti seçmek</h2>\n<ul>\n<li><strong>Aile hekimliği kliniği</strong> — rutin ve devam eden sağlık sorunları, uzmana sevkler, tekrarlanan reçeteler.</li>\n<li><strong>NHS 111</strong> (telefon veya çevrimiçi) — acil ancak hayati tehlike arz etmeyen durumlar, aile hekiminiz kapalıyken veya nereye başvuracağınızdan emin değilseniz.</li>\n<li><strong>A&E (acil servis) veya 999</strong> — yalnızca acil durumlar: göğüs ağrısı, ciddi kanama, nefes almada zorluk, bilinç kaybı.</li>\n<li><strong>Eczane</strong> — küçük rahatsızlıklar, tavsiye ve giderek genişleyen hizmet yelpazesi (bazı eczaneler artık belirli durumları aile hekimine gitmeden doğrudan tedavi edebilir).</li>\n</ul>\n\n<h2>5. NHS'nin yanında özel sağlık sigortası</h2>\n<p>Birleşik Krallık'ta özel sağlık sigortası NHS'nin yerini almaz — genellikle daha hızlı uzman randevularına ve elektif (acil olmayan) işlemlere, özel hastane odalarına veya NHS tarafından rutin olarak finanse edilmeyen tedavilere erişmek için NHS ile birlikte kullanılır. Acil bakım, özel sigortadan bağımsız olarak her zaman NHS üzerinden yürütülür. Birçok işveren özel sağlık sigortasını bir yan hak olarak sunar; bireysel poliçeler de yaygın olarak mevcuttur. Bu dizin, yerel sağlayıcıların hangi <a href=\"/insurance\">sigorta şirketlerini ve nakit planlarını</a> kabul ettiğini listeler, böylece randevu almadan önce uyumluluğu kontrol edebilirsiniz.</p>\n\n<h2>6. Dil desteği</h2>\n<p>Aile hekimliği klinikleri ve hastaneler dahil NHS randevularında ücretsiz olarak tercüman talep etme hakkınız vardır — kendi tercümanınızı getirmenize gerek yoktur, ancak birçok kişi mümkün olduğunda doğrudan Türkçe konuşan bir sağlayıcıyı görmeyi tercih eder. Bu dizin tam olarak bunu kolaylaştırmak için var: her kayıt, sağlayıcının konuştuğu dilleri belirtir.</p>\n\n<h2>Yardım nereden alınır</h2>\n<p>Durumunuza özel herhangi bir konu için en güvenilir kaynaklar <a href=\"https://www.nhs.uk\" target=\"_blank\" rel=\"noopener noreferrer\">nhs.uk</a>, <a href=\"https://www.gov.uk/browse/healthcare\" target=\"_blank\" rel=\"noopener noreferrer\">gov.uk</a> ve kendi aile hekimliği kliniğinizdir. Bu sayfa genel bir başlangıç noktasıdır, resmi rehberliğin yerini tutmaz ve kurallar değişebilir — önemli bir konuya güvenmeden önce her zaman doğrudan NHS veya gov.uk ile teyit edin.</p>",
+  },
+  {
+    collection: "pages",
+    itemId: "page-nhs-benefits-guide",
+    field: "title",
+    language: "tr",
+    value: "İngiltere'de NHS Sigortası ve Sağlık Hizmetlerinden Nasıl Yararlanılır",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-acelya-sarioglu",
+    field: "bio",
+    language: "tr",
+    value: "Şema terapisi alanında uzmanlaşmış, çocuklar, ergenler ve yetişkinlerle çalışan klinik psikolog. Whitechapel'daki My Health & Wellbeing Clinic'te görev yapmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-adam-thorne",
+    field: "bio",
+    language: "tr",
+    value: "Harley Street Dental Studio'nun kurucu ortağı ve CEO'su, tanınmış bir İngiliz estetik diş hekimi. Türkçe konuşmuyor, ancak topluluğun WhatsApp grubundaki bir üye tarafından övülmüştür.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-anwar-khan",
+    field: "bio",
+    language: "tr",
+    value: "Bebekler, çocuklar ve yetişkinler için sünnet konusunda uzmanlaşmış, 25.000'den fazla işlem gerçekleştirmiş cerrah. Galler'in Cwmbran şehrindeki Grange University Hospital'da yarı zamanlı bir cerrahi yan dalda çalışmakla birlikte, Surbiton'daki özel Circumcision Clinic London'da da hizmet vermektedir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-aylin-darwin",
+    field: "bio",
+    language: "tr",
+    value: "WC1A (Holborn) bölgesinde bulunan, Türkçe ve İngilizce psikoterapi hizmeti sunan psikoterapist.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-ayse-gurbuz",
+    field: "bio",
+    language: "tr",
+    value: "Londra'da köklü bir psikiyatri/terapi uygulayıcısı; topluluğun WhatsApp grubunda kendisiyle doğrudan çalışmış bir üye tarafından tavsiye edilmiştir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-busra-arikan",
+    field: "bio",
+    language: "tr",
+    value: "Flourish Psychology adıyla hizmet veren, Kensington bölgesinde ve çevrimiçi çalışan psikolog. 3-12 yaş arası çocuklar ve ebeveynleriyle İngilizce ve Türkçe olarak Çocuk Merkezli Oyun Terapisi (CCPT), EMDR ve ebeveynlik desteği sunmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-ceren-yavuz-kolzeev",
+    field: "bio",
+    language: "tr",
+    value: "İstanbul'da doğup büyüyen, beslenme eğitimi almak için Londra'ya taşınan CYK Nutrition'ın kurucusu ve kayıtlı beslenme uzmanı. Kilo yönetimi, PCOS ve diğer kronik hastalık beslenmesi, spor/performans beslenmesi ve diyet dışı yaklaşımlar konusunda uzmanlaşmıştır. Türkçe içerik üreten az sayıdaki kanıta dayalı beslenme uzmanlarından biri olup 20'den fazla ülkeden danışanlara çevrimiçi hizmet vermektedir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-dilek-guvenc",
+    field: "bio",
+    language: "tr",
+    value: "Londra'da bir diş hekimi; topluluğun WhatsApp grubunda bir İstanbul diş hekiminin yönlendirmesiyle tavsiye edilmiştir. Klinik konumu kaynak tarafından belirtilmemiştir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-diva-ulucay",
+    field: "bio",
+    language: "tr",
+    value: "E8 (Dalston/Hackney) bölgesinde bulunan, duygu durum bozuklukları ve kaygı dahil duygusal güçlükler konusunda uzmanlaşmış psikolog.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-eda-erturk",
+    field: "bio",
+    language: "tr",
+    value: "Bishopsgate'teki Psikolog Londra Terapi Platformu'nda görev yapan psikolog; Prof Dr Ömer Geçici (psikiyatri) ve Dr Hava Drummond ile aynı uygulamanın bir parçasıdır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-eda-meteer",
+    field: "bio",
+    language: "tr",
+    value: "N21 (Winchmore Hill) bölgesinde bulunan, 14 yıllık deneyime sahip, Türkçe ve İngilizce seanslar sunan danışman.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-elmas-court",
+    field: "bio",
+    language: "tr",
+    value: "Chelsea and Westminster Hospital NHS Foundation Trust'ın Pelvik Sağlık Fizyoterapisi biriminde çalışan ve hastanenin özel biriminde hafta içi akşamları ve cumartesi günleri özel hasta da gören, her cinsiyet ve yaş için uzman pelvik sağlık fizyoterapisti. Trans erkekler ve trans kadınlar dahil pelvik taban disfonksiyonunu değerlendirir ve tedavi eder, pelvik taban rahatsızlıkları için akupunkturda da yetkindir. Topluluğun WhatsApp grubunun aktif bir üyesidir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-emine-caliskan",
+    field: "bio",
+    language: "tr",
+    value: "Meme kanserinden etkilenen kişilere destek sunan psikolog ve psikoterapist.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-esin-anlas-atli",
+    field: "bio",
+    language: "tr",
+    value: "Topluluğun WhatsApp grubunda kendini tanıtan fizyoterapist; sırt ve boyun ağrısı, lenfödem masajı, kuru iğneleme, inme rehabilitasyonu ve hacamat tedavisi sunmaktadır. Klinik konumu kaynak tarafından belirtilmemiştir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-esra-caglar",
+    field: "bio",
+    language: "tr",
+    value: "Queen Anne Street'te bulunan, 15 yılı aşkın deneyime sahip Konsültan Çocuk ve Ergen Psikiyatristi ve Yetişkin Psikanalisti. Psikanalitik, hasta merkezli bir yaklaşımla kaygı, duygu durum güçlükleri, travma, nörogelişimsel durumlar (DEHB, otizm) ile aile ve ebeveynlik konularını değerlendirir ve tedavi eder.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-etel-behmuaras",
+    field: "bio",
+    language: "tr",
+    value: "Çocuk psikolojisi konularında topluluğun WhatsApp grubunda tavsiye edilen çocuk psikoloğu.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-fatma-seda-soylu",
+    field: "bio",
+    language: "tr",
+    value: "25 yılı aşkın deneyime sahip kadın doğum ve jinekoloji uzmanı; 2019'da İngiltere'ye yerleşip GMC kaydını almadan önce Türkiye genelindeki hastanelerde konsültan hekim olarak çalışmıştır. Whitechapel'daki My Health & Wellbeing Clinic'te görev yapmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-filiz-cakmakci",
+    field: "bio",
+    language: "tr",
+    value: "Southgate ve Kensington bölgelerinde bulunan, yüz yüze ve çevrimiçi EMDR terapisi sunan psikolog (BACP stajyeri).",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-handan-sabahlar",
+    field: "bio",
+    language: "tr",
+    value: "2001'den beri Kuzey Londra genelinde genel diş hekimliği alanında çalışan, Nisan 2012'de All Smiles In Finchley'i devralan Türk diş hekimi. Kron, köprü ve kaplama dahil kapsamlı estetik diş hekimliği ile randevusuz hijyen seansları sunmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-hava-drummond",
+    field: "bio",
+    language: "tr",
+    value: "Bishopsgate'teki Psikolog Londra Terapi Platformu'nda çocuklar, ergenler ve yetişkinlere Türkçe ve İngilizce hizmet veren psikolog.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-haydar-bolat",
+    field: "bio",
+    language: "tr",
+    value: "Whitechapel'daki My Health & Wellbeing Clinic'in kurucu ortağı ve Tıbbi Direktörü. Aile hekimliği, acil bakım ve A&E alanlarında on yılı aşkın NHS deneyimine sahip İngiltere'de kayıtlı hekim. Barts and The London School of Medicine and Dentistry'de (üstün başarıyla) eğitim almış ve 2016'da MRCGP unvanını almıştır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-ilay-maden",
+    field: "bio",
+    language: "tr",
+    value: "Harley Street'teki YOUniverse Clinic'te görev yapan periodontist ve implantolog; Almanya'da Lazer Diş Hekimliği alanında yüksek lisans ve Türkiye'de Periodontoloji alanında doktora derecesine sahiptir. Periodontoloji, implantoloji, lazer diş hekimliği ve horlama karşıtı tedavi konularında uzmanlaşmıştır ve uluslararası ders veren Seesaw Dental Courses'un Bilimsel Direktörü olarak görev yapmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-incilay-karahasan",
+    field: "bio",
+    language: "tr",
+    value: "Hera Therapy adıyla hizmet veren, SE10 (Greenwich) bölgesinde bulunan, Türkçe ve İngilizce, çevrimiçi ve yüz yüze seanslar sunan danışman.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-kenan-deniz",
+    field: "bio",
+    language: "tr",
+    value: "Leeds General Infirmary'de omurga, nörovasküler ve kafatabanı cerrahisi konusunda uzmanlaşmış Konsültan Beyin Cerrahı (topluluğun WhatsApp grubu kendisinden \"nörolog\" olarak bahsetmiş olsa da, aslında bir beyin cerrahıdır). Ayrıca Nuffield Health Leeds, Spire Methley Park ve Harrogate'teki The Duchy Hospital'da özel hasta kabul etmektedir. Çocuklarda epilepsi ve nöroloji yönlendirmeleri için tavsiye edilmektedir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-meltem-ozkan-girgin",
+    field: "bio",
+    language: "tr",
+    value: "Kuzey Londra'nın Türkçe konuşan topluluğu içinde tavsiye edilen, Tottenham'daki MediWell Clinic ve Haringey'deki Medi-Park Clinic ile ilişkilendirilen hekim (bu iki kayıt aynı hekimin farklı yerlerde çalıştığını mı, yoksa aynı adı taşıyan iki farklı hekimi mi yansıtıyor, mevcut kaynaklardan tam olarak ayırt edilememiştir). Doğum sonrası takip ve gebelik desteği konusunda defalarca övülmüştür.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-mizanur-rahman",
+    field: "bio",
+    language: "tr",
+    value: "Whitechapel'daki My Health & Wellbeing Clinic'te görev yapan, kas-iskelet sistemi rahatsızlıkları, spor yaralanmaları, ameliyat sonrası iyileşme, kronik ağrı ve işyeri ergonomisi konularında tedavi uygulayan HCPC kayıtlı fizyoterapist. İngilizce ve Bengalce konuşmaktadır (Türkçe değil), ancak Türkçe konuşan topluluğa hizmet veren bir klinikte görev yapmaktadır.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-nazif-fouat",
+    field: "bio",
+    language: "tr",
+    value: "N22 (Wood Green) bölgesinde bulunan, stres, kaygı, depresyon ve ilişki sorunları konularında Türkçe ve İngilizce destek sunan danışman.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-odul-turkay",
+    field: "bio",
+    language: "tr",
+    value: "Greater Manchester'ın Salford bölgesinde bulunan, İngilizce ve Türkçe akıcı konuşan, İngiltere genelinde ve ötesinde çeşitli, uluslararası bir danışan kitlesine destek veren Kayıtlı Diyetisyen ve Kayıtlı Yardımcı Beslenme Uzmanı.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-omer-gecici",
+    field: "bio",
+    language: "tr",
+    value: "Bishopsgate'teki Psikolog Londra Terapi Platformu'nda görev yapan, NHS bekleme listesi olmaksızın DEHB ve otizm spektrumu değerlendirmesi ile psikiyatrik konsültasyon sunan Konsültan Psikiyatrist.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-ozge-erbil-maden",
+    field: "bio",
+    language: "tr",
+    value: "2005 yılında İstanbul Üniversitesi Diş Hekimliği Fakültesi'nden mezun olmuş ve şu anda Londra'da, zamanını ONClinic ile Harley Street'teki YOUniverse Clinic arasında paylaştırarak çalışmaktadır. Biyolojik ve lazer destekli diş hekimliği, estetik restorasyonlar ve dijital gülüş tasarımı üzerine odaklanmaktadır. Ayrıca diş hekimlerine uluslararası düzeyde lazer diş hekimliği eğitimi veren Seesaw Dental Courses'u yürütmektedir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-selin-temizel-kirisman",
+    field: "bio",
+    language: "tr",
+    value: "N22 (Wood Green) bölgesinde bulunan, Türkçe ve İngilizce psikoterapi ve psikolojik destek sunan psikolog.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-selma",
+    field: "bio",
+    language: "tr",
+    value: "Wood Green'deki The Family Dental Practice'te görev yapan, Kuzey Londra'nın Türkçe konuşan topluluğu içinde tavsiye edilen Türkçe konuşan diş hekimi. Tam soyadı kaynak tarafından belirtilmemiştir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-sibel-bora",
+    field: "bio",
+    language: "tr",
+    value: "Londra'da 3 yılı aşkın deneyime sahip, topluluğun WhatsApp grubunda tavsiye edilen psikolog.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-taylan-yukselen",
+    field: "bio",
+    language: "tr",
+    value: "Imperial College Healthcare aracılığıyla özel bakım sunan, Londra'nın Türkçe konuşan topluluğu içinde psikiyatrik konsültasyon için tavsiye edilen Konsültan Psikiyatrist.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-tushar-agarwal",
+    field: "bio",
+    language: "tr",
+    value: "Laparoskopik kolorektal cerrahi, kolorektal kanserler ve proktoloji (hemoroid, anal fissür ve anal fistül cerrahisi) konularında uzmanlaşmış Konsültan Kolorektal ve Genel Cerrah. Özel olarak The London Clinic'te, NHS kapsamında ise St Mark's Hospital'da (The National Bowel Hospital) hizmet vermektedir. Imperial College London'da Onursal Kıdemli Öğretim Görevlisi'dir.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-yusuf-ilhan",
+    field: "bio",
+    language: "tr",
+    value: "İstanbul'daki Maltepe Dental Clinic'te birincil diş tedavisi gören hastalar için Londra'da konsültasyon ve tedavi sonrası bakım sağlayan, İngiltere'de kayıtlı Türk diş hekimi.",
+  },
+  {
+    collection: "providers",
+    itemId: "prv-zehra-kocer",
+    field: "bio",
+    language: "tr",
+    value: "Tottenham'daki MediWell Clinic'te görev yapan, İstanbul'daki Zeynep Kamil Kadın ve Çocuk Hastalıkları Eğitim ve Araştırma Hastanesi'nde eğitim almış Konsültan Jinekolog. Menopoz, kısırlık ve adet düzensizlikleri konularında uzmanlaşmış olup, tipik NHS bekleme sürelerinden daha hızlı erişim sunmaktadır.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-anti-snoring",
+    field: "description",
+    language: "tr",
+    value: "Horlama, diş eti hastalığı ve periodontal rahatsızlıkların tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-anti-snoring",
+    field: "name",
+    language: "tr",
+    value: "Horlama Karşıtı ve Periodontal Tedavi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cardiology",
+    field: "description",
+    language: "tr",
+    value: "Kalp ve kardiyovasküler hastalıkların teşhis ve tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cardiology",
+    field: "name",
+    language: "tr",
+    value: "Kardiyoloji",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cbt",
+    field: "description",
+    language: "tr",
+    value: "Kaygı, depresyon ve stres için yapılandırılmış konuşma terapisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cbt",
+    field: "name",
+    language: "tr",
+    value: "Bilişsel Davranışçı Terapi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-child-psychology",
+    field: "description",
+    language: "tr",
+    value: "Çocuklar için duygusal ve davranışsal destek.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-child-psychology",
+    field: "name",
+    language: "tr",
+    value: "Çocuk Psikolojisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-circumcision",
+    field: "description",
+    language: "tr",
+    value: "Bebekler, çocuklar ve yetişkinler için erkek sünneti.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-circumcision",
+    field: "name",
+    language: "tr",
+    value: "Sünnet",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cosmetic-dentistry",
+    field: "description",
+    language: "tr",
+    value: "Kaplama, diş beyazlatma ve gülüş estetiği.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-cosmetic-dentistry",
+    field: "name",
+    language: "tr",
+    value: "Estetik Diş Hekimliği",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-dermatology",
+    field: "description",
+    language: "tr",
+    value: "Cilt, saç ve tırnak rahatsızlıkları.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-dermatology",
+    field: "name",
+    language: "tr",
+    value: "Dermatoloji",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-diabetes-nutrition",
+    field: "description",
+    language: "tr",
+    value: "Tip 1 ve Tip 2 diyabetin beslenme yoluyla yönetimi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-diabetes-nutrition",
+    field: "name",
+    language: "tr",
+    value: "Diyabet Beslenmesi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-endocrinology",
+    field: "description",
+    language: "tr",
+    value: "Hormonal sağlık ile diyabetin teşhis, tedavi ve yönetimi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-endocrinology",
+    field: "name",
+    language: "tr",
+    value: "Endokrinoloji ve Diyabet",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-family-therapy",
+    field: "description",
+    language: "tr",
+    value: "Aile ilişkileri ve anlaşmazlıkları için destek.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-family-therapy",
+    field: "name",
+    language: "tr",
+    value: "Aile Terapisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-dentistry",
+    field: "description",
+    language: "tr",
+    value: "Kontroller, dolgular, temizlik ve günlük ağız bakımı.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-dentistry",
+    field: "name",
+    language: "tr",
+    value: "Genel Diş Hekimliği",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-practice",
+    field: "description",
+    language: "tr",
+    value: "Günlük tıbbi bakım, kontroller, sevkler ve uzun süreli hastalık yönetimi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-practice",
+    field: "name",
+    language: "tr",
+    value: "Aile Hekimliği",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-surgery",
+    field: "description",
+    language: "tr",
+    value: "Kolorektal rahatsızlıklar, kanserler ve genel cerrahi ihtiyaçların ameliyatla tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-general-surgery",
+    field: "name",
+    language: "tr",
+    value: "Genel ve Kolorektal Cerrahi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-gynaecology",
+    field: "description",
+    language: "tr",
+    value: "Kadın üreme sağlığı.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-gynaecology",
+    field: "name",
+    language: "tr",
+    value: "Jinekoloji",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-hair-restoration",
+    field: "description",
+    language: "tr",
+    value: "Saç dökülmesi değerlendirmesi ve saç ekimi işlemleri.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-hair-restoration",
+    field: "name",
+    language: "tr",
+    value: "Saç Ekimi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-msk-physiotherapy",
+    field: "description",
+    language: "tr",
+    value: "Kas, eklem ve sırt ağrılarının tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-msk-physiotherapy",
+    field: "name",
+    language: "tr",
+    value: "Kas-İskelet Sistemi Fizyoterapisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-neurosurgery",
+    field: "description",
+    language: "tr",
+    value: "Beyin, omurga ve sinir sistemini etkileyen rahatsızlıkların ameliyatla tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-neurosurgery",
+    field: "name",
+    language: "tr",
+    value: "Beyin ve Sinir Cerrahisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-oral-surgery",
+    field: "description",
+    language: "tr",
+    value: "Diş çekimi, implant ve cerrahi işlemler.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-oral-surgery",
+    field: "name",
+    language: "tr",
+    value: "Ağız Cerrahisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-orthodontics",
+    field: "description",
+    language: "tr",
+    value: "Diş teli, şeffaf plak ve diş-çene dizilim düzeltmesi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-orthodontics",
+    field: "name",
+    language: "tr",
+    value: "Ortodonti",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-paediatrics",
+    field: "description",
+    language: "tr",
+    value: "Bebekler, çocuklar ve ergenler için tıbbi bakım.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-paediatrics",
+    field: "name",
+    language: "tr",
+    value: "Çocuk Sağlığı ve Hastalıkları",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-pelvic-health",
+    field: "description",
+    language: "tr",
+    value: "Her cinsiyet ve yaş için pelvik taban disfonksiyonunun değerlendirilmesi ve tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-pelvic-health",
+    field: "name",
+    language: "tr",
+    value: "Pelvik Sağlık Fizyoterapisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-post-surgical-rehab",
+    field: "description",
+    language: "tr",
+    value: "Ameliyat sonrası iyileşme desteği.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-post-surgical-rehab",
+    field: "name",
+    language: "tr",
+    value: "Ameliyat Sonrası Rehabilitasyon",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-psychiatry",
+    field: "description",
+    language: "tr",
+    value: "Ruh sağlığı rahatsızlıklarının, ilaç yönetimi dahil, tıbbi teşhis ve tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-psychiatry",
+    field: "name",
+    language: "tr",
+    value: "Psikiyatri",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-root-canal",
+    field: "description",
+    language: "tr",
+    value: "Enfekte veya hasarlı diş pulpasının tedavisi.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-root-canal",
+    field: "name",
+    language: "tr",
+    value: "Kanal Tedavisi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-sports-injury",
+    field: "description",
+    language: "tr",
+    value: "Spor yaralanmalarından iyileşme ve rehabilitasyon.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-sports-injury",
+    field: "name",
+    language: "tr",
+    value: "Spor Yaralanması Rehabilitasyonu",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-sports-nutrition",
+    field: "description",
+    language: "tr",
+    value: "Sportif performans ve toparlanma için beslenme planlaması.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-sports-nutrition",
+    field: "name",
+    language: "tr",
+    value: "Spor Beslenmesi",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-trauma-ptsd",
+    field: "description",
+    language: "tr",
+    value: "Travma, travma sonrası stres bozukluğu (TSSB) ve göçle ilişkili sıkıntılar için destek.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-trauma-ptsd",
+    field: "name",
+    language: "tr",
+    value: "Travma ve TSSB",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-weight-management",
+    field: "description",
+    language: "tr",
+    value: "Sağlıklı kilo yönetimi için kişiselleştirilmiş beslenme planları.",
+  },
+  {
+    collection: "specialities",
+    itemId: "spec-weight-management",
+    field: "name",
+    language: "tr",
+    value: "Kilo Yönetimi",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-alper-cildir",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-asim-unlu",
+    field: "notes",
+    language: "tr",
+    value: "Üniversite öğretim üyesi; WhatsApp üzerinden gelen sorularla asistanı Leda ilgileniyor.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-asim-unlu",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği (karmaşık vakalar)",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-ayhan-olcay",
+    field: "specialityText",
+    language: "tr",
+    value: "Kardiyoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-bahcesehir-ortodonti",
+    field: "specialityText",
+    language: "tr",
+    value: "Ortodonti (çocuk)",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-birgul-erden",
+    field: "specialityText",
+    language: "tr",
+    value: "Dermatoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-burcak-gumus",
+    field: "specialityText",
+    language: "tr",
+    value: "Girişimsel Radyoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-cagdas-karsan",
+    field: "specialityText",
+    language: "tr",
+    value: "Çevrimiçi konsültasyon",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-cevad-sekuri",
+    field: "specialityText",
+    language: "tr",
+    value: "Kardiyoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-cihan-ugurel",
+    field: "specialityText",
+    language: "tr",
+    value: "Protetik Diş Tedavisi",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-ekol-kbb",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-emre-turkmen",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB / Çocuk KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-ercument-levent-elemen",
+    field: "specialityText",
+    language: "tr",
+    value: "Çocuk Cerrahisi",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-faruk-haznedaroglu",
+    field: "notes",
+    language: "tr",
+    value: "Endodonti Profesörü; Türk Endodonti Derneği eski başkanı.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-faruk-haznedaroglu",
+    field: "specialityText",
+    language: "tr",
+    value: "Endodonti",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-figen-hanagasi",
+    field: "specialityText",
+    language: "tr",
+    value: "Nöroloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-figen-karadag",
+    field: "notes",
+    language: "tr",
+    value: "Sadece sohbet üzerinden iletişim — teyit için arayın.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-figen-karadag",
+    field: "specialityText",
+    language: "tr",
+    value: "Psikiyatri",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-gokhan-guvener",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-gulcin-kantarci",
+    field: "specialityText",
+    language: "tr",
+    value: "Nefroloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-gulsen-meral",
+    field: "specialityText",
+    language: "tr",
+    value: "Çocuk Sağlığı ve Hastalıkları / Epigenetik",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-hsm-radyoloji",
+    field: "specialityText",
+    language: "tr",
+    value: "İleri görüntüleme ve tanı",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-hulya-hamzaoglu-over",
+    field: "specialityText",
+    language: "tr",
+    value: "Gastroenteroloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-huseyin-seven",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB (adenoid/bademcik ameliyatı)",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-izzet-fresko",
+    field: "specialityText",
+    language: "tr",
+    value: "Romatoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-janberd-dincer",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-mehmet-ada",
+    field: "specialityText",
+    language: "tr",
+    value: "Çocuk KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-meltem-erturac-bekir",
+    field: "specialityText",
+    language: "tr",
+    value: "Uzmanlık alanı Acıbadem profiline göre — doğrulanmadı",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-modernista-dental-clinic",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-moss-dental",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-mukaddes-ozcan",
+    field: "specialityText",
+    language: "tr",
+    value: "Uzmanlık alanı doğrulanmadı",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-neuron-clinic",
+    field: "notes",
+    language: "tr",
+    value: "Uluslararası hastalar kabul edilmektedir.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-neuron-clinic",
+    field: "specialityText",
+    language: "tr",
+    value: "İnme Nöro-Rehabilitasyonu",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-omer-senturk",
+    field: "specialityText",
+    language: "tr",
+    value: "Gastroenteroloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-orhan-bey",
+    field: "notes",
+    language: "tr",
+    value: "Sadece sohbet üzerinden tavsiye — soyisim belirtilmemiş.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-orhan-bey",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-premium-art-dental",
+    field: "specialityText",
+    language: "tr",
+    value: "Diş Hekimliği",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-semih-halezeroglu",
+    field: "specialityText",
+    language: "tr",
+    value: "Göğüs Cerrahisi",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-tarik-sapci",
+    field: "specialityText",
+    language: "tr",
+    value: "KBB",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-tayfun-demirel",
+    field: "notes",
+    language: "tr",
+    value: "Bir topluluk üyesinin uzun süredir gittiği doktor, Facebook üzerinden paylaşıldı.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-tayfun-demirel",
+    field: "specialityText",
+    language: "tr",
+    value: "Uzmanlık alanı doğrulanmadı",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-terapi-istanbul",
+    field: "specialityText",
+    language: "tr",
+    value: "Terapi platformu",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-turkan-gul-kaya",
+    field: "notes",
+    language: "tr",
+    value: "Sadece sohbet üzerinden iletişim — teyit için arayın.",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-turkan-gul-kaya",
+    field: "specialityText",
+    language: "tr",
+    value: "Psikoloji",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-zafer-cetinkaya",
+    field: "specialityText",
+    language: "tr",
+    value: "Saç Ekimi",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-zerrin-pelin",
+    field: "specialityText",
+    language: "tr",
+    value: "Uyku Tıbbı",
+  },
+  {
+    collection: "turkey_referrals",
+    itemId: "tr-zeynep-pinar",
+    field: "specialityText",
+    language: "tr",
+    value: "Psikiyatri",
+  },
+];
 
 async function main() {
   const existing = await directus.request(
@@ -230,11 +1371,10 @@ async function main() {
     ),
   );
 
-  const translations = buildTranslations();
   let created = 0;
   let skipped = 0;
 
-  for (const translation of translations) {
+  for (const translation of TRANSLATIONS) {
     const key = `${translation.collection}:${translation.itemId}:${translation.field}:${translation.language}`;
     if (existingKeys.has(key)) {
       skipped++;
