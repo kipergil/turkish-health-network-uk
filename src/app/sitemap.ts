@@ -8,6 +8,7 @@ import {
   getAllInsurances,
   getAllOrganizations,
   getAllProviders,
+  getPublishedPages,
 } from "@/lib/data";
 
 const STATIC_ROUTES = [
@@ -23,10 +24,11 @@ const STATIC_ROUTES = [
 ].map((route) => (route.startsWith("/") || route === "" ? route : `/${route}`));
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [providers, organizations, insurances] = await Promise.all([
+  const [providers, organizations, insurances, pages] = await Promise.all([
     getAllProviders(),
     getAllOrganizations(),
     getAllInsurances(),
+    getPublishedPages(),
   ]);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_ROUTES.map((route) => ({
@@ -59,10 +61,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }),
   );
 
+  const pageEntries: MetadataRoute.Sitemap = pages.map((page) => ({
+    url: `${SITE_URL}/pages/${page.slug}`,
+    lastModified: page.updatedAt,
+    changeFrequency: "monthly",
+    priority: 0.5,
+  }));
+
   return [
     ...staticEntries,
     ...providerEntries,
     ...organizationEntries,
     ...insuranceEntries,
+    ...pageEntries,
   ];
 }

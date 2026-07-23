@@ -3,6 +3,7 @@ export * from "@/lib/data/insurances";
 export * from "@/lib/data/organizations";
 export * from "@/lib/data/providers";
 export * from "@/lib/data/turkey-referrals";
+export * from "@/lib/data/pages";
 export * from "@/lib/data/favorites";
 export * from "@/lib/data/reviews";
 export * from "@/lib/data/listing-suggestions";
