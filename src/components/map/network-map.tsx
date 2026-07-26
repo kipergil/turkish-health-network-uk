@@ -1,12 +1,16 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import maplibregl, {
   type Map as MapLibreMap,
   type GeoJSONSource,
+  type Marker,
 } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { Feature, FeatureCollection, Point } from "geojson";
+import { LocateFixed } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import type { GeoPoint } from "@/lib/schemas/common";
 
 export interface MapEntry {
@@ -51,6 +55,21 @@ function escapeHtml(value: string): string {
     .replace(/"/g, "&quot;");
 }
 
+/** Plain DOM element for the "my location" dot — kept outside Tailwind/JSX
+ * since MapLibre markers render outside the React tree, same as the popup
+ * HTML above. */
+function createUserLocationMarkerElement(): HTMLDivElement {
+  const el = document.createElement("div");
+  el.style.width = "16px";
+  el.style.height = "16px";
+  el.style.borderRadius = "9999px";
+  el.style.background = "#2563eb";
+  el.style.border = "3px solid #ffffff";
+  el.style.boxShadow =
+    "0 0 0 2px rgba(37, 99, 235, 0.35), 0 1px 4px rgba(0, 0, 0, 0.35)";
+  return el;
+}
+
 export function NetworkMap({
   entries,
   className,
@@ -63,6 +82,11 @@ export function NetworkMap({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const entriesRef = useRef(entries);
+  const userMarkerRef = useRef<Marker | null>(null);
+  const watchIdRef = useRef<number | null>(null);
+
+  const [showMyLocation, setShowMyLocation] = useState(false);
+  const [locationError, setLocationError] = useState<string | null>(null);
 
   useEffect(() => {
     entriesRef.current = entries;
@@ -82,10 +106,6 @@ export function NetworkMap({
 
     map.addControl(
       new maplibregl.NavigationControl({ showCompass: false }),
-      "top-right",
-    );
-    map.addControl(
-      new maplibregl.GeolocateControl({ trackUserLocation: true }),
       "top-right",
     );
 
@@ -169,12 +189,94 @@ export function NetworkMap({
     }
   }, [entries]);
 
+  // Shows/hides a "my location" dot without ever moving the camera — the
+  // user only wants visibility toggled, not a fly-to/zoom.
+  useEffect(() => {
+    if (!showMyLocation) {
+      if (watchIdRef.current !== null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
+      userMarkerRef.current?.remove();
+      userMarkerRef.current = null;
+      return;
+    }
+
+    watchIdRef.current = navigator.geolocation.watchPosition(
+      (position) => {
+        const map = mapRef.current;
+        if (!map) return;
+        const lngLat: [number, number] = [
+          position.coords.longitude,
+          position.coords.latitude,
+        ];
+        if (userMarkerRef.current) {
+          userMarkerRef.current.setLngLat(lngLat);
+        } else {
+          userMarkerRef.current = new maplibregl.Marker({
+            element: createUserLocationMarkerElement(),
+          })
+            .setLngLat(lngLat)
+            .addTo(map);
+        }
+      },
+      () => {
+        setLocationError(
+          "Couldn't access your location. Check your browser's location permission.",
+        );
+        setShowMyLocation(false);
+      },
+      { enableHighAccuracy: true },
+    );
+
+    return () => {
+      if (watchIdRef.current !== null) {
+        navigator.geolocation.clearWatch(watchIdRef.current);
+        watchIdRef.current = null;
+      }
+    };
+  }, [showMyLocation]);
+
+  function handleToggleMyLocation() {
+    if (showMyLocation) {
+      setShowMyLocation(false);
+      return;
+    }
+    if (typeof navigator === "undefined" || !("geolocation" in navigator)) {
+      setLocationError("Geolocation isn't supported by this browser.");
+      return;
+    }
+    setLocationError(null);
+    setShowMyLocation(true);
+  }
+
   return (
-    <div
-      ref={containerRef}
-      className={className ?? height}
-      role="application"
-      aria-label="Map of Turkish Health Network providers and organizations"
-    />
+    <div className={cn("relative overflow-hidden", className ?? height)}>
+      <div
+        ref={containerRef}
+        className="size-full"
+        role="application"
+        aria-label="Map of Turkish Health Network providers and organizations"
+      />
+      <Button
+        type="button"
+        variant={showMyLocation ? "default" : "outline"}
+        size="sm"
+        aria-pressed={showMyLocation}
+        onClick={handleToggleMyLocation}
+        className="absolute top-3 left-3 z-10 gap-1.5 shadow-sm"
+      >
+        <LocateFixed className="size-3.5" aria-hidden="true" />
+        My location
+      </Button>
+      {locationError ? (
+        <p
+          role="alert"
+          className="bg-background/95 text-destructive border-border absolute bottom-3 left-3 z-10 max-w-[calc(100%-1.5rem)] rounded-md border px-2.5 py-1.5 text-xs shadow-sm"
+        >
+          {locationError}
+        </p>
+      ) : null}
+    </div>
   );
 }
