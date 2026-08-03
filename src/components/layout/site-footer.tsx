@@ -5,6 +5,7 @@ import {
   ORGANIZATION_NAV_ITEMS,
   UTILITY_NAV_ITEMS,
   NHS_DOCTORS_NAV_ITEM,
+  TURKEY_REFERRALS_NAV_ITEM,
 } from "@/lib/constants/nav";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/constants/site";
 
@@ -84,6 +85,14 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={TURKEY_REFERRALS_NAV_ITEM.href}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {TURKEY_REFERRALS_NAV_ITEM.label}
+              </Link>
+            </li>
           </ul>
         </nav>
 

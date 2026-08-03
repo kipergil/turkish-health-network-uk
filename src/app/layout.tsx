@@ -4,6 +4,7 @@ import Script from "next/script";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { ScrollToTop } from "@/components/layout/scroll-to-top";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import {
@@ -81,6 +82,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <TooltipProvider>
+            <ScrollToTop />
             <SiteHeader />
             <main id="main-content" className="flex-1">
               {children}

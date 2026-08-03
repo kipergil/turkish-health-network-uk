@@ -92,10 +92,20 @@ export const NHS_DOCTORS_NAV_ITEM: NavItem = {
   icon: ShieldPlus,
 };
 
+export const TURKEY_REFERRALS_NAV_ITEM: NavItem = {
+  label: "Recommended in Turkey",
+  labelKey: "nav_turkey_referrals",
+  href: "/turkey-doctors",
+  description:
+    "Doctors, dentists and clinics in Turkey recommended for treatment trips",
+  icon: Plane,
+};
+
 export const DIRECTORY_NAV_ITEMS: NavItem[] = [
   ...PROVIDER_NAV_ITEMS,
   NHS_DOCTORS_NAV_ITEM,
   ...ORGANIZATION_NAV_ITEMS,
+  TURKEY_REFERRALS_NAV_ITEM,
 ];
 
 export const UTILITY_NAV_ITEMS: NavItem[] = [
@@ -126,14 +136,6 @@ export const UTILITY_NAV_ITEMS: NavItem[] = [
     href: `/pages/${NHS_BENEFITS_GUIDE_SLUG}`,
     description: "How to benefit from NHS insurance and health services in the UK",
     icon: BookOpen,
-  },
-  {
-    label: "Recommended in Turkey",
-    labelKey: "nav_turkey_referrals",
-    href: "/turkey-doctors",
-    description:
-      "Doctors, dentists and clinics in Turkey recommended for treatment trips",
-    icon: Plane,
   },
   {
     label: "About",
