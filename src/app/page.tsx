@@ -2,9 +2,11 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowRight,
+  FilePlus,
   MapPinned,
   Search as SearchIcon,
   Sparkles,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickSearchForm } from "@/components/search/quick-search-form";
@@ -194,7 +196,7 @@ export default async function HomePage() {
         aria-labelledby="explore-heading"
         className="border-border bg-muted/40 border-t"
       >
-        <div className="mx-auto grid max-w-6xl gap-4 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16">
+        <div className="mx-auto grid max-w-6xl gap-4 px-4 py-14 sm:grid-cols-2 sm:px-6 sm:py-16 lg:grid-cols-3">
           <Link
             href="/map"
             className="group border-border bg-card hover:border-primary/40 focus-visible:ring-ring/50 flex flex-col justify-between rounded-xl border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-3 focus-visible:outline-none"
@@ -242,6 +244,31 @@ export default async function HomePage() {
               />
             </span>
           </Link>
+
+          <Link
+            href="/suggest"
+            className="group border-border bg-card hover:border-primary/40 focus-visible:ring-ring/50 flex flex-col justify-between rounded-xl border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md focus-visible:ring-3 focus-visible:outline-none"
+          >
+            <div>
+              <span className="bg-primary/10 text-primary inline-flex size-11 items-center justify-center rounded-lg">
+                <FilePlus className="size-5.5" aria-hidden="true" />
+              </span>
+              <h2 className="mt-3 text-lg font-semibold">
+                Suggest a listing
+              </h2>
+              <p className="text-muted-foreground mt-1 text-sm">
+                Know a Turkish-speaking doctor, dentist or clinic we&apos;re
+                missing? Add it in a couple of minutes.
+              </p>
+            </div>
+            <span className="text-primary mt-4 inline-flex items-center gap-1 text-sm font-medium">
+              Suggest a listing{" "}
+              <ArrowRight
+                className="size-4 transition-transform group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -271,6 +298,36 @@ export default async function HomePage() {
           {insurances.slice(0, 4).map((insurance) => (
             <InsuranceCard key={insurance.id} insurance={insurance} />
           ))}
+        </div>
+      </section>
+
+      <section
+        aria-labelledby="suggest-heading"
+        className="border-border bg-primary/5 border-t"
+      >
+        <div className="mx-auto max-w-2xl px-4 py-14 text-center sm:px-6 sm:py-16">
+          <span className="border-primary/20 bg-primary/10 text-primary mx-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
+            <Users className="size-3.5" aria-hidden="true" />
+            Community-maintained
+          </span>
+          <h2
+            id="suggest-heading"
+            className="mt-4 text-2xl font-bold tracking-tight text-balance sm:text-3xl"
+          >
+            Help grow the network
+          </h2>
+          <p className="text-muted-foreground mt-3">
+            This directory only works because people who&apos;ve found a good
+            Turkish-speaking doctor, dentist, psychologist, clinic or
+            pharmacy share it with the rest of the community. Know one
+            we&apos;re missing?
+          </p>
+          <Button asChild size="lg" className="mt-6">
+            <Link href="/suggest">
+              <FilePlus aria-hidden="true" />
+              Suggest a listing
+            </Link>
+          </Button>
         </div>
       </section>
     </div>
