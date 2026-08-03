@@ -1,4 +1,6 @@
 export const SITE_NAME = "Turkish Health Network UK";
+/** Shorter label for tight spaces (mobile header) where the full name won't fit. */
+export const SITE_NAME_SHORT = "Turkish Health Network";
 export const SITE_TAGLINE = "Turkish-speaking healthcare, across the UK.";
 export const SITE_DESCRIPTION =
   "Find Turkish-speaking doctors, dentists, psychologists, physiotherapists, dietitians, clinics, hospitals and pharmacies across the United Kingdom. Search by language, NHS or private status, insurance and location.";
