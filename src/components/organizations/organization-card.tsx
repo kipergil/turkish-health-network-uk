@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
+import { VerifiedStamp } from "@/components/shared/verified-stamp";
 import {
   ORGANIZATION_TYPE_LABELS,
   ORGANIZATION_TYPE_ROUTES,
@@ -21,6 +22,9 @@ export async function OrganizationCard({
 
   return (
     <Card className="hover:border-primary/30 relative h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+      {organization.verified ? (
+        <VerifiedStamp language={language} className="absolute top-3 right-3" />
+      ) : null}
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
           <Building2

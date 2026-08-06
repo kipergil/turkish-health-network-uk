@@ -2,10 +2,10 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowRight,
+  BadgeCheck,
   FilePlus,
   MapPinned,
   Search as SearchIcon,
-  Sparkles,
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -53,11 +53,11 @@ export default async function HomePage() {
 
   return (
     <div>
-      <section className="border-border bg-hero-pattern bg-hero-glow relative isolate overflow-hidden border-b">
+      <section className="border-border bg-hero-pattern relative isolate overflow-hidden border-b">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
           <div className="animate-fade-up">
-            <span className="border-primary/20 bg-primary/10 text-primary inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
-              <Sparkles className="size-3.5" aria-hidden="true" />
+            <span className="border-stamp/30 bg-stamp/10 text-stamp inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
+              <BadgeCheck className="size-3.5" aria-hidden="true" />
               Turkish-speaking care
             </span>
 
@@ -72,24 +72,30 @@ export default async function HomePage() {
               <QuickSearchForm />
             </div>
 
-            <dl className="mt-10 grid max-w-md grid-cols-3 gap-3 text-center sm:gap-4 sm:text-left">
-              <div className="bg-card/60 rounded-xl p-3 sm:bg-transparent sm:p-0">
-                <dt className="text-primary text-2xl font-bold">
+            <dl className="border-border bg-card divide-border mt-10 flex max-w-md divide-x border border-dashed">
+              <div className="flex-1 p-4 text-center sm:text-left">
+                <dt className="text-primary font-mono text-2xl font-bold tabular-nums">
                   {providers.length}
                 </dt>
-                <dd className="text-muted-foreground text-sm">Practitioners</dd>
+                <dd className="text-muted-foreground mt-1 text-[11px] font-semibold tracking-wide uppercase">
+                  Practitioners
+                </dd>
               </div>
-              <div className="bg-card/60 rounded-xl p-3 sm:bg-transparent sm:p-0">
-                <dt className="text-primary text-2xl font-bold">
+              <div className="flex-1 p-4 text-center sm:text-left">
+                <dt className="text-primary font-mono text-2xl font-bold tabular-nums">
                   {organizations.length}
                 </dt>
-                <dd className="text-muted-foreground text-sm">Locations</dd>
+                <dd className="text-muted-foreground mt-1 text-[11px] font-semibold tracking-wide uppercase">
+                  Locations
+                </dd>
               </div>
-              <div className="bg-card/60 rounded-xl p-3 sm:bg-transparent sm:p-0">
-                <dt className="text-primary text-2xl font-bold">
+              <div className="flex-1 p-4 text-center sm:text-left">
+                <dt className="text-primary font-mono text-2xl font-bold tabular-nums">
                   {cities.size}
                 </dt>
-                <dd className="text-muted-foreground text-sm">Cities</dd>
+                <dd className="text-muted-foreground mt-1 text-[11px] font-semibold tracking-wide uppercase">
+                  Cities
+                </dd>
               </div>
             </dl>
           </div>
@@ -100,7 +106,7 @@ export default async function HomePage() {
         aria-labelledby="browse-heading"
         className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16"
       >
-        <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+        <p className="text-stamp text-xs font-semibold tracking-wide uppercase">
           Directory
         </p>
         <h2
@@ -137,7 +143,7 @@ export default async function HomePage() {
           className="border-border bg-muted/40 border-t"
         >
           <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
-            <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+            <p className="text-stamp text-xs font-semibold tracking-wide uppercase">
               Featured
             </p>
             <h2
@@ -164,7 +170,7 @@ export default async function HomePage() {
           aria-labelledby="featured-organizations-heading"
           className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16"
         >
-          <p className="text-primary text-xs font-semibold tracking-wide uppercase">
+          <p className="text-stamp text-xs font-semibold tracking-wide uppercase">
             Featured
           </p>
           <h2
@@ -269,7 +275,7 @@ export default async function HomePage() {
         className="border-border bg-primary/5 border-t"
       >
         <div className="mx-auto max-w-2xl px-4 py-14 text-center sm:px-6 sm:py-16">
-          <span className="border-primary/20 bg-primary/10 text-primary mx-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
+          <span className="border-stamp/30 bg-stamp/10 text-stamp mx-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium">
             <Users className="size-3.5" aria-hidden="true" />
             Community-maintained
           </span>

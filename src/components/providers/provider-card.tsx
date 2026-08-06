@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
+import { VerifiedStamp } from "@/components/shared/verified-stamp";
 import {
   PROVIDER_CATEGORY_LABELS,
   PROVIDER_CATEGORY_ROUTES,
@@ -25,6 +26,9 @@ export async function ProviderCard({
 
   return (
     <Card className="hover:border-primary/30 relative h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+      {provider.verified ? (
+        <VerifiedStamp language={language} className="absolute top-3 right-3" />
+      ) : null}
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <Avatar className="size-12 shrink-0">
           {provider.photoUrl ? (

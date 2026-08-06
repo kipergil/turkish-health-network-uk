@@ -4,13 +4,15 @@ import { t } from "@/lib/i18n/messages";
 import type { NhsStatus } from "@/lib/constants/categories";
 import { cn } from "@/lib/utils";
 
-// Deliberately not the brand blue (--primary) here: these badges sit next to
+// Deliberately not the brand ink (--primary) here: these badges sit next to
 // primary-coloured buttons/links throughout the app, and NHS/private/both
 // need to read as a distinct status system, not blend into the brand colour.
+// nhs/both reuse the stamp system's own teal and ochre rather than generic
+// Tailwind stock colours, so status badges stay part of the same palette.
 const NHS_STATUS_STYLES: Record<NhsStatus, string> = {
-  nhs: "bg-cyan-700 text-white [a]:hover:bg-cyan-700/90",
+  nhs: "bg-status-teal text-white [a]:hover:bg-status-teal/90",
   private: "bg-secondary text-secondary-foreground",
-  both: "bg-emerald-700 text-white [a]:hover:bg-emerald-700/90",
+  both: "bg-stamp text-white [a]:hover:bg-stamp/90",
 };
 
 const NHS_STATUS_MESSAGE_KEYS = {
