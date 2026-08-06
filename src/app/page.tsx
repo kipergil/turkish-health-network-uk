@@ -12,11 +12,9 @@ import { Button } from "@/components/ui/button";
 import { QuickSearchForm } from "@/components/search/quick-search-form";
 import { ProviderCard } from "@/components/providers/provider-card";
 import { OrganizationCard } from "@/components/organizations/organization-card";
-import { InsuranceCard } from "@/components/insurance/insurance-card";
 import { DIRECTORY_NAV_ITEMS } from "@/lib/constants/nav";
 import { SITE_DESCRIPTION, SITE_TAGLINE } from "@/lib/constants/site";
 import {
-  getAllInsurances,
   getAllOrganizations,
   getAllProviders,
   getFeaturedOrganizations,
@@ -30,19 +28,13 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [
-    providers,
-    organizations,
-    featuredProviders,
-    featuredOrganizations,
-    insurances,
-  ] = await Promise.all([
-    getAllProviders(),
-    getAllOrganizations(),
-    getFeaturedProviders(3),
-    getFeaturedOrganizations(3),
-    getAllInsurances(),
-  ]);
+  const [providers, organizations, featuredProviders, featuredOrganizations] =
+    await Promise.all([
+      getAllProviders(),
+      getAllOrganizations(),
+      getFeaturedProviders(3),
+      getFeaturedOrganizations(3),
+    ]);
 
   const specialityByProvider = await Promise.all(
     featuredProviders.map(
@@ -269,35 +261,6 @@ export default async function HomePage() {
               />
             </span>
           </Link>
-        </div>
-      </section>
-
-      <section
-        aria-labelledby="insurance-heading"
-        className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16"
-      >
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <p className="text-primary text-xs font-semibold tracking-wide uppercase">
-              Insurance
-            </p>
-            <h2
-              id="insurance-heading"
-              className="mt-1 text-xl font-semibold sm:text-2xl"
-            >
-              Accepted across the network
-            </h2>
-          </div>
-          <Button variant="ghost" size="sm" asChild className="shrink-0">
-            <Link href="/insurance">
-              View all <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </Button>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {insurances.slice(0, 4).map((insurance) => (
-            <InsuranceCard key={insurance.id} insurance={insurance} />
-          ))}
         </div>
       </section>
 
