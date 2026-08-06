@@ -41,7 +41,7 @@ export async function SiteHeader() {
           aria-label={SITE_NAME}
           className="focus-visible:ring-ring/50 flex min-w-0 shrink sm:shrink-0 items-center gap-2.5 rounded-lg focus-visible:ring-3 focus-visible:outline-none"
         >
-          <span className="from-primary text-primary-foreground shadow-primary/30 flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br to-blue-700 shadow-sm dark:to-blue-900">
+          <span className="bg-primary text-primary-foreground ring-border flex size-9 shrink-0 items-center justify-center rounded-full ring-2">
             <HeartPulse className="size-5" aria-hidden="true" />
           </span>
           <span className="text-foreground truncate text-xs leading-tight font-semibold tracking-tight sm:hidden">
@@ -105,7 +105,7 @@ export async function SiteHeader() {
             >
               <SheetHeader className="border-border border-b pb-4">
                 <SheetTitle className="flex items-center gap-2.5 text-left">
-                  <span className="from-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg bg-gradient-to-br to-blue-700 dark:to-blue-900">
+                  <span className="bg-primary text-primary-foreground ring-border flex size-8 items-center justify-center rounded-full ring-2">
                     <HeartPulse className="size-4" aria-hidden="true" />
                   </span>
                   {SITE_NAME}

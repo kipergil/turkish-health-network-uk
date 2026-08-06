@@ -13,11 +13,11 @@ export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-border from-muted/40 to-muted/70 border-t bg-gradient-to-b">
+    <footer className="border-border bg-muted/50 border-t">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.3fr_1fr_1fr_1fr]">
         <div>
           <Link href="/" className="inline-flex items-center gap-2.5">
-            <span className="from-primary text-primary-foreground flex size-8 items-center justify-center rounded-lg bg-gradient-to-br to-blue-700 dark:to-blue-900">
+            <span className="bg-primary text-primary-foreground ring-border flex size-8 items-center justify-center rounded-full ring-2">
               <HeartPulse className="size-4.5" aria-hidden="true" />
             </span>
             <span className="font-semibold tracking-tight">{SITE_NAME}</span>

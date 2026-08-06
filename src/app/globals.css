@@ -39,6 +39,8 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-stamp: var(--stamp);
+  --color-status-teal: var(--status-teal);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,82 +51,86 @@
 }
 
 /*
- * Colour system: a "clinical blue" palette built on Tailwind's blue scale,
- * chosen to read as a health-sector brand (NHS/Bupa-style trust blue)
- * rather than a generic neutral SaaS theme. Every text/background pairing
- * below was contrast-checked against WCAG AA (4.5:1) — see the accessibility
- * pass notes for the underlying numbers. Light mode uses blue-600 as
- * --primary (5.17:1 with white); dark mode uses the lighter blue-400 with a
- * near-black foreground (7:1+), since the same variable also styles link
- * text directly on the page background, not just button fills.
+ * Colour system: "Appointment Card" — navy ink on aged paper, an ochre
+ * rubber-stamp accent and a muted sage-teal for status/verification, in
+ * place of the earlier generic SaaS blue. Modelled on a GP registration
+ * slip rather than a healthtech dashboard: flat surfaces, real borders
+ * instead of soft shadows, a small base radius. --stamp and --status-teal
+ * are extra tokens (not part of the shadcn set) for the accent label
+ * colour and the "verified" mark; both are contrast-checked at 4.5:1+
+ * against --background/--card in both themes.
  */
 :root {
-  --background: oklch(0.99 0.003 250);
-  --foreground: oklch(0.22 0.03 258);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 258);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 258);
-  --primary: oklch(0.546 0.245 262.881);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.95 0.024 255);
-  --secondary-foreground: oklch(0.379 0.146 265.522);
-  --muted: oklch(0.965 0.012 255);
-  --muted-foreground: oklch(0.48 0.035 258);
-  --accent: oklch(0.94 0.03 255);
-  --accent-foreground: oklch(0.379 0.146 265.522);
+  --background: #ede9e0;
+  --foreground: #1b2a4a;
+  --card: #f7f5ee;
+  --card-foreground: #1b2a4a;
+  --popover: #f7f5ee;
+  --popover-foreground: #1b2a4a;
+  --primary: #1b2a4a;
+  --primary-foreground: #f7f5ee;
+  --secondary: #e3ddc9;
+  --secondary-foreground: #1b2a4a;
+  --muted: #e7e1cf;
+  --muted-foreground: #5b5647;
+  --accent: #efe9d8;
+  --accent-foreground: #1b2a4a;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.905 0.016 255);
-  --input: oklch(0.905 0.016 255);
-  --ring: oklch(0.623 0.214 259.815);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.424 0.199 265.638);
-  --chart-5: oklch(0.282 0.091 267.935);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.985 0.004 253);
-  --sidebar-foreground: oklch(0.22 0.03 258);
-  --sidebar-primary: oklch(0.546 0.245 262.881);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.94 0.03 255);
-  --sidebar-accent-foreground: oklch(0.379 0.146 265.522);
-  --sidebar-border: oklch(0.905 0.016 255);
-  --sidebar-ring: oklch(0.623 0.214 259.815);
+  --border: #c9c2ae;
+  --input: #c9c2ae;
+  --ring: #a5691f;
+  --stamp: #a5691f;
+  --status-teal: #3e6059;
+  --chart-1: #1b2a4a;
+  --chart-2: #a5691f;
+  --chart-3: #4b7169;
+  --chart-4: #7c6a4a;
+  --chart-5: #8a3a26;
+  --radius: 0.3rem;
+  --sidebar: #f7f5ee;
+  --sidebar-foreground: #1b2a4a;
+  --sidebar-primary: #1b2a4a;
+  --sidebar-primary-foreground: #f7f5ee;
+  --sidebar-accent: #efe9d8;
+  --sidebar-accent-foreground: #1b2a4a;
+  --sidebar-border: #c9c2ae;
+  --sidebar-ring: #a5691f;
 }
 
 .dark {
-  --background: oklch(0.19 0.024 260);
-  --foreground: oklch(0.96 0.008 255);
-  --card: oklch(0.24 0.026 260);
-  --card-foreground: oklch(0.96 0.008 255);
-  --popover: oklch(0.24 0.026 260);
-  --popover-foreground: oklch(0.96 0.008 255);
-  --primary: oklch(0.707 0.165 254.624);
-  --primary-foreground: oklch(0.18 0.03 258);
-  --secondary: oklch(0.29 0.03 260);
-  --secondary-foreground: oklch(0.9 0.02 255);
-  --muted: oklch(0.26 0.026 260);
-  --muted-foreground: oklch(0.72 0.03 255);
-  --accent: oklch(0.3 0.035 260);
-  --accent-foreground: oklch(0.9 0.02 255);
+  --background: #10192e;
+  --foreground: #ede9e0;
+  --card: #1b2a4a;
+  --card-foreground: #ede9e0;
+  --popover: #1b2a4a;
+  --popover-foreground: #ede9e0;
+  --primary: #ede9e0;
+  --primary-foreground: #10192e;
+  --secondary: #24334f;
+  --secondary-foreground: #ede9e0;
+  --muted: #1e2c46;
+  --muted-foreground: #b9b2a0;
+  --accent: #24334f;
+  --accent-foreground: #ede9e0;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 16%);
-  --ring: oklch(0.707 0.165 254.624);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.707 0.165 254.624);
-  --chart-3: oklch(0.623 0.214 259.815);
-  --chart-4: oklch(0.546 0.245 262.881);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.22 0.026 260);
-  --sidebar-foreground: oklch(0.96 0.008 255);
-  --sidebar-primary: oklch(0.707 0.165 254.624);
-  --sidebar-primary-foreground: oklch(0.18 0.03 258);
-  --sidebar-accent: oklch(0.3 0.035 260);
-  --sidebar-accent-foreground: oklch(0.9 0.02 255);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.707 0.165 254.624);
+  --border: rgb(237 233 224 / 16%);
+  --input: rgb(237 233 224 / 20%);
+  --ring: #d9a441;
+  --stamp: #d9a441;
+  --status-teal: #7fa89e;
+  --chart-1: #ede9e0;
+  --chart-2: #d9a441;
+  --chart-3: #7fa89e;
+  --chart-4: #b9b2a0;
+  --chart-5: #c17a52;
+  --sidebar: #1b2a4a;
+  --sidebar-foreground: #ede9e0;
+  --sidebar-primary: #ede9e0;
+  --sidebar-primary-foreground: #10192e;
+  --sidebar-accent: #24334f;
+  --sidebar-accent-foreground: #ede9e0;
+  --sidebar-border: rgb(237 233 224 / 16%);
+  --sidebar-ring: #d9a441;
 }
 
 @layer base {
@@ -138,14 +144,13 @@
     @apply scroll-smooth font-sans;
   }
   ::selection {
-    @apply bg-primary/20;
+    @apply bg-stamp/25;
   }
 }
 
 @layer utilities {
-  /* Soft, brand-toned hero backdrop: a dot grid plus two blurred colour
-     blobs. Kept as a utility (not inline styles) so it can be reused on
-     any hero-style section and stays out of component markup. */
+  /* Faint dot grid, like ruled/graph stationery — no gradient blobs: this
+     theme's hero is a flat paper surface, not a soft SaaS backdrop. */
   .bg-hero-pattern {
     background-image: radial-gradient(
       circle at 1px 1px,
@@ -153,31 +158,6 @@
       transparent 0
     );
     background-size: 24px 24px;
-  }
-
-  .bg-hero-glow::before,
-  .bg-hero-glow::after {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    border-radius: 9999px;
-    filter: blur(64px);
-    opacity: 0.35;
-  }
-  .bg-hero-glow::before {
-    top: -6rem;
-    right: -4rem;
-    width: 22rem;
-    height: 22rem;
-    background: var(--color-chart-2);
-  }
-  .bg-hero-glow::after {
-    bottom: -8rem;
-    left: -6rem;
-    width: 18rem;
-    height: 18rem;
-    background: var(--color-chart-1);
-    opacity: 0.25;
   }
 
   @media (prefers-reduced-motion: no-preference) {
