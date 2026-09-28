@@ -19,6 +19,8 @@ import {
   Heart,
   FilePlus,
   BookOpen,
+  ListChecks,
+  Gavel,
 } from "lucide-react";
 import {
   PROVIDER_CATEGORIES,
@@ -182,7 +184,24 @@ export const MEMBER_NAV_ITEMS: NavItem[] = [
     description: "Suggest a doctor, clinic or organization to add",
     icon: FilePlus,
   },
+  {
+    label: "My submissions",
+    labelKey: "nav_my_submissions",
+    href: "/my-submissions",
+    description: "Reviews and listing suggestions you've submitted",
+    icon: ListChecks,
+  },
 ];
+
+/** Admin-only — rendered conditionally in UserMenu, not in any of the
+ * public nav arrays above. */
+export const MODERATION_QUEUE_NAV_ITEM: NavItem = {
+  label: "Moderation queue",
+  labelKey: "nav_moderation_queue",
+  href: "/admin/queue",
+  description: "Pending reviews and suggested listings to approve or reject",
+  icon: Gavel,
+};
 
 export const PRIMARY_NAV_ITEMS: NavItem[] = [
   {

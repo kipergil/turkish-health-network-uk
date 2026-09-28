@@ -27,11 +27,15 @@ import {
   resolveNavLabel,
 } from "@/lib/constants/nav";
 import { SITE_NAME, SITE_NAME_SHORT } from "@/lib/constants/site";
+import { isAdmin } from "@/lib/admin";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { t } from "@/lib/i18n/messages";
 
 export async function SiteHeader() {
-  const currentLanguage = await getCurrentLanguage();
+  const [currentLanguage, isAdminUser] = await Promise.all([
+    getCurrentLanguage(),
+    isAdmin(),
+  ]);
 
   return (
     <header className="border-border bg-background/85 supports-[backdrop-filter]:bg-background/70 sticky top-0 z-40 border-b backdrop-blur-md">
@@ -39,7 +43,7 @@ export async function SiteHeader() {
         <Link
           href="/"
           aria-label={SITE_NAME}
-          className="focus-visible:ring-ring/50 flex min-w-0 shrink sm:shrink-0 items-center gap-2.5 rounded-lg focus-visible:ring-3 focus-visible:outline-none"
+          className="focus-visible:ring-ring/50 flex min-w-0 shrink items-center gap-2.5 rounded-lg focus-visible:ring-3 focus-visible:outline-none sm:shrink-0"
         >
           <span className="from-primary text-primary-foreground shadow-primary/30 flex size-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br to-blue-700 shadow-sm dark:to-blue-900">
             <HeartPulse className="size-5" aria-hidden="true" />
@@ -86,7 +90,7 @@ export async function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <LanguageSwitcher current={currentLanguage} />
-          <UserMenu language={currentLanguage} />
+          <UserMenu language={currentLanguage} isAdminUser={isAdminUser} />
 
           <Sheet>
             <SheetTrigger asChild>

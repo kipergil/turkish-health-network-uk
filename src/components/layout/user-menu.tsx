@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, FilePlus } from "lucide-react";
+import { Heart, FilePlus, ListChecks, Gavel } from "lucide-react";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { t } from "@/lib/i18n/messages";
@@ -14,8 +14,10 @@ import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
  */
 export function UserMenu({
   language = DEFAULT_LANGUAGE,
+  isAdminUser = false,
 }: {
   language?: LanguageCode;
+  isAdminUser?: boolean;
 }) {
   const { isLoaded, isSignedIn } = useUser();
 
@@ -42,6 +44,18 @@ export function UserMenu({
             href="/suggest"
             labelIcon={<FilePlus className="size-4" />}
           />
+          <UserButton.Link
+            label={t("nav_my_submissions", language)}
+            href="/my-submissions"
+            labelIcon={<ListChecks className="size-4" />}
+          />
+          {isAdminUser ? (
+            <UserButton.Link
+              label={t("nav_moderation_queue", language)}
+              href="/admin/queue"
+              labelIcon={<Gavel className="size-4" />}
+            />
+          ) : null}
         </UserButton.MenuItems>
       </UserButton>
     );

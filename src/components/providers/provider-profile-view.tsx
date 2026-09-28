@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -16,6 +15,7 @@ import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
+import { ProfilePhoto } from "@/components/shared/profile-photo";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { OrganizationCard } from "@/components/organizations/organization-card";
 import { ReviewForm } from "@/components/reviews/review-form";
@@ -107,14 +107,13 @@ export async function ProviderProfileView({
 
       <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-          <Avatar className="size-20">
-            {provider.photoUrl ? (
-              <AvatarImage src={provider.photoUrl} alt="" />
-            ) : null}
-            <AvatarFallback className="bg-muted text-foreground text-xl font-medium">
-              {initialsFor(provider.name)}
-            </AvatarFallback>
-          </Avatar>
+          <ProfilePhoto
+            src={provider.photoUrl}
+            alt=""
+            initials={initialsFor(provider.name)}
+            sizePx={80}
+            className="text-xl"
+          />
           <div>
             <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
               {provider.title} {provider.name}

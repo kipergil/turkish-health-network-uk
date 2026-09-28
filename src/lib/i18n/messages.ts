@@ -22,6 +22,8 @@ const en = {
   nav_about: "About",
   nav_favorites: "Favorites",
   nav_suggest_listing: "Suggest a listing",
+  nav_my_submissions: "My submissions",
+  nav_moderation_queue: "Moderation queue",
   nav_your_account_heading: "Your account",
   nav_directory_heading: "Directory",
   nav_explore_heading: "Explore",
@@ -52,6 +54,8 @@ const tr: Record<keyof typeof en, string> = {
   nav_about: "Hakkımızda",
   nav_favorites: "Favoriler",
   nav_suggest_listing: "Kayıt Öner",
+  nav_my_submissions: "Gönderdiklerim",
+  nav_moderation_queue: "Moderasyon Kuyruğu",
   nav_your_account_heading: "Hesabınız",
   nav_directory_heading: "Dizin",
   nav_explore_heading: "Keşfet",
@@ -71,8 +75,10 @@ const tr: Record<keyof typeof en, string> = {
   nhs_status_both: "NHS ve Özel",
 };
 
-export const MESSAGES: Record<LanguageCode, Record<keyof typeof en, string>> =
-  { en, tr };
+export const MESSAGES: Record<LanguageCode, Record<keyof typeof en, string>> = {
+  en,
+  tr,
+};
 
 export type MessageKey = keyof typeof en;
 
