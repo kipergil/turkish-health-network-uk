@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Building2 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
@@ -26,12 +27,14 @@ export async function OrganizationCard({
         <VerifiedStamp language={language} className="absolute top-3 right-3" />
       ) : null}
       <CardHeader className="flex-row items-start gap-3 space-y-0">
-        <div className="bg-muted flex size-12 shrink-0 items-center justify-center rounded-full">
-          <Building2
-            className="text-muted-foreground size-5"
-            aria-hidden="true"
-          />
-        </div>
+        <Avatar className="size-12 shrink-0">
+          {organization.images[0] ? (
+            <AvatarImage src={organization.images[0]} alt="" />
+          ) : null}
+          <AvatarFallback className="bg-muted text-muted-foreground">
+            <Building2 className="size-5" aria-hidden="true" />
+          </AvatarFallback>
+        </Avatar>
         <div className="min-w-0">
           <h3 className="truncate leading-tight font-semibold">
             <Link

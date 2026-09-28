@@ -15,6 +15,7 @@ import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
+import { ProfilePhoto } from "@/components/shared/profile-photo";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { ProviderCard } from "@/components/providers/provider-card";
 import { ReviewForm } from "@/components/reviews/review-form";
@@ -37,6 +38,7 @@ import {
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
+import { initialsFor } from "@/lib/initials";
 import { t } from "@/lib/i18n/messages";
 import { organizationJsonLd } from "@/lib/seo/structured-data";
 import type { Organization } from "@/lib/schemas/organization";
@@ -100,25 +102,34 @@ export async function OrganizationProfileView({
       />
 
       <div className="mt-4 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            {organization.name}
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            {ORGANIZATION_TYPE_LABELS[organization.type]} ·{" "}
-            {organization.address.city}
-          </p>
-          <div className="mt-2 flex flex-wrap items-center gap-1.5">
-            <NhsStatusBadge
-              status={organization.nhsStatus}
-              language={language}
-            />
-            {organization.turkishSpeakingStaff ? (
-              <TurkishSpeakingBadge language={language} />
-            ) : null}
-            {organization.verified ? (
-              <Badge variant="secondary">{t("verified", language)}</Badge>
-            ) : null}
+        <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+          <ProfilePhoto
+            src={organization.images[0]}
+            alt=""
+            initials={initialsFor(organization.name)}
+            sizePx={80}
+            className="text-xl"
+          />
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              {organization.name}
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              {ORGANIZATION_TYPE_LABELS[organization.type]} ·{" "}
+              {organization.address.city}
+            </p>
+            <div className="mt-2 flex flex-wrap items-center gap-1.5">
+              <NhsStatusBadge
+                status={organization.nhsStatus}
+                language={language}
+              />
+              {organization.turkishSpeakingStaff ? (
+                <TurkishSpeakingBadge language={language} />
+              ) : null}
+              {organization.verified ? (
+                <Badge variant="secondary">{t("verified", language)}</Badge>
+              ) : null}
+            </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
