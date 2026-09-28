@@ -5,6 +5,8 @@ import {
   ORGANIZATION_NAV_ITEMS,
   UTILITY_NAV_ITEMS,
   NHS_DOCTORS_NAV_ITEM,
+  PSYCHIATRISTS_NAV_ITEM,
+  GYNAECOLOGISTS_NAV_ITEM,
   TURKEY_REFERRALS_NAV_ITEM,
 } from "@/lib/constants/nav";
 import { SITE_NAME, SITE_TAGLINE } from "@/lib/constants/site";
@@ -65,6 +67,22 @@ export function SiteFooter() {
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 {NHS_DOCTORS_NAV_ITEM.label}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={PSYCHIATRISTS_NAV_ITEM.href}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {PSYCHIATRISTS_NAV_ITEM.label}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={GYNAECOLOGISTS_NAV_ITEM.href}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                {GYNAECOLOGISTS_NAV_ITEM.label}
               </Link>
             </li>
           </ul>

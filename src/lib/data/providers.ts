@@ -94,6 +94,30 @@ export async function getNhsDoctors(): Promise<Provider[]> {
   );
 }
 
+/**
+ * Doctors specialising in psychiatry — a filtered view of category
+ * "doctor" by speciality, same pattern as getNhsDoctors above: not a
+ * distinct category, so this doesn't duplicate practitioner records.
+ */
+export async function getPsychiatrists(): Promise<Provider[]> {
+  const providers = await getAllProviders();
+  return providers.filter(
+    (provider) =>
+      provider.category === "doctor" &&
+      provider.specialityIds.includes("spec-psychiatry"),
+  );
+}
+
+/** Doctors specialising in gynaecology — same pattern as getPsychiatrists. */
+export async function getGynaecologists(): Promise<Provider[]> {
+  const providers = await getAllProviders();
+  return providers.filter(
+    (provider) =>
+      provider.category === "doctor" &&
+      provider.specialityIds.includes("spec-gynaecology"),
+  );
+}
+
 export async function getFeaturedProviders(limit = 6): Promise<Provider[]> {
   const providers = await getAllProviders();
   return providers.filter((provider) => provider.featured).slice(0, limit);

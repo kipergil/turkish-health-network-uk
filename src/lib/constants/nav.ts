@@ -6,6 +6,8 @@ import {
   Activity,
   Salad,
   ShieldPlus,
+  PillBottle,
+  Venus,
   Building2,
   Hospital,
   Pill,
@@ -92,6 +94,20 @@ export const NHS_DOCTORS_NAV_ITEM: NavItem = {
   icon: ShieldPlus,
 };
 
+export const PSYCHIATRISTS_NAV_ITEM: NavItem = {
+  label: "Psychiatrists",
+  href: "/psychiatrists",
+  description: "Doctors specialising in psychiatry",
+  icon: PillBottle,
+};
+
+export const GYNAECOLOGISTS_NAV_ITEM: NavItem = {
+  label: "Gynaecologists",
+  href: "/gynaecologists",
+  description: "Doctors specialising in gynaecology",
+  icon: Venus,
+};
+
 export const TURKEY_REFERRALS_NAV_ITEM: NavItem = {
   label: "Recommended in Turkey",
   labelKey: "nav_turkey_referrals",
@@ -104,6 +120,8 @@ export const TURKEY_REFERRALS_NAV_ITEM: NavItem = {
 export const DIRECTORY_NAV_ITEMS: NavItem[] = [
   ...PROVIDER_NAV_ITEMS,
   NHS_DOCTORS_NAV_ITEM,
+  PSYCHIATRISTS_NAV_ITEM,
+  GYNAECOLOGISTS_NAV_ITEM,
   ...ORGANIZATION_NAV_ITEMS,
   TURKEY_REFERRALS_NAV_ITEM,
 ];
@@ -134,7 +152,8 @@ export const UTILITY_NAV_ITEMS: NavItem[] = [
     label: "NHS Benefits Guide",
     labelKey: "nav_nhs_benefits_guide",
     href: `/pages/${NHS_BENEFITS_GUIDE_SLUG}`,
-    description: "How to benefit from NHS insurance and health services in the UK",
+    description:
+      "How to benefit from NHS insurance and health services in the UK",
     icon: BookOpen,
   },
   {

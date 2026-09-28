@@ -18,6 +18,8 @@ const STATIC_ROUTES = [
   "/insurance",
   "/about",
   "/nhs-doctors",
+  "/psychiatrists",
+  "/gynaecologists",
   "/turkey-doctors",
   ...Object.values(PROVIDER_CATEGORY_ROUTES),
   ...Object.values(ORGANIZATION_TYPE_ROUTES),
