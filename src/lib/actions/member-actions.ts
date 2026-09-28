@@ -2,15 +2,20 @@
 
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
+import { isAdmin } from "@/lib/admin";
 import {
   addFavorite,
   createListingSuggestion,
   createReview,
   removeFavorite,
+  updateListingSuggestionStatus,
+  updateReviewStatus,
 } from "@/lib/data";
 import {
   favoriteSubjectKindSchema,
   listingSuggestionKindSchema,
+  listingSuggestionStatusSchema,
+  reviewStatusSchema,
   type FavoriteSubjectKind,
 } from "@/lib/schemas";
 
@@ -126,4 +131,31 @@ export async function submitListingSuggestionAction(
     status: "success",
     message: "Thanks! Your suggestion has been sent for review.",
   };
+}
+
+/** Admin-only: approve or reject a pending review from the moderation queue. */
+export async function moderateReviewAction(
+  reviewId: string,
+  status: string,
+): Promise<void> {
+  if (!(await isAdmin())) {
+    throw new Error("Not authorized.");
+  }
+  await updateReviewStatus(reviewId, reviewStatusSchema.parse(status));
+  revalidatePath("/admin/queue");
+}
+
+/** Admin-only: mark a pending listing suggestion as approved or rejected. */
+export async function moderateListingSuggestionAction(
+  suggestionId: string,
+  status: string,
+): Promise<void> {
+  if (!(await isAdmin())) {
+    throw new Error("Not authorized.");
+  }
+  await updateListingSuggestionStatus(
+    suggestionId,
+    listingSuggestionStatusSchema.parse(status),
+  );
+  revalidatePath("/admin/queue");
 }
