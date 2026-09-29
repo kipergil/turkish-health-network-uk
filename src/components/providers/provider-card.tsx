@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { LanguageBadges } from "@/components/shared/language-badges";
+import { LanguageIndicator } from "@/components/shared/language-indicator";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
-import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { VerifiedStamp } from "@/components/shared/verified-stamp";
 import {
   PROVIDER_CATEGORY_LABELS,
@@ -29,6 +28,7 @@ export async function ProviderCard({
       {provider.verified ? (
         <VerifiedStamp language={language} className="absolute top-3 right-3" />
       ) : null}
+      <LanguageIndicator languages={provider.languagesSpoken} />
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <Avatar className="size-12 shrink-0">
           {provider.photoUrl ? (
@@ -60,11 +60,7 @@ export async function ProviderCard({
         ) : null}
         <div className="flex flex-wrap items-center gap-1.5">
           <NhsStatusBadge status={provider.nhsStatus} language={language} />
-          {provider.turkishSpeaking ? (
-            <TurkishSpeakingBadge language={language} />
-          ) : null}
         </div>
-        <LanguageBadges languages={provider.languagesSpoken} />
       </CardContent>
     </Card>
   );

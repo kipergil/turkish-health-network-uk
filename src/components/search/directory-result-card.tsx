@@ -2,9 +2,8 @@ import Link from "next/link";
 import { Building2, User } from "lucide-react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { LanguageBadges } from "@/components/shared/language-badges";
+import { LanguageIndicator } from "@/components/shared/language-indicator";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
-import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { DEFAULT_LANGUAGE, type LanguageCode } from "@/lib/i18n/languages";
 import type { DirectoryEntry } from "@/lib/directory";
 
@@ -19,6 +18,7 @@ export function DirectoryResultCard({
 
   return (
     <Card className="hover:border-primary/30 relative h-full transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
+      <LanguageIndicator languages={entry.languagesSpoken} />
       <CardHeader className="flex-row items-start gap-3 space-y-0">
         <div className="bg-muted flex size-10 shrink-0 items-center justify-center rounded-full">
           <Icon className="text-muted-foreground size-4" aria-hidden="true" />
@@ -46,11 +46,7 @@ export function DirectoryResultCard({
         </p>
         <div className="flex flex-wrap items-center gap-1.5">
           <NhsStatusBadge status={entry.nhsStatus} language={language} />
-          {entry.turkishSpeaking ? (
-            <TurkishSpeakingBadge language={language} />
-          ) : null}
         </div>
-        <LanguageBadges languages={entry.languagesSpoken} />
       </CardContent>
     </Card>
   );

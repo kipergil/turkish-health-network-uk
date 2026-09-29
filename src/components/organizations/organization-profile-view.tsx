@@ -13,7 +13,6 @@ import {
 import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
-import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { ProfilePhoto } from "@/components/shared/profile-photo";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
@@ -294,17 +293,6 @@ export async function OrganizationProfileView({
               </div>
             </CardContent>
           </Card>
-
-          {organization.openingHours.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Opening hours</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <OpeningHoursTable hours={organization.openingHours} />
-              </CardContent>
-            </Card>
-          )}
         </aside>
       </div>
     </div>
