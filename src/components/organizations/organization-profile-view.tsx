@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
+import { ChangeRequestDialog } from "@/components/shared/change-request-dialog";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import {
@@ -13,7 +14,6 @@ import {
 import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
-import { OpeningHoursTable } from "@/components/shared/opening-hours-table";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { ProfilePhoto } from "@/components/shared/profile-photo";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
@@ -138,6 +138,11 @@ export async function OrganizationProfileView({
             subjectKind="organization"
             subjectId={organization.id}
             initialFavorited={alreadyFavorited}
+            language={language}
+          />
+          <ChangeRequestDialog
+            subjectKind="organization"
+            subjectId={organization.id}
             language={language}
           />
         </div>
@@ -294,17 +299,6 @@ export async function OrganizationProfileView({
               </div>
             </CardContent>
           </Card>
-
-          {organization.openingHours.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Opening hours</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <OpeningHoursTable hours={organization.openingHours} />
-              </CardContent>
-            </Card>
-          )}
         </aside>
       </div>
     </div>

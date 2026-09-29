@@ -2,18 +2,22 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { isAdmin } from "@/lib/admin";
 import {
+  moderateChangeRequestAction,
   moderateListingSuggestionAction,
   moderateReviewAction,
 } from "@/lib/actions/member-actions";
 import {
   getAllOrganizations,
   getAllProviders,
+  getPendingChangeRequests,
   getPendingListingSuggestions,
   getPendingReviews,
 } from "@/lib/data";
+import { directusItemAdminUrl } from "@/lib/directus/admin-url";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { EmptyState } from "@/components/shared/empty-state";
 
 export const metadata: Metadata = {
@@ -26,12 +30,14 @@ export default async function AdminQueuePage() {
     notFound();
   }
 
-  const [reviews, suggestions, providers, organizations] = await Promise.all([
-    getPendingReviews(),
-    getPendingListingSuggestions(),
-    getAllProviders(),
-    getAllOrganizations(),
-  ]);
+  const [reviews, suggestions, changeRequests, providers, organizations] =
+    await Promise.all([
+      getPendingReviews(),
+      getPendingListingSuggestions(),
+      getPendingChangeRequests(),
+      getAllProviders(),
+      getAllOrganizations(),
+    ]);
 
   const subjectNameById = new Map<string, string>();
   for (const provider of providers) {
@@ -40,6 +46,11 @@ export default async function AdminQueuePage() {
   for (const organization of organizations) {
     subjectNameById.set(organization.id, organization.name);
   }
+
+  const changeRequestActionLabel: Record<string, string> = {
+    update: "Update details",
+    remove: "Remove listing",
+  };
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
@@ -191,6 +202,95 @@ export default async function AdminQueuePage() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        )}
+      </section>
+
+      <section aria-labelledby="change-requests-heading" className="mt-10">
+        <h2 id="change-requests-heading" className="text-lg font-semibold">
+          Change requests ({changeRequests.length})
+        </h2>
+        {changeRequests.length === 0 ? (
+          <div className="mt-3">
+            <EmptyState
+              title="No change requests waiting"
+              description="Reports from visitors about listings that need updating or removing will show up here."
+            />
+          </div>
+        ) : (
+          <div className="mt-3 space-y-3">
+            {changeRequests.map((changeRequest) => {
+              const subjectAdminUrl = directusItemAdminUrl(
+                changeRequest.subjectKind === "provider"
+                  ? "providers"
+                  : "organizations",
+                changeRequest.subjectId,
+              );
+              return (
+                <Card key={changeRequest.id}>
+                  <CardHeader>
+                    <CardTitle className="flex flex-wrap items-center gap-2 text-base">
+                      {subjectNameById.get(changeRequest.subjectId) ??
+                        changeRequest.subjectId}
+                      <Badge variant="outline">
+                        {changeRequestActionLabel[changeRequest.action] ??
+                          changeRequest.action}
+                      </Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3 text-sm">
+                    <p className="text-foreground">{changeRequest.reason}</p>
+                    {changeRequest.reporterName ||
+                    changeRequest.reporterEmail ? (
+                      <p className="text-muted-foreground text-xs">
+                        From{" "}
+                        {changeRequest.reporterName ?? "an anonymous visitor"}
+                        {changeRequest.reporterEmail
+                          ? ` · ${changeRequest.reporterEmail}`
+                          : ""}
+                      </p>
+                    ) : (
+                      <p className="text-muted-foreground text-xs">
+                        Submitted anonymously — no way to follow up.
+                      </p>
+                    )}
+                    <p className="text-muted-foreground text-xs">
+                      Submitted{" "}
+                      {new Date(changeRequest.createdAt).toLocaleDateString(
+                        "en-GB",
+                      )}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {subjectAdminUrl ? (
+                        <DirectusEditLink href={subjectAdminUrl} />
+                      ) : null}
+                      <form
+                        action={moderateChangeRequestAction.bind(
+                          null,
+                          changeRequest.id,
+                          "resolved",
+                        )}
+                      >
+                        <Button type="submit" size="sm">
+                          Mark resolved
+                        </Button>
+                      </form>
+                      <form
+                        action={moderateChangeRequestAction.bind(
+                          null,
+                          changeRequest.id,
+                          "rejected",
+                        )}
+                      >
+                        <Button type="submit" size="sm" variant="outline">
+                          Dismiss
+                        </Button>
+                      </form>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            })}
           </div>
         )}
       </section>

@@ -199,6 +199,15 @@ const subjectKindChoices: Choice[] = [
   { text: "Provider", value: "provider" },
   { text: "Organization", value: "organization" },
 ];
+const changeRequestActionChoices: Choice[] = [
+  { text: "Update details", value: "update" },
+  { text: "Remove listing", value: "remove" },
+];
+const changeRequestStatusChoices: Choice[] = [
+  { text: "Pending", value: "pending" },
+  { text: "Resolved", value: "resolved" },
+  { text: "Rejected", value: "rejected" },
+];
 const pageStatusChoices: Choice[] = [
   { text: "Draft", value: "draft" },
   { text: "Published", value: "published" },
@@ -534,6 +543,30 @@ const collections: CollectionDef[] = [
         choices: listingSuggestionStatusChoices,
       }),
       field("submittedByUserId", "string", { required: true }),
+      field("createdAt", "timestamp", { required: true }),
+    ],
+  },
+  {
+    collection: "change_requests",
+    note: "A visitor's report that a provider/organization needs updating or removing. Anonymous-friendly intake queue, reviewed by an admin.",
+    fields: [
+      uuidPk(),
+      field("subjectKind", "string", {
+        required: true,
+        choices: subjectKindChoices,
+      }),
+      field("subjectId", "string", { required: true }),
+      field("action", "string", {
+        required: true,
+        choices: changeRequestActionChoices,
+      }),
+      field("reason", "text", { required: true }),
+      field("reporterName", "string"),
+      field("reporterEmail", "string"),
+      field("status", "string", {
+        required: true,
+        choices: changeRequestStatusChoices,
+      }),
       field("createdAt", "timestamp", { required: true }),
     ],
   },
