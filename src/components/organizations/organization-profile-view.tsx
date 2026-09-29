@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
+import { ChangeRequestDialog } from "@/components/shared/change-request-dialog";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import {
@@ -137,6 +138,11 @@ export async function OrganizationProfileView({
             subjectKind="organization"
             subjectId={organization.id}
             initialFavorited={alreadyFavorited}
+            language={language}
+          />
+          <ChangeRequestDialog
+            subjectKind="organization"
+            subjectId={organization.id}
             language={language}
           />
         </div>

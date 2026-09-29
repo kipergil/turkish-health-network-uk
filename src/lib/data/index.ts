@@ -8,3 +8,4 @@ export * from "@/lib/data/translations";
 export * from "@/lib/data/favorites";
 export * from "@/lib/data/reviews";
 export * from "@/lib/data/listing-suggestions";
+export * from "@/lib/data/change-requests";

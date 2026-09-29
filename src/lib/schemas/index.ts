@@ -10,3 +10,4 @@ export * from "@/lib/schemas/app-user";
 export * from "@/lib/schemas/favorite";
 export * from "@/lib/schemas/review";
 export * from "@/lib/schemas/listing-suggestion";
+export * from "@/lib/schemas/change-request";

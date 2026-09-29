@@ -1,17 +1,22 @@
 "use server";
 
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { auth } from "@clerk/nextjs/server";
 import { isAdmin } from "@/lib/admin";
 import {
   addFavorite,
+  createChangeRequest,
   createListingSuggestion,
   createReview,
   removeFavorite,
+  updateChangeRequestStatus,
   updateListingSuggestionStatus,
   updateReviewStatus,
 } from "@/lib/data";
 import {
+  changeRequestActionSchema,
+  changeRequestStatusSchema,
   favoriteSubjectKindSchema,
   listingSuggestionKindSchema,
   listingSuggestionStatusSchema,
@@ -133,6 +138,55 @@ export async function submitListingSuggestionAction(
   };
 }
 
+/**
+ * Reports that a provider/organization needs updating or removing.
+ * Deliberately not gated by `auth()` — anyone browsing the directory can
+ * flag a stale or wrong listing, so the reporter's name/email (used only
+ * to follow up once an admin has acted) are plain form fields instead.
+ */
+export async function submitChangeRequestAction(
+  subjectKind: FavoriteSubjectKind,
+  subjectId: string,
+  _previousState: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const actionResult = changeRequestActionSchema.safeParse(
+    formData.get("action"),
+  );
+  const reason = formData.get("reason");
+
+  if (!actionResult.success) {
+    return { status: "error", message: "Choose what you'd like us to do." };
+  }
+  if (typeof reason !== "string" || reason.trim().length === 0) {
+    return { status: "error", message: "Tell us what needs to change." };
+  }
+
+  const asOptionalString = (value: FormDataEntryValue | null) =>
+    typeof value === "string" && value.trim().length > 0
+      ? value.trim()
+      : undefined;
+
+  const reporterEmail = asOptionalString(formData.get("reporterEmail"));
+  if (reporterEmail && !z.email().safeParse(reporterEmail).success) {
+    return { status: "error", message: "Enter a valid email address." };
+  }
+
+  await createChangeRequest({
+    subjectKind: favoriteSubjectKindSchema.parse(subjectKind),
+    subjectId,
+    action: actionResult.data,
+    reason: reason.trim(),
+    reporterName: asOptionalString(formData.get("reporterName")),
+    reporterEmail,
+  });
+
+  return {
+    status: "success",
+    message: "Thanks — we've sent this to our team for review.",
+  };
+}
+
 /** Admin-only: approve or reject a pending review from the moderation queue. */
 export async function moderateReviewAction(
   reviewId: string,
@@ -156,6 +210,21 @@ export async function moderateListingSuggestionAction(
   await updateListingSuggestionStatus(
     suggestionId,
     listingSuggestionStatusSchema.parse(status),
+  );
+  revalidatePath("/admin/queue");
+}
+
+/** Admin-only: mark a pending change request as resolved or rejected. */
+export async function moderateChangeRequestAction(
+  changeRequestId: string,
+  status: string,
+): Promise<void> {
+  if (!(await isAdmin())) {
+    throw new Error("Not authorized.");
+  }
+  await updateChangeRequestStatus(
+    changeRequestId,
+    changeRequestStatusSchema.parse(status),
   );
   revalidatePath("/admin/queue");
 }

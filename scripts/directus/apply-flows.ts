@@ -89,6 +89,26 @@ const flows: FlowDef[] = [
       <p><a href="${adminUrl("reviews")}">Review in Directus</a></p>
     `.trim(),
   },
+  {
+    name: "Notify admin — new change request",
+    description:
+      "Emails the admin when a visitor reports that a listing needs updating or removing.",
+    icon: "mail",
+    collection: "change_requests",
+    subject:
+      "Change request ({{$trigger.payload.action}}): {{$trigger.payload.subjectKind}} {{$trigger.payload.subjectId}}",
+    body: `
+      <p>A visitor reported an issue with a listing on Turkish Health Network UK.</p>
+      <ul>
+        <li><strong>Action requested:</strong> {{$trigger.payload.action}}</li>
+        <li><strong>Subject:</strong> {{$trigger.payload.subjectKind}} — {{$trigger.payload.subjectId}}</li>
+        <li><strong>Reason:</strong> {{$trigger.payload.reason}}</li>
+        <li><strong>Reporter name:</strong> {{$trigger.payload.reporterName}}</li>
+        <li><strong>Reporter email:</strong> {{$trigger.payload.reporterEmail}}</li>
+      </ul>
+      <p><a href="${adminUrl("change_requests")}">Review in Directus</a></p>
+    `.trim(),
+  },
 ];
 
 async function main() {

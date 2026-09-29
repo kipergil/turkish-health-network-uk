@@ -1,5 +1,6 @@
 import type {
   AppUser,
+  ChangeRequest,
   Favorite,
   Insurance,
   ListingSuggestion,
@@ -29,6 +30,7 @@ export interface DirectusSchema {
   favorites: Favorite[];
   reviews: Review[];
   listing_suggestions: ListingSuggestion[];
+  change_requests: ChangeRequest[];
   pages: Page[];
   translations: Translation[];
 }
