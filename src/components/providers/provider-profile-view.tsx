@@ -287,6 +287,18 @@ export async function ProviderProfileView({
                   </a>
                 </p>
               ) : null}
+              {provider.contact.instagram ? (
+                <p>
+                  <a
+                    href={provider.contact.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Instagram
+                  </a>
+                </p>
+              ) : null}
               <Separator />
               <div className="flex flex-col gap-2">
                 {primaryOrganization ? (

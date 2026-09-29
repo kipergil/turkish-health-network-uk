@@ -37,6 +37,7 @@ export const contactInfoSchema = z.object({
   phone: z.string().optional(),
   email: z.email().optional(),
   website: z.url().optional(),
+  instagram: z.url().optional(),
 });
 export type ContactInfo = z.infer<typeof contactInfoSchema>;
 
