@@ -429,6 +429,8 @@ const collections: CollectionDef[] = [
       field("affiliation", "string"),
       field("phone", "string"),
       field("website", "string"),
+      field("instagram", "string"),
+      field("photoUrl", "string"),
       field("notes", "text"),
       field("verified", "boolean"),
     ],

@@ -1,9 +1,11 @@
-import { Globe } from "lucide-react";
+import { AtSign, Globe } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { initialsFor } from "@/lib/initials";
 import type { TurkeyReferral } from "@/lib/schemas/turkey-referral";
 
 export function TurkeyReferralCard({
@@ -27,19 +29,29 @@ export function TurkeyReferralCard({
 
   return (
     <Card className="h-full">
-      <CardHeader className="space-y-0">
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="leading-tight font-semibold">
-            {referral.title ? `${referral.title} ` : ""}
-            {referral.name}
-          </h3>
-          {directusEditUrl ? (
-            <DirectusEditLink href={directusEditUrl} iconOnly />
+      <CardHeader className="flex-row items-start gap-3 space-y-0">
+        <Avatar className="size-12 shrink-0">
+          {referral.photoUrl ? (
+            <AvatarImage src={referral.photoUrl} alt="" />
           ) : null}
+          <AvatarFallback className="bg-muted text-foreground font-medium">
+            {initialsFor(referral.name)}
+          </AvatarFallback>
+        </Avatar>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="leading-tight font-semibold">
+              {referral.title ? `${referral.title} ` : ""}
+              {referral.name}
+            </h3>
+            {directusEditUrl ? (
+              <DirectusEditLink href={directusEditUrl} iconOnly />
+            ) : null}
+          </div>
+          <p className="text-muted-foreground text-sm">
+            {referral.specialityText} · {referral.city}
+          </p>
         </div>
-        <p className="text-muted-foreground text-sm">
-          {referral.specialityText} · {referral.city}
-        </p>
       </CardHeader>
       <CardContent className="space-y-3">
         {referral.affiliation ? (
@@ -75,6 +87,17 @@ export function TurkeyReferralCard({
             >
               <Globe className="size-3.5" aria-hidden="true" />
               Website
+            </a>
+          ) : null}
+          {referral.instagram ? (
+            <a
+              href={referral.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary inline-flex items-center gap-1 hover:underline"
+            >
+              <AtSign className="size-3.5" aria-hidden="true" />
+              Instagram
             </a>
           ) : null}
         </div>
