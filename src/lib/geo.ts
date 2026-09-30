@@ -21,12 +21,25 @@ export function distanceInKm(a: GeoPoint, b: GeoPoint): number {
   return EARTH_RADIUS_KM * c;
 }
 
-export function googleMapsSearchUrl(point: GeoPoint): string {
-  return `https://www.google.com/maps/search/?api=1&query=${point.lat},${point.lng}`;
+/**
+ * A text query (place name + address), not raw coordinates — Maps resolves
+ * this straight to the place's own listing (reviews, hours, photos) rather
+ * than just dropping an anonymous pin at a lat/lng.
+ */
+export function googleMapsPlaceUrl(query: string): string {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 export function googleMapsDirectionsUrl(point: GeoPoint): string {
   return `https://www.google.com/maps/dir/?api=1&destination=${point.lat},${point.lng}`;
+}
+
+/** Builds the name+address text `googleMapsPlaceUrl` needs from an organization. */
+export function placeQueryFor(place: {
+  name: string;
+  address: { line1: string; city: string; postcode: string };
+}): string {
+  return `${place.name}, ${place.address.line1}, ${place.address.city} ${place.address.postcode}`;
 }
 
 export interface WithGeo {

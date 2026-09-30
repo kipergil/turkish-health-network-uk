@@ -32,6 +32,7 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { placeQueryFor } from "@/lib/geo";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { t } from "@/lib/i18n/messages";
 import { initialsFor } from "@/lib/initials";
@@ -226,22 +227,6 @@ export async function ProviderProfileView({
               </div>
             </section>
           )}
-
-          <section aria-labelledby="reviews-heading">
-            <h2 id="reviews-heading" className="text-lg font-semibold">
-              Reviews
-            </h2>
-            <div className="mt-2">
-              <ReviewList reviews={reviews} />
-            </div>
-            <div className="mt-4">
-              <ReviewForm
-                subjectKind="provider"
-                subjectId={provider.id}
-                profilePath={profilePath}
-              />
-            </div>
-          </section>
         </div>
 
         <aside className="space-y-4">
@@ -252,13 +237,36 @@ export async function ProviderProfileView({
             <CardContent>
               <ContactActionGrid
                 contact={provider.contact}
-                geo={primaryOrganization?.geo}
+                location={
+                  primaryOrganization
+                    ? {
+                        geo: primaryOrganization.geo,
+                        placeQuery: placeQueryFor(primaryOrganization),
+                      }
+                    : undefined
+                }
                 googleSearchQuery={googleSearchQuery}
               />
             </CardContent>
           </Card>
         </aside>
       </div>
+
+      <section aria-labelledby="reviews-heading" className="mt-8">
+        <h2 id="reviews-heading" className="text-lg font-semibold">
+          Reviews
+        </h2>
+        <div className="mt-2">
+          <ReviewList reviews={reviews} />
+        </div>
+        <div className="mt-4">
+          <ReviewForm
+            subjectKind="provider"
+            subjectId={provider.id}
+            profilePath={profilePath}
+          />
+        </div>
+      </section>
     </div>
   );
 }
