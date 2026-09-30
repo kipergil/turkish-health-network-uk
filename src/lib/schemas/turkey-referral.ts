@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { slugSchema } from "@/lib/schemas/common";
+import { safeUrlSchema, slugSchema } from "@/lib/schemas/common";
 
 /**
  * A doctor, dentist or clinic based in Turkey, recommended within the UK
@@ -25,8 +25,8 @@ export const turkeyReferralSchema = z.object({
   city: z.string().min(1),
   affiliation: z.string().optional(),
   phone: z.string().optional(),
-  website: z.url().optional(),
-  instagram: z.url().optional(),
+  website: safeUrlSchema.optional(),
+  instagram: safeUrlSchema.optional(),
   photoUrl: z.string().optional(),
   notes: z.string().optional(),
   verified: z.boolean().default(false),

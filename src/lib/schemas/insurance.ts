@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { slugSchema } from "@/lib/schemas/common";
+import { safeUrlSchema, slugSchema } from "@/lib/schemas/common";
 
 export const insuranceKindSchema = z.enum([
   "private-health-insurance",
@@ -19,7 +19,7 @@ export const insuranceSchema = z.object({
   name: z.string().min(1),
   kind: insuranceKindSchema,
   description: z.string().min(1),
-  website: z.url().optional(),
+  website: safeUrlSchema.optional(),
   logoUrl: z.string().optional(),
 });
 

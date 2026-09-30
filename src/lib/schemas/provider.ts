@@ -7,6 +7,7 @@ import {
   nhsStatusSchema,
   openingHoursEntrySchema,
   registrationBodySchema,
+  safeUrlSchema,
 } from "@/lib/schemas/common";
 import { PROVIDER_CATEGORIES } from "@/lib/constants/categories";
 
@@ -37,7 +38,7 @@ export const providerSchema = baseEntitySchema.extend({
   accessibility: accessibilitySchema.optional(),
   openingHours: z.array(openingHoursEntrySchema).default([]),
   contact: contactInfoSchema.default({}),
-  googleMapsUrl: z.url().optional(),
+  googleMapsUrl: safeUrlSchema.optional(),
 });
 
 export type Provider = z.infer<typeof providerSchema>;
