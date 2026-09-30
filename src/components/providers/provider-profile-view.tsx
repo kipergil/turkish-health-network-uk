@@ -2,16 +2,11 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
 import { ChangeRequestDialog } from "@/components/shared/change-request-dialog";
+import { ContactActionGrid } from "@/components/shared/contact-action-grid";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
-import {
-  GoogleMapsDirectionsLink,
-  GoogleMapsLink,
-} from "@/components/shared/google-maps-link";
-import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
@@ -254,61 +249,12 @@ export async function ProviderProfileView({
             <CardHeader>
               <CardTitle className="text-base">Contact</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              {provider.contact.phone ? (
-                <p>
-                  <a
-                    href={`tel:${provider.contact.phone}`}
-                    className="hover:underline"
-                  >
-                    {provider.contact.phone}
-                  </a>
-                </p>
-              ) : null}
-              {provider.contact.email ? (
-                <p>
-                  <a
-                    href={`mailto:${provider.contact.email}`}
-                    className="hover:underline"
-                  >
-                    {provider.contact.email}
-                  </a>
-                </p>
-              ) : null}
-              {provider.contact.website ? (
-                <p>
-                  <a
-                    href={provider.contact.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Website
-                  </a>
-                </p>
-              ) : null}
-              {provider.contact.instagram ? (
-                <p>
-                  <a
-                    href={provider.contact.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Instagram
-                  </a>
-                </p>
-              ) : null}
-              <Separator />
-              <div className="flex flex-col gap-2">
-                {primaryOrganization ? (
-                  <>
-                    <GoogleMapsLink geo={primaryOrganization.geo} />
-                    <GoogleMapsDirectionsLink geo={primaryOrganization.geo} />
-                  </>
-                ) : null}
-                <GoogleSearchLink query={googleSearchQuery} />
-              </div>
+            <CardContent>
+              <ContactActionGrid
+                contact={provider.contact}
+                geo={primaryOrganization?.geo}
+                googleSearchQuery={googleSearchQuery}
+              />
             </CardContent>
           </Card>
         </aside>

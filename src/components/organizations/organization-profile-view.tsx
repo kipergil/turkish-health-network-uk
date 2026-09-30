@@ -2,16 +2,11 @@ import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
 import { ChangeRequestDialog } from "@/components/shared/change-request-dialog";
+import { ContactActionGrid } from "@/components/shared/contact-action-grid";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
-import {
-  GoogleMapsDirectionsLink,
-  GoogleMapsLink,
-} from "@/components/shared/google-maps-link";
-import { GoogleSearchLink } from "@/components/shared/google-search-link";
 import { LanguageBadges } from "@/components/shared/language-badges";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
@@ -250,8 +245,8 @@ export async function OrganizationProfileView({
             <CardHeader>
               <CardTitle className="text-base">Contact</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm">
-              <address className="not-italic">
+            <CardContent className="space-y-3">
+              <address className="text-sm not-italic">
                 {organization.address.line1}
                 {organization.address.line2 ? (
                   <>, {organization.address.line2}</>
@@ -259,56 +254,11 @@ export async function OrganizationProfileView({
                 <br />
                 {organization.address.city}, {organization.address.postcode}
               </address>
-              {organization.contact.phone ? (
-                <p>
-                  <a
-                    href={`tel:${organization.contact.phone}`}
-                    className="hover:underline"
-                  >
-                    {organization.contact.phone}
-                  </a>
-                </p>
-              ) : null}
-              {organization.contact.email ? (
-                <p>
-                  <a
-                    href={`mailto:${organization.contact.email}`}
-                    className="hover:underline"
-                  >
-                    {organization.contact.email}
-                  </a>
-                </p>
-              ) : null}
-              {organization.contact.website ? (
-                <p>
-                  <a
-                    href={organization.contact.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Website
-                  </a>
-                </p>
-              ) : null}
-              {organization.contact.instagram ? (
-                <p>
-                  <a
-                    href={organization.contact.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    Instagram
-                  </a>
-                </p>
-              ) : null}
-              <Separator />
-              <div className="flex flex-col gap-2">
-                <GoogleMapsLink geo={organization.geo} />
-                <GoogleMapsDirectionsLink geo={organization.geo} />
-                <GoogleSearchLink query={googleSearchQuery} />
-              </div>
+              <ContactActionGrid
+                contact={organization.contact}
+                geo={organization.geo}
+                googleSearchQuery={googleSearchQuery}
+              />
             </CardContent>
           </Card>
         </aside>
