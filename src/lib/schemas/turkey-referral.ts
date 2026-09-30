@@ -26,6 +26,8 @@ export const turkeyReferralSchema = z.object({
   affiliation: z.string().optional(),
   phone: z.string().optional(),
   website: z.url().optional(),
+  instagram: z.url().optional(),
+  photoUrl: z.string().optional(),
   notes: z.string().optional(),
   verified: z.boolean().default(false),
 });

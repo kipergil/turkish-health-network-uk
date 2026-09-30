@@ -291,6 +291,18 @@ export async function OrganizationProfileView({
                   </a>
                 </p>
               ) : null}
+              {organization.contact.instagram ? (
+                <p>
+                  <a
+                    href={organization.contact.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    Instagram
+                  </a>
+                </p>
+              ) : null}
               <Separator />
               <div className="flex flex-col gap-2">
                 <GoogleMapsLink geo={organization.geo} />

@@ -337,7 +337,7 @@ const collections: CollectionDef[] = [
       field("geo", "json", { required: true, note: "{ lat, lng }" }),
       field("contact", "json", {
         required: true,
-        note: "{ phone?, email?, website? }",
+        note: "{ phone?, email?, website?, instagram? }",
       }),
       field("openingHours", "json", {
         list: {
@@ -402,7 +402,9 @@ const collections: CollectionDef[] = [
           template: "{{day}}: {{opens}} – {{closes}}",
         },
       }),
-      field("contact", "json"),
+      field("contact", "json", {
+        note: "{ phone?, email?, website?, instagram? }",
+      }),
       field("googleMapsUrl", "string"),
       field("verified", "boolean"),
       field("featured", "boolean"),
@@ -427,6 +429,8 @@ const collections: CollectionDef[] = [
       field("affiliation", "string"),
       field("phone", "string"),
       field("website", "string"),
+      field("instagram", "string"),
+      field("photoUrl", "string"),
       field("notes", "text"),
       field("verified", "boolean"),
     ],
