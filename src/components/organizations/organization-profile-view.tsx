@@ -223,22 +223,6 @@ export async function OrganizationProfileView({
               </div>
             </section>
           )}
-
-          <section aria-labelledby="reviews-heading">
-            <h2 id="reviews-heading" className="text-lg font-semibold">
-              Reviews
-            </h2>
-            <div className="mt-2">
-              <ReviewList reviews={reviews} />
-            </div>
-            <div className="mt-4">
-              <ReviewForm
-                subjectKind="organization"
-                subjectId={organization.id}
-                profilePath={profilePath}
-              />
-            </div>
-          </section>
         </div>
 
         <aside className="space-y-4">
@@ -267,6 +251,22 @@ export async function OrganizationProfileView({
           </Card>
         </aside>
       </div>
+
+      <section aria-labelledby="reviews-heading" className="mt-8">
+        <h2 id="reviews-heading" className="text-lg font-semibold">
+          Reviews
+        </h2>
+        <div className="mt-2">
+          <ReviewList reviews={reviews} />
+        </div>
+        <div className="mt-4">
+          <ReviewForm
+            subjectKind="organization"
+            subjectId={organization.id}
+            profilePath={profilePath}
+          />
+        </div>
+      </section>
     </div>
   );
 }
