@@ -32,6 +32,7 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { placeQueryFor } from "@/lib/geo";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { initialsFor } from "@/lib/initials";
 import { t } from "@/lib/i18n/messages";
@@ -256,7 +257,10 @@ export async function OrganizationProfileView({
               </address>
               <ContactActionGrid
                 contact={organization.contact}
-                geo={organization.geo}
+                location={{
+                  geo: organization.geo,
+                  placeQuery: placeQueryFor(organization),
+                }}
                 googleSearchQuery={googleSearchQuery}
               />
             </CardContent>

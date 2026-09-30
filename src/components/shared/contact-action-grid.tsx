@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { AtSign, Globe, Mail, MapPin, Navigation, Phone, Search } from "lucide-react";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { t, type MessageKey } from "@/lib/i18n/messages";
-import { googleMapsDirectionsUrl, googleMapsSearchUrl } from "@/lib/geo";
+import { googleMapsDirectionsUrl, googleMapsPlaceUrl } from "@/lib/geo";
 import { googleSearchUrl } from "@/lib/search";
 import type { ContactInfo, GeoPoint } from "@/lib/schemas/common";
 
@@ -38,11 +38,12 @@ function ActionTile({
  */
 export async function ContactActionGrid({
   contact,
-  geo,
+  location,
   googleSearchQuery,
 }: {
   contact: ContactInfo;
-  geo?: GeoPoint;
+  /** The place's own name+address as a Maps query, plus its coordinates for directions. */
+  location?: { geo: GeoPoint; placeQuery: string };
   googleSearchQuery: string;
 }) {
   const language = await getCurrentLanguage();
@@ -80,16 +81,16 @@ export async function ContactActionGrid({
           label={label("contact_instagram")}
         />
       ) : null}
-      {geo ? (
+      {location ? (
         <ActionTile
-          href={googleMapsSearchUrl(geo)}
+          href={googleMapsPlaceUrl(location.placeQuery)}
           icon={MapPin}
           label={label("contact_maps")}
         />
       ) : null}
-      {geo ? (
+      {location ? (
         <ActionTile
-          href={googleMapsDirectionsUrl(geo)}
+          href={googleMapsDirectionsUrl(location.geo)}
           icon={Navigation}
           label={label("contact_directions")}
         />
