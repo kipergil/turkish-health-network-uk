@@ -13,3 +13,6 @@ export const SITE_DESCRIPTION =
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.turkishhealthnetwork.uk"
 ).replace(/\/$/, "");
+
+/** Where the "Support on Ko-fi" links/banner point — the maintainer's own Ko-fi page. */
+export const KOFI_URL = "https://ko-fi.com/kipergil";

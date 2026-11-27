@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { HeartPulse, Languages, MapPinned, ShieldCheck } from "lucide-react";
+import { Coffee, HeartPulse, Languages, MapPinned, ShieldCheck } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
-import { SITE_NAME } from "@/lib/constants/site";
+import { KOFI_URL, SITE_NAME } from "@/lib/constants/site";
 
 export const metadata: Metadata = {
   title: "About",
@@ -80,6 +81,22 @@ export default function AboutPage() {
         languages and communities — contributions and corrections are welcome on
         GitHub.
       </p>
+
+      <h2 className="mt-10 text-lg font-semibold">Support the project</h2>
+      <p className="text-muted-foreground mt-2">
+        {SITE_NAME} is free to use, ad-free, and built and maintained in
+        spare time. If it&apos;s helped you or someone you know, a small
+        donation helps cover hosting and keeps the directory growing.
+      </p>
+      <Button
+        asChild
+        className="mt-4 bg-[#FF5E5B] text-white hover:bg-[#FF5E5B]/90"
+      >
+        <a href={KOFI_URL} target="_blank" rel="noopener noreferrer">
+          <Coffee aria-hidden="true" />
+          Support on Ko-fi
+        </a>
+      </Button>
     </div>
   );
 }
