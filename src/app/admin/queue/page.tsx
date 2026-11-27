@@ -14,11 +14,24 @@ import {
   getPendingReviews,
 } from "@/lib/data";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { safeUrlSchema } from "@/lib/schemas";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { EmptyState } from "@/components/shared/empty-state";
+
+/**
+ * `listing_suggestions.website` is visitor-submitted free text rendered here
+ * as a raw `<a href>` for the admin to click through to. The submission form
+ * now rejects non-http(s) values, but this guards suggestions already
+ * stored before that check existed (or written directly in Directus) —
+ * without it, a `javascript:`/`data:` value would run script in the
+ * moderating admin's signed-in session on click.
+ */
+function safeHref(url: string): string | null {
+  return safeUrlSchema.safeParse(url).success ? url : null;
+}
 
 export const metadata: Metadata = {
   title: "Moderation queue",
@@ -158,14 +171,18 @@ export default async function AdminQueuePage() {
                   {suggestion.phone ? <p>{suggestion.phone}</p> : null}
                   {suggestion.website ? (
                     <p>
-                      <a
-                        href={suggestion.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-primary hover:underline"
-                      >
-                        {suggestion.website}
-                      </a>
+                      {safeHref(suggestion.website) ? (
+                        <a
+                          href={suggestion.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-primary hover:underline"
+                        >
+                          {suggestion.website}
+                        </a>
+                      ) : (
+                        suggestion.website
+                      )}
                     </p>
                   ) : null}
                   {suggestion.notes ? (

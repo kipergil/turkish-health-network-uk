@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { SearchExperience } from "@/components/search/search-experience";
 import { getDirectoryEntries } from "@/lib/directory";
+import { getAllTurkeyReferrals } from "@/lib/data";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 
 export const metadata: Metadata = {
   title: "Search",
   description:
-    "Search the whole Turkish Health Network UK directory of doctors, dentists, psychologists, physiotherapists, dietitians, clinics, hospitals and pharmacies.",
+    "Search the whole Turkish Health Network UK directory of doctors, dentists, psychologists, physiotherapists, dietitians, clinics, hospitals and pharmacies, plus recommended doctors and clinics in Turkey.",
 };
 
 export default async function SearchPage({
@@ -15,8 +16,9 @@ export default async function SearchPage({
   searchParams: Promise<{ q?: string }>;
 }) {
   const { q } = await searchParams;
-  const [entries, language] = await Promise.all([
+  const [entries, turkeyReferrals, language] = await Promise.all([
     getDirectoryEntries(),
+    getAllTurkeyReferrals(),
     getCurrentLanguage(),
   ]);
 
@@ -27,11 +29,13 @@ export default async function SearchPage({
       </h1>
       <p className="text-muted-foreground mt-2 max-w-2xl">
         Search across every doctor, dentist, psychologist, physiotherapist,
-        dietitian, clinic, hospital and pharmacy in the network.
+        dietitian, clinic, hospital and pharmacy in the network, plus
+        recommended doctors and clinics in Turkey.
       </p>
       <div className="mt-6">
         <SearchExperience
           entries={entries}
+          turkeyReferrals={turkeyReferrals}
           initialQuery={q ?? ""}
           language={language}
         />

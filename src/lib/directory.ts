@@ -1,5 +1,9 @@
 import "server-only";
-import { getAllProviders, getAllOrganizations } from "@/lib/data";
+import {
+  getAllProviders,
+  getAllOrganizations,
+  getAllSpecialities,
+} from "@/lib/data";
 import {
   PROVIDER_CATEGORY_LABELS,
   ORGANIZATION_TYPE_LABELS,
@@ -23,6 +27,8 @@ export interface DirectoryEntry {
   slug: string;
   href: string;
   categoryLabel: string;
+  /** Resolved speciality names, for search text and the "branch" filter. */
+  specialities: string[];
   summary: string;
   city: string;
   geo: GeoPoint | undefined;
@@ -32,13 +38,21 @@ export interface DirectoryEntry {
 }
 
 export async function getDirectoryEntries(): Promise<DirectoryEntry[]> {
-  const [providers, organizations] = await Promise.all([
+  const [providers, organizations, specialities] = await Promise.all([
     getAllProviders(),
     getAllOrganizations(),
+    getAllSpecialities(),
   ]);
   const organizationById = new Map(
     organizations.map((organization) => [organization.id, organization]),
   );
+  const specialityNameById = new Map(
+    specialities.map((speciality) => [speciality.id, speciality.name]),
+  );
+  const resolveSpecialities = (ids: readonly string[]) =>
+    ids
+      .map((id) => specialityNameById.get(id))
+      .filter((name): name is string => name !== undefined);
 
   const providerEntries: DirectoryEntry[] = providers.map((provider) => {
     const primaryOrganization = provider.organizationIds
@@ -52,6 +66,7 @@ export async function getDirectoryEntries(): Promise<DirectoryEntry[]> {
       slug: provider.slug,
       href: `/${PROVIDER_CATEGORY_ROUTES[provider.category]}/${provider.slug}`,
       categoryLabel: PROVIDER_CATEGORY_LABELS[provider.category],
+      specialities: resolveSpecialities(provider.specialityIds),
       summary: provider.bio,
       city: primaryOrganization?.address.city ?? "United Kingdom",
       geo: primaryOrganization?.geo,
@@ -69,6 +84,7 @@ export async function getDirectoryEntries(): Promise<DirectoryEntry[]> {
       slug: organization.slug,
       href: `/${ORGANIZATION_TYPE_ROUTES[organization.type]}/${organization.slug}`,
       categoryLabel: ORGANIZATION_TYPE_LABELS[organization.type],
+      specialities: resolveSpecialities(organization.specialityIds),
       summary: organization.description,
       city: organization.address.city,
       geo: organization.geo,

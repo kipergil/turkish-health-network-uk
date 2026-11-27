@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeartPulse, Info } from "lucide-react";
+import { Coffee, HeartPulse, Info } from "lucide-react";
 import {
   PROVIDER_NAV_ITEMS,
   ORGANIZATION_NAV_ITEMS,
@@ -9,7 +9,7 @@ import {
   GYNAECOLOGISTS_NAV_ITEM,
   TURKEY_REFERRALS_NAV_ITEM,
 } from "@/lib/constants/nav";
-import { SITE_NAME, SITE_TAGLINE } from "@/lib/constants/site";
+import { KOFI_URL, SITE_NAME, SITE_TAGLINE } from "@/lib/constants/site";
 
 export function SiteFooter() {
   const year = new Date().getFullYear();
@@ -44,6 +44,15 @@ export function SiteFooter() {
             </a>
             .
           </p>
+          <a
+            href={KOFI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-[#FF5E5B] hover:underline"
+          >
+            <Coffee className="size-4" aria-hidden="true" />
+            Support this project on Ko-fi
+          </a>
         </div>
 
         <nav aria-label="Practitioners">

@@ -9,6 +9,7 @@ import {
   Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { KofiSupportBanner } from "@/components/shared/kofi-support-banner";
 import { QuickSearchForm } from "@/components/search/quick-search-form";
 import { ProviderCard } from "@/components/providers/provider-card";
 import { OrganizationCard } from "@/components/organizations/organization-card";
@@ -299,6 +300,8 @@ export default async function HomePage() {
           </Button>
         </div>
       </section>
+
+      <KofiSupportBanner />
     </div>
   );
 }

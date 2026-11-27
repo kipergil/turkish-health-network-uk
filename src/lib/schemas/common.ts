@@ -33,11 +33,19 @@ export const addressSchema = z.object({
 });
 export type Address = z.infer<typeof addressSchema>;
 
+// Restrict to http(s) explicitly: zod's bare `z.url()` accepts any
+// URL-shaped string, including `javascript:`/`data:` schemes — and every
+// one of these fields is rendered as a raw `<a href>` on public pages
+// (ContactActionGrid, insurance/turkey-referral pages), so an unrestricted
+// scheme would let a malicious value execute script in a visitor's browser
+// when they click the link.
+export const safeUrlSchema = z.url({ protocol: /^https?$/ });
+
 export const contactInfoSchema = z.object({
   phone: z.string().optional(),
   email: z.email().optional(),
-  website: z.url().optional(),
-  instagram: z.url().optional(),
+  website: safeUrlSchema.optional(),
+  instagram: safeUrlSchema.optional(),
 });
 export type ContactInfo = z.infer<typeof contactInfoSchema>;
 

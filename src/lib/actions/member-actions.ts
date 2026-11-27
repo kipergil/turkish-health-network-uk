@@ -21,6 +21,7 @@ import {
   listingSuggestionKindSchema,
   listingSuggestionStatusSchema,
   reviewStatusSchema,
+  safeUrlSchema,
   type FavoriteSubjectKind,
 } from "@/lib/schemas";
 
@@ -121,13 +122,25 @@ export async function submitListingSuggestionAction(
       ? value.trim()
       : undefined;
 
+  const website = asOptionalString(formData.get("website"));
+  if (website && !safeUrlSchema.safeParse(website).success) {
+    // This is later rendered as a raw `<a href>` in the admin moderation
+    // queue (src/app/admin/queue/page.tsx) — an unrestricted scheme here
+    // (e.g. `javascript:`) would run script in the moderating admin's
+    // signed-in session the moment they click the link.
+    return {
+      status: "error",
+      message: "Enter a valid website address starting with http:// or https://.",
+    };
+  }
+
   await createListingSuggestion({
     kind: kindResult.data,
     name: name.trim(),
     categoryText: asOptionalString(formData.get("categoryText")),
     city: asOptionalString(formData.get("city")),
     phone: asOptionalString(formData.get("phone")),
-    website: asOptionalString(formData.get("website")),
+    website,
     notes: asOptionalString(formData.get("notes")),
     submittedByUserId: userId,
   });

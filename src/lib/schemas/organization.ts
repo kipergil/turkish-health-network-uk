@@ -8,6 +8,7 @@ import {
   languageCodeSchema,
   nhsStatusSchema,
   openingHoursEntrySchema,
+  safeUrlSchema,
 } from "@/lib/schemas/common";
 import { ORGANIZATION_TYPES } from "@/lib/constants/categories";
 
@@ -34,7 +35,7 @@ export const organizationSchema = baseEntitySchema.extend({
   specialityIds: z.array(z.string().min(1)).default([]),
   accessibility: accessibilitySchema.optional(),
   images: z.array(z.string()).default([]),
-  googleMapsUrl: z.url().optional(),
+  googleMapsUrl: safeUrlSchema.optional(),
 });
 
 export type Organization = z.infer<typeof organizationSchema>;
