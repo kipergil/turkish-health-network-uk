@@ -20,10 +20,17 @@ export interface FilterOption {
   name: string;
 }
 
+export interface SortOption {
+  value: string;
+  label: string;
+}
+
 export interface DirectoryFiltersProps {
   specialityOptions?: FilterOption[];
   insuranceOptions: FilterOption[];
   languageOptions: LanguageCode[];
+  /** Omit to leave the listing in its default order — only provider listing pages pass this. */
+  sortOptions?: SortOption[];
 }
 
 const ALL_VALUE = "all";
@@ -32,6 +39,7 @@ export function DirectoryFilters({
   specialityOptions,
   insuranceOptions,
   languageOptions,
+  sortOptions,
 }: DirectoryFiltersProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -150,6 +158,28 @@ export function DirectoryFilters({
           </SelectContent>
         </Select>
       </div>
+
+      {sortOptions && sortOptions.length > 0 ? (
+        <div className="flex flex-col gap-1.5">
+          <Label htmlFor="filter-sort">Sort by</Label>
+          <Select
+            value={searchParams.get("sort") ?? ALL_VALUE}
+            onValueChange={(value) => updateParam("sort", value)}
+          >
+            <SelectTrigger id="filter-sort" className="w-44">
+              <SelectValue placeholder="Default order" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={ALL_VALUE}>Default order</SelectItem>
+              {sortOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      ) : null}
 
       <div className="flex h-8 items-center gap-2">
         <Checkbox

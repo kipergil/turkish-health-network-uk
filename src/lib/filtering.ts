@@ -8,12 +8,35 @@ import type { TurkeyReferral } from "@/lib/schemas/turkey-referral";
 
 export type SearchParamsInput = Record<string, string | string[] | undefined>;
 
+export const PROVIDER_SORT_OPTIONS = [
+  "name",
+  "speciality",
+  "createdAt",
+  "updatedAt",
+] as const;
+export type ProviderSortOption = (typeof PROVIDER_SORT_OPTIONS)[number];
+
+export function isProviderSortOption(
+  value: string,
+): value is ProviderSortOption {
+  return (PROVIDER_SORT_OPTIONS as readonly string[]).includes(value);
+}
+
+export const PROVIDER_SORT_UI_OPTIONS: { value: ProviderSortOption; label: string }[] =
+  [
+    { value: "name", label: "Name (A–Z)" },
+    { value: "speciality", label: "Speciality" },
+    { value: "createdAt", label: "Newest added" },
+    { value: "updatedAt", label: "Recently updated" },
+  ];
+
 export interface DirectoryFilterValues {
   nhs?: NhsStatus;
   lang?: LanguageCode;
   specialitySlug?: string;
   insuranceSlug?: string;
   turkishOnly: boolean;
+  sort?: ProviderSortOption;
 }
 
 function firstValue(value: string | string[] | undefined): string | undefined {
@@ -25,6 +48,7 @@ export function parseDirectoryFilters(
 ): DirectoryFilterValues {
   const nhsRaw = firstValue(searchParams.nhs);
   const langRaw = firstValue(searchParams.lang);
+  const sortRaw = firstValue(searchParams.sort);
 
   return {
     nhs:
@@ -35,6 +59,7 @@ export function parseDirectoryFilters(
     specialitySlug: firstValue(searchParams.speciality),
     insuranceSlug: firstValue(searchParams.insurance),
     turkishOnly: firstValue(searchParams.turkish) === "1",
+    sort: sortRaw && isProviderSortOption(sortRaw) ? sortRaw : undefined,
   };
 }
 
@@ -62,6 +87,40 @@ export function filterProviders(
       return false;
     return true;
   });
+}
+
+/**
+ * Sorts by speciality name using the first entry in each provider's
+ * resolved speciality list — providers can have several, but the list
+ * view only has room to show one sort key.
+ */
+export function sortProviders(
+  providers: readonly Provider[],
+  sort: ProviderSortOption | undefined,
+  specialitiesById: ReadonlyMap<string, readonly Speciality[]>,
+): Provider[] {
+  if (!sort) return [...providers];
+
+  const sorted = [...providers];
+  switch (sort) {
+    case "name":
+      sorted.sort((a, b) => a.name.localeCompare(b.name));
+      break;
+    case "speciality":
+      sorted.sort((a, b) => {
+        const aName = specialitiesById.get(a.id)?.[0]?.name ?? "";
+        const bName = specialitiesById.get(b.id)?.[0]?.name ?? "";
+        return aName.localeCompare(bName);
+      });
+      break;
+    case "createdAt":
+      sorted.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+      break;
+    case "updatedAt":
+      sorted.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
+      break;
+  }
+  return sorted;
 }
 
 export function filterOrganizations(

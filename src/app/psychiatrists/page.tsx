@@ -17,6 +17,8 @@ import { LANGUAGE_CODES } from "@/lib/constants/languages";
 import {
   filterProviders,
   parseDirectoryFilters,
+  sortProviders,
+  PROVIDER_SORT_UI_OPTIONS,
   type SearchParamsInput,
 } from "@/lib/filtering";
 
@@ -52,6 +54,7 @@ export default async function PsychiatristsPage({
     ),
   );
   const specialitiesById = new Map(specialityByProvider);
+  const sorted = sortProviders(filtered, filters.sort, specialitiesById);
 
   const filteredIds = new Set(filtered.map((provider) => provider.id));
   const mapEntries: MapEntry[] = directoryEntries
@@ -94,6 +97,7 @@ export default async function PsychiatristsPage({
               name: i.name,
             }))}
             languageOptions={[...LANGUAGE_CODES]}
+            sortOptions={PROVIDER_SORT_UI_OPTIONS}
           />
         </FiltersDisclosure>
       </div>
@@ -110,7 +114,7 @@ export default async function PsychiatristsPage({
         <div className="mt-4">
           <ResultsView mapEntries={mapEntries} totalCount={filtered.length}>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((provider) => (
+              {sorted.map((provider) => (
                 <ProviderCard
                   key={provider.id}
                   provider={provider}
