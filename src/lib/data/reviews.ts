@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { createItem, readItems, updateItem } from "@directus/sdk";
 import { directus } from "@/lib/directus/client";
 import { stripNulls } from "@/lib/directus/normalize";
@@ -9,22 +10,52 @@ import {
   type ReviewStatus,
 } from "@/lib/schemas";
 
-export async function getPublishedReviewsForSubject(
-  subjectKind: FavoriteSubjectKind,
-  subjectId: string,
-): Promise<Review[]> {
+/**
+ * Every published review, request-cached — cards derive a per-subject
+ * rating summary from this instead of each issuing its own filtered
+ * Directus query (a listing page can render dozens of cards at once).
+ */
+export const getAllPublishedReviews = cache(async (): Promise<Review[]> => {
   const items = await directus.request(
     readItems("reviews", {
-      filter: {
-        subjectKind: { _eq: subjectKind },
-        subjectId: { _eq: subjectId },
-        status: { _eq: "published" },
-      },
-      sort: ["-createdAt"],
+      filter: { status: { _eq: "published" } },
       limit: -1,
     }),
   );
   return reviewSchema.array().parse(stripNulls(items));
+});
+
+export async function getPublishedReviewsForSubject(
+  subjectKind: FavoriteSubjectKind,
+  subjectId: string,
+): Promise<Review[]> {
+  const reviews = await getAllPublishedReviews();
+  return reviews
+    .filter(
+      (review) =>
+        review.subjectKind === subjectKind && review.subjectId === subjectId,
+    )
+    .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+}
+
+export interface ReviewSummary {
+  average: number;
+  count: number;
+}
+
+export function summarizeReviews(reviews: readonly Review[]): ReviewSummary | null {
+  if (reviews.length === 0) return null;
+  const total = reviews.reduce((sum, review) => sum + review.rating, 0);
+  return { average: total / reviews.length, count: reviews.length };
+}
+
+/** Average rating + count across a subject's published reviews, or `null` if it has none. */
+export async function getReviewSummary(
+  subjectKind: FavoriteSubjectKind,
+  subjectId: string,
+): Promise<ReviewSummary | null> {
+  const reviews = await getPublishedReviewsForSubject(subjectKind, subjectId);
+  return summarizeReviews(reviews);
 }
 
 /** Every review awaiting admin moderation, oldest first. */

@@ -1,5 +1,14 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import {
+  Building2,
+  FileText,
+  GraduationCap,
+  Languages as LanguagesIcon,
+  MessageSquare,
+  ShieldCheck,
+  Accessibility as AccessibilityIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
@@ -8,9 +17,13 @@ import { ContactActionGrid } from "@/components/shared/contact-action-grid";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import { LanguageBadges } from "@/components/shared/language-badges";
+import { LocationPreview } from "@/components/shared/location-preview";
+import { MobileContactBar } from "@/components/shared/mobile-contact-bar";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { ProfilePhoto } from "@/components/shared/profile-photo";
+import { RatingSummary } from "@/components/shared/rating-summary";
+import { ShareButton } from "@/components/shared/share-button";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { OrganizationCard } from "@/components/organizations/organization-card";
 import { ReviewForm } from "@/components/reviews/review-form";
@@ -23,6 +36,7 @@ import {
   getPublishedReviewsForSubject,
   getSpecialitiesByIds,
   isFavorite,
+  summarizeReviews,
 } from "@/lib/data";
 import {
   PROVIDER_CATEGORY_LABELS,
@@ -32,6 +46,7 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { formatRelativeTime } from "@/lib/format-relative-time";
 import { placeQueryFor } from "@/lib/geo";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { t } from "@/lib/i18n/messages";
@@ -79,6 +94,13 @@ export async function ProviderProfileView({
   const directusEditUrl = canEditInDirectus
     ? directusItemAdminUrl("providers", provider.id)
     : null;
+  const reviewSummary = summarizeReviews(reviews);
+  const location = primaryOrganization
+    ? {
+        geo: primaryOrganization.geo,
+        placeQuery: placeQueryFor(primaryOrganization),
+      }
+    : undefined;
   const googleSearchQuery = [
     provider.title,
     provider.name,
@@ -89,7 +111,7 @@ export async function ProviderProfileView({
     .join(" ");
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-4xl px-4 pt-10 pb-24 sm:px-6 md:pb-10">
       <JsonLd data={providerJsonLd(provider, specialities, organizations)} />
       <PageBreadcrumbs
         items={[
@@ -120,15 +142,27 @@ export async function ProviderProfileView({
                 ? ` · ${specialities.map((s) => s.name).join(", ")}`
                 : ""}
             </p>
-            <div className="mt-2 flex flex-wrap items-center gap-1.5">
-              <NhsStatusBadge status={provider.nhsStatus} language={language} />
-              {provider.turkishSpeaking ? (
-                <TurkishSpeakingBadge language={language} />
-              ) : null}
-              {provider.verified ? (
-                <Badge variant="secondary">{t("verified", language)}</Badge>
-              ) : null}
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <a href="#reviews" className="hover:underline">
+                <RatingSummary summary={reviewSummary} language={language} />
+              </a>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <NhsStatusBadge
+                  status={provider.nhsStatus}
+                  language={language}
+                />
+                {provider.turkishSpeaking ? (
+                  <TurkishSpeakingBadge language={language} />
+                ) : null}
+                {provider.verified ? (
+                  <Badge variant="secondary">{t("verified", language)}</Badge>
+                ) : null}
+              </div>
             </div>
+            <p className="text-muted-foreground mt-2 text-xs">
+              {t("profile_updated", language)}{" "}
+              {formatRelativeTime(provider.updatedAt, language)}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -137,6 +171,10 @@ export async function ProviderProfileView({
             subjectKind="provider"
             subjectId={provider.id}
             initialFavorited={alreadyFavorited}
+            language={language}
+          />
+          <ShareButton
+            title={`${provider.title} ${provider.name}`}
             language={language}
           />
           <ChangeRequestDialog
@@ -150,7 +188,11 @@ export async function ProviderProfileView({
       <div className="mt-8 grid gap-8 md:grid-cols-3">
         <div className="space-y-6 md:col-span-2">
           <section aria-labelledby="about-heading">
-            <h2 id="about-heading" className="text-lg font-semibold">
+            <h2
+              id="about-heading"
+              className="flex items-center gap-2 text-lg font-semibold"
+            >
+              <FileText className="text-primary size-4.5" aria-hidden="true" />
               About
             </h2>
             <p className="text-muted-foreground mt-2">{provider.bio}</p>
@@ -158,7 +200,14 @@ export async function ProviderProfileView({
 
           {provider.qualifications.length > 0 && (
             <section aria-labelledby="qualifications-heading">
-              <h2 id="qualifications-heading" className="text-lg font-semibold">
+              <h2
+                id="qualifications-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <GraduationCap
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Qualifications
               </h2>
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -178,7 +227,14 @@ export async function ProviderProfileView({
           )}
 
           <section aria-labelledby="languages-heading">
-            <h2 id="languages-heading" className="text-lg font-semibold">
+            <h2
+              id="languages-heading"
+              className="flex items-center gap-2 text-lg font-semibold"
+            >
+              <LanguagesIcon
+                className="text-primary size-4.5"
+                aria-hidden="true"
+              />
               Languages spoken
             </h2>
             <div className="mt-2">
@@ -188,7 +244,14 @@ export async function ProviderProfileView({
 
           {insurances.length > 0 && (
             <section aria-labelledby="insurance-heading">
-              <h2 id="insurance-heading" className="text-lg font-semibold">
+              <h2
+                id="insurance-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <ShieldCheck
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Insurance accepted
               </h2>
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -203,7 +266,14 @@ export async function ProviderProfileView({
 
           {provider.accessibility ? (
             <section aria-labelledby="accessibility-heading">
-              <h2 id="accessibility-heading" className="text-lg font-semibold">
+              <h2
+                id="accessibility-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <AccessibilityIcon
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Accessibility
               </h2>
               <div className="mt-2">
@@ -214,7 +284,11 @@ export async function ProviderProfileView({
 
           {organizations.length > 0 && (
             <section aria-labelledby="practices-heading">
-              <h2 id="practices-heading" className="text-lg font-semibold">
+              <h2
+                id="practices-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <Building2 className="text-primary size-4.5" aria-hidden="true" />
                 Practices at
               </h2>
               <div className="mt-2 grid gap-4 sm:grid-cols-2">
@@ -229,31 +303,34 @@ export async function ProviderProfileView({
           )}
         </div>
 
-        <aside className="space-y-4">
+        <aside className="space-y-4 md:sticky md:top-24 md:self-start">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Contact</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="space-y-4">
               <ContactActionGrid
                 contact={provider.contact}
-                location={
-                  primaryOrganization
-                    ? {
-                        geo: primaryOrganization.geo,
-                        placeQuery: placeQueryFor(primaryOrganization),
-                      }
-                    : undefined
-                }
+                location={location}
                 googleSearchQuery={googleSearchQuery}
               />
             </CardContent>
           </Card>
+          {primaryOrganization ? (
+            <LocationPreview
+              label={`${primaryOrganization.name}, ${primaryOrganization.address.city}`}
+              placeQuery={placeQueryFor(primaryOrganization)}
+            />
+          ) : null}
         </aside>
       </div>
 
-      <section aria-labelledby="reviews-heading" className="mt-8">
-        <h2 id="reviews-heading" className="text-lg font-semibold">
+      <section id="reviews" aria-labelledby="reviews-heading" className="mt-8">
+        <h2
+          id="reviews-heading"
+          className="flex items-center gap-2 text-lg font-semibold"
+        >
+          <MessageSquare className="text-primary size-4.5" aria-hidden="true" />
           Reviews
         </h2>
         <div className="mt-2">
@@ -267,6 +344,8 @@ export async function ProviderProfileView({
           />
         </div>
       </section>
+
+      <MobileContactBar contact={provider.contact} location={location} />
     </div>
   );
 }

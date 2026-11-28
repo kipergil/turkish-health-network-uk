@@ -1,5 +1,14 @@
 import { notFound } from "next/navigation";
 import { auth } from "@clerk/nextjs/server";
+import {
+  ClipboardList,
+  FileText,
+  Languages as LanguagesIcon,
+  MessageSquare,
+  ShieldCheck,
+  Users,
+  Accessibility as AccessibilityIcon,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AccessibilityBadges } from "@/components/shared/accessibility-badges";
@@ -8,9 +17,14 @@ import { ContactActionGrid } from "@/components/shared/contact-action-grid";
 import { DirectusEditLink } from "@/components/shared/directus-edit-link";
 import { FavoriteButton } from "@/components/shared/favorite-button";
 import { LanguageBadges } from "@/components/shared/language-badges";
+import { LocationPreview } from "@/components/shared/location-preview";
+import { MobileContactBar } from "@/components/shared/mobile-contact-bar";
 import { NhsStatusBadge } from "@/components/shared/nhs-status-badge";
+import { OpenStatusIndicator } from "@/components/shared/open-status-indicator";
 import { PageBreadcrumbs } from "@/components/shared/page-breadcrumbs";
 import { ProfilePhoto } from "@/components/shared/profile-photo";
+import { RatingSummary } from "@/components/shared/rating-summary";
+import { ShareButton } from "@/components/shared/share-button";
 import { TurkishSpeakingBadge } from "@/components/shared/turkish-speaking-badge";
 import { ProviderCard } from "@/components/providers/provider-card";
 import { ReviewForm } from "@/components/reviews/review-form";
@@ -23,6 +37,7 @@ import {
   getPublishedReviewsForSubject,
   getSpecialitiesByIds,
   isFavorite,
+  summarizeReviews,
 } from "@/lib/data";
 import {
   ORGANIZATION_TYPE_LABELS,
@@ -32,6 +47,7 @@ import {
 } from "@/lib/constants/categories";
 import { isAdmin } from "@/lib/admin";
 import { directusItemAdminUrl } from "@/lib/directus/admin-url";
+import { formatRelativeTime } from "@/lib/format-relative-time";
 import { placeQueryFor } from "@/lib/geo";
 import { getCurrentLanguage } from "@/lib/i18n/current-language";
 import { initialsFor } from "@/lib/initials";
@@ -83,9 +99,11 @@ export async function OrganizationProfileView({
   const directusEditUrl = canEditInDirectus
     ? directusItemAdminUrl("organizations", organization.id)
     : null;
+  const reviewSummary = summarizeReviews(reviews);
+  const location = { geo: organization.geo, placeQuery: placeQueryFor(organization) };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+    <div className="mx-auto max-w-4xl px-4 pt-10 pb-24 sm:px-6 md:pb-10">
       <JsonLd data={organizationJsonLd(organization)} />
       <PageBreadcrumbs
         items={[
@@ -114,18 +132,31 @@ export async function OrganizationProfileView({
               {ORGANIZATION_TYPE_LABELS[organization.type]} ·{" "}
               {organization.address.city}
             </p>
-            <div className="mt-2 flex flex-wrap items-center gap-1.5">
-              <NhsStatusBadge
-                status={organization.nhsStatus}
-                language={language}
-              />
-              {organization.turkishSpeakingStaff ? (
-                <TurkishSpeakingBadge language={language} />
-              ) : null}
-              {organization.verified ? (
-                <Badge variant="secondary">{t("verified", language)}</Badge>
-              ) : null}
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <a href="#reviews" className="hover:underline">
+                <RatingSummary summary={reviewSummary} language={language} />
+              </a>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <NhsStatusBadge
+                  status={organization.nhsStatus}
+                  language={language}
+                />
+                <OpenStatusIndicator
+                  openingHours={organization.openingHours}
+                  language={language}
+                />
+                {organization.turkishSpeakingStaff ? (
+                  <TurkishSpeakingBadge language={language} />
+                ) : null}
+                {organization.verified ? (
+                  <Badge variant="secondary">{t("verified", language)}</Badge>
+                ) : null}
+              </div>
             </div>
+            <p className="text-muted-foreground mt-2 text-xs">
+              {t("profile_updated", language)}{" "}
+              {formatRelativeTime(organization.updatedAt, language)}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -136,6 +167,7 @@ export async function OrganizationProfileView({
             initialFavorited={alreadyFavorited}
             language={language}
           />
+          <ShareButton title={organization.name} language={language} />
           <ChangeRequestDialog
             subjectKind="organization"
             subjectId={organization.id}
@@ -147,7 +179,11 @@ export async function OrganizationProfileView({
       <div className="mt-8 grid gap-8 md:grid-cols-3">
         <div className="space-y-6 md:col-span-2">
           <section aria-labelledby="about-heading">
-            <h2 id="about-heading" className="text-lg font-semibold">
+            <h2
+              id="about-heading"
+              className="flex items-center gap-2 text-lg font-semibold"
+            >
+              <FileText className="text-primary size-4.5" aria-hidden="true" />
               About
             </h2>
             <p className="text-muted-foreground mt-2">
@@ -157,7 +193,14 @@ export async function OrganizationProfileView({
 
           {specialities.length > 0 && (
             <section aria-labelledby="services-heading">
-              <h2 id="services-heading" className="text-lg font-semibold">
+              <h2
+                id="services-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <ClipboardList
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Services
               </h2>
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -171,7 +214,14 @@ export async function OrganizationProfileView({
           )}
 
           <section aria-labelledby="languages-heading">
-            <h2 id="languages-heading" className="text-lg font-semibold">
+            <h2
+              id="languages-heading"
+              className="flex items-center gap-2 text-lg font-semibold"
+            >
+              <LanguagesIcon
+                className="text-primary size-4.5"
+                aria-hidden="true"
+              />
               Languages spoken
             </h2>
             <div className="mt-2">
@@ -181,7 +231,14 @@ export async function OrganizationProfileView({
 
           {insurances.length > 0 && (
             <section aria-labelledby="insurance-heading">
-              <h2 id="insurance-heading" className="text-lg font-semibold">
+              <h2
+                id="insurance-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <ShieldCheck
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Insurance accepted
               </h2>
               <ul className="mt-2 flex flex-wrap gap-1.5">
@@ -196,7 +253,14 @@ export async function OrganizationProfileView({
 
           {organization.accessibility ? (
             <section aria-labelledby="accessibility-heading">
-              <h2 id="accessibility-heading" className="text-lg font-semibold">
+              <h2
+                id="accessibility-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <AccessibilityIcon
+                  className="text-primary size-4.5"
+                  aria-hidden="true"
+                />
                 Accessibility
               </h2>
               <div className="mt-2">
@@ -209,7 +273,11 @@ export async function OrganizationProfileView({
 
           {providers.length > 0 && (
             <section aria-labelledby="practitioners-heading">
-              <h2 id="practitioners-heading" className="text-lg font-semibold">
+              <h2
+                id="practitioners-heading"
+                className="flex items-center gap-2 text-lg font-semibold"
+              >
+                <Users className="text-primary size-4.5" aria-hidden="true" />
                 Practitioners here
               </h2>
               <div className="mt-2 grid gap-4 sm:grid-cols-2">
@@ -225,7 +293,7 @@ export async function OrganizationProfileView({
           )}
         </div>
 
-        <aside className="space-y-4">
+        <aside className="space-y-4 md:sticky md:top-24 md:self-start">
           <Card>
             <CardHeader>
               <CardTitle className="text-base">Contact</CardTitle>
@@ -241,19 +309,24 @@ export async function OrganizationProfileView({
               </address>
               <ContactActionGrid
                 contact={organization.contact}
-                location={{
-                  geo: organization.geo,
-                  placeQuery: placeQueryFor(organization),
-                }}
+                location={location}
                 googleSearchQuery={googleSearchQuery}
               />
             </CardContent>
           </Card>
+          <LocationPreview
+            label={`${organization.name}, ${organization.address.city}`}
+            placeQuery={location.placeQuery}
+          />
         </aside>
       </div>
 
-      <section aria-labelledby="reviews-heading" className="mt-8">
-        <h2 id="reviews-heading" className="text-lg font-semibold">
+      <section id="reviews" aria-labelledby="reviews-heading" className="mt-8">
+        <h2
+          id="reviews-heading"
+          className="flex items-center gap-2 text-lg font-semibold"
+        >
+          <MessageSquare className="text-primary size-4.5" aria-hidden="true" />
           Reviews
         </h2>
         <div className="mt-2">
@@ -267,6 +340,8 @@ export async function OrganizationProfileView({
           />
         </div>
       </section>
+
+      <MobileContactBar contact={organization.contact} location={location} />
     </div>
   );
 }

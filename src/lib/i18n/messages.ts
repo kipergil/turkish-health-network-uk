@@ -49,6 +49,18 @@ const en = {
   nhs_status_nhs: "NHS",
   nhs_status_private: "Private",
   nhs_status_both: "NHS & Private",
+  contact_actions: "Contact actions",
+  share: "Share",
+  share_profile: "Share this profile",
+  link_copied: "Link copied",
+  open_now: "Open now",
+  closed_now: "Closed",
+  closes_at: "closes",
+  opens_at: "opens",
+  no_reviews_yet: "No reviews yet",
+  review_one: "review",
+  review_many: "reviews",
+  profile_updated: "Updated",
 } as const;
 
 const tr: Record<keyof typeof en, string> = {
@@ -89,6 +101,18 @@ const tr: Record<keyof typeof en, string> = {
   nhs_status_nhs: "NHS",
   nhs_status_private: "Özel",
   nhs_status_both: "NHS ve Özel",
+  contact_actions: "İletişim seçenekleri",
+  share: "Paylaş",
+  share_profile: "Bu profili paylaş",
+  link_copied: "Bağlantı kopyalandı",
+  open_now: "Şu an açık",
+  closed_now: "Kapalı",
+  closes_at: "kapanış",
+  opens_at: "açılış",
+  no_reviews_yet: "Henüz değerlendirme yok",
+  review_one: "değerlendirme",
+  review_many: "değerlendirme",
+  profile_updated: "Güncellendi",
 };
 
 export const MESSAGES: Record<LanguageCode, Record<keyof typeof en, string>> = {
